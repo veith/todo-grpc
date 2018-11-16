@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package todo.v1;
+
+option go_package = "todo";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+service TodoService {
+	rpc CreateTodo(CreateTodoRequest) returns (CreateTodoResponse) {
+		option (google.api.http) ={
+			post: "/todo"
+			body: "item"
+		};
+	}
+
+
+	rpc GetTodo(GetTodoRequest) returns (GetTodoResponse) {
+		option (google.api.http) ={
+			get: "/todo/{id}"
+		};
+	}
+
+	rpc ListTodo(ListTodoRequest) returns (ListTodoResponse) {
+		option (google.api.http) ={
+			get: "/todo"
+		};
+	}
+
+	rpc DeleteTodo(DeleteTodoRequest) returns (DeleteTodoResponse) {
+		option (google.api.http) ={
+			delete: "/todo/{id}"
+		};
+	}
+
+	rpc UpdateTodo(UpdateTodoRequest) returns (UpdateTodoResponse) {
+		option (google.api.http) ={
+			put: "/todo"
+			body: "item"
+		};
+	}
+}
+
+message Todo {
+	string id = 1 [(gogoproto.moretags) = "db:\"id\""];
+	string title = 2 [(gogoproto.moretags) = "db:\"title,omitempty\""];
+	string description = 3 [(gogoproto.moretags) = "db:\"description,omitempty\""];
+	bool completed = 4 [(gogoproto.moretags) = "db:\"completed,omitempty\""];
+	google.protobuf.Timestamp created_at = 5;
+	// @inject_tag: sql:"type:timestamp"
+	google.protobuf.Timestamp updated_at = 6;
+	string hateaoas = 7;
+}
+
+message CreateTodoRequest {
+	Todo item = 1;
+}
+
+message CreateTodoResponse {
+	string id = 1;
+}
+
+message GetTodoRequest {
+	string id = 1;
+}
+
+message GetTodoResponse {
+	Todo item = 1;
+}
+
+message ListTodoRequest {
+	int32 limit = 1;
+	bool not_completed = 2;
+	int32 page = 3;
+}
+
+message ListTodoResponse {
+	repeated Todo items = 1;
+	string hateaoas = 2;
+}
+
+message DeleteTodoRequest {
+	string id = 1;
+}
+
+message DeleteTodoResponse {}
+
+message UpdateTodoRequest {
+	Todo item = 1;
+}
+
+message UpdateTodoResponse {}
+
+
