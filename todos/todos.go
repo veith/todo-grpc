@@ -57,11 +57,11 @@ func (s *server) ListTodo(ctx context.Context, req *todo.ListTodoRequest) (*todo
 		collection = append(collection, &entity)
 	}
 
-	//var links [] *todo.Link
-	//self := todo.Link{Rel:"self",Href:"http:localhost:8080/todos", Type: "application/json", Method:todo.Link_GET}
-	//links = append(links, &self)
+	var collectionlinks []*todo.Link
+	self := todo.Link{Rel: "self", Href: "http:localhost:8080/todos", Type: "application/json", Method: todo.Link_GET}
+	collectionlinks = append(collectionlinks, &self)
 
-	return &todo.TodoCollection{Data: collection}, nil
+	return &todo.TodoCollection{Data: collection, Links: collectionlinks}, nil
 }
 
 func (s *server) DeleteTodo(context.Context, *todo.DeleteTodoRequest) (*todo.DeleteTodoResponse, error) {
