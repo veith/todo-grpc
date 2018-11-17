@@ -36,7 +36,6 @@ type Todo struct {
 	CreatedAt   *types.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt" json:"created_at,omitempty"`
 	// @inject_tag: sql:"type:timestamp"
 	UpdatedAt            *types.Timestamp `protobuf:"bytes,6,opt,name=updated_at,json=updatedAt" json:"updated_at,omitempty"`
-	Hateaoas             *Hateoas         `protobuf:"bytes,7,opt,name=hateaoas" json:"hateaoas,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
 	XXX_unrecognized     []byte           `json:"-"`
 	XXX_sizecache        int32            `json:"-"`
@@ -46,7 +45,7 @@ func (m *Todo) Reset()         { *m = Todo{} }
 func (m *Todo) String() string { return proto.CompactTextString(m) }
 func (*Todo) ProtoMessage()    {}
 func (*Todo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todo_1e85e33c1e411af0, []int{0}
+	return fileDescriptor_todo_e69c717f57c3501a, []int{0}
 }
 func (m *Todo) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -117,13 +116,6 @@ func (m *Todo) GetUpdatedAt() *types.Timestamp {
 	return nil
 }
 
-func (m *Todo) GetHateaoas() *Hateoas {
-	if m != nil {
-		return m.Hateaoas
-	}
-	return nil
-}
-
 type CreateTodoRequest struct {
 	Item                 *Todo    `protobuf:"bytes,1,opt,name=item" json:"item,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -135,7 +127,7 @@ func (m *CreateTodoRequest) Reset()         { *m = CreateTodoRequest{} }
 func (m *CreateTodoRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateTodoRequest) ProtoMessage()    {}
 func (*CreateTodoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todo_1e85e33c1e411af0, []int{1}
+	return fileDescriptor_todo_e69c717f57c3501a, []int{1}
 }
 func (m *CreateTodoRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -182,7 +174,7 @@ func (m *CreateTodoResponse) Reset()         { *m = CreateTodoResponse{} }
 func (m *CreateTodoResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateTodoResponse) ProtoMessage()    {}
 func (*CreateTodoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todo_1e85e33c1e411af0, []int{2}
+	return fileDescriptor_todo_e69c717f57c3501a, []int{2}
 }
 func (m *CreateTodoResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -229,7 +221,7 @@ func (m *GetTodoRequest) Reset()         { *m = GetTodoRequest{} }
 func (m *GetTodoRequest) String() string { return proto.CompactTextString(m) }
 func (*GetTodoRequest) ProtoMessage()    {}
 func (*GetTodoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todo_1e85e33c1e411af0, []int{3}
+	return fileDescriptor_todo_e69c717f57c3501a, []int{3}
 }
 func (m *GetTodoRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -265,25 +257,26 @@ func (m *GetTodoRequest) GetId() string {
 	return ""
 }
 
-type GetTodoResponse struct {
-	Item                 *Todo    `protobuf:"bytes,1,opt,name=item" json:"item,omitempty"`
+type TodoEntity struct {
+	Data                 *Todo    `protobuf:"bytes,1,opt,name=data" json:"data,omitempty"`
+	Links                []*Link  `protobuf:"bytes,2,rep,name=links" json:"links,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GetTodoResponse) Reset()         { *m = GetTodoResponse{} }
-func (m *GetTodoResponse) String() string { return proto.CompactTextString(m) }
-func (*GetTodoResponse) ProtoMessage()    {}
-func (*GetTodoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todo_1e85e33c1e411af0, []int{4}
+func (m *TodoEntity) Reset()         { *m = TodoEntity{} }
+func (m *TodoEntity) String() string { return proto.CompactTextString(m) }
+func (*TodoEntity) ProtoMessage()    {}
+func (*TodoEntity) Descriptor() ([]byte, []int) {
+	return fileDescriptor_todo_e69c717f57c3501a, []int{4}
 }
-func (m *GetTodoResponse) XXX_Unmarshal(b []byte) error {
+func (m *TodoEntity) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *GetTodoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *TodoEntity) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_GetTodoResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_TodoEntity.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalTo(b)
@@ -293,21 +286,28 @@ func (m *GetTodoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, err
 		return b[:n], nil
 	}
 }
-func (dst *GetTodoResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetTodoResponse.Merge(dst, src)
+func (dst *TodoEntity) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TodoEntity.Merge(dst, src)
 }
-func (m *GetTodoResponse) XXX_Size() int {
+func (m *TodoEntity) XXX_Size() int {
 	return m.Size()
 }
-func (m *GetTodoResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetTodoResponse.DiscardUnknown(m)
+func (m *TodoEntity) XXX_DiscardUnknown() {
+	xxx_messageInfo_TodoEntity.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetTodoResponse proto.InternalMessageInfo
+var xxx_messageInfo_TodoEntity proto.InternalMessageInfo
 
-func (m *GetTodoResponse) GetItem() *Todo {
+func (m *TodoEntity) GetData() *Todo {
 	if m != nil {
-		return m.Item
+		return m.Data
+	}
+	return nil
+}
+
+func (m *TodoEntity) GetLinks() []*Link {
+	if m != nil {
+		return m.Links
 	}
 	return nil
 }
@@ -325,7 +325,7 @@ func (m *ListTodoRequest) Reset()         { *m = ListTodoRequest{} }
 func (m *ListTodoRequest) String() string { return proto.CompactTextString(m) }
 func (*ListTodoRequest) ProtoMessage()    {}
 func (*ListTodoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todo_1e85e33c1e411af0, []int{5}
+	return fileDescriptor_todo_e69c717f57c3501a, []int{5}
 }
 func (m *ListTodoRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -375,26 +375,26 @@ func (m *ListTodoRequest) GetPage() int32 {
 	return 0
 }
 
-type ListTodoResponse struct {
-	Items                []*Todo  `protobuf:"bytes,1,rep,name=items" json:"items,omitempty"`
-	Hateaoas             *Hateoas `protobuf:"bytes,2,opt,name=hateaoas" json:"hateaoas,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+type TodoCollection struct {
+	Data                 []*TodoEntity `protobuf:"bytes,1,rep,name=data" json:"data,omitempty"`
+	Links                []*Link       `protobuf:"bytes,2,rep,name=links" json:"links,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
 }
 
-func (m *ListTodoResponse) Reset()         { *m = ListTodoResponse{} }
-func (m *ListTodoResponse) String() string { return proto.CompactTextString(m) }
-func (*ListTodoResponse) ProtoMessage()    {}
-func (*ListTodoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todo_1e85e33c1e411af0, []int{6}
+func (m *TodoCollection) Reset()         { *m = TodoCollection{} }
+func (m *TodoCollection) String() string { return proto.CompactTextString(m) }
+func (*TodoCollection) ProtoMessage()    {}
+func (*TodoCollection) Descriptor() ([]byte, []int) {
+	return fileDescriptor_todo_e69c717f57c3501a, []int{6}
 }
-func (m *ListTodoResponse) XXX_Unmarshal(b []byte) error {
+func (m *TodoCollection) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *ListTodoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *TodoCollection) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_ListTodoResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_TodoCollection.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalTo(b)
@@ -404,28 +404,28 @@ func (m *ListTodoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, er
 		return b[:n], nil
 	}
 }
-func (dst *ListTodoResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListTodoResponse.Merge(dst, src)
+func (dst *TodoCollection) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TodoCollection.Merge(dst, src)
 }
-func (m *ListTodoResponse) XXX_Size() int {
+func (m *TodoCollection) XXX_Size() int {
 	return m.Size()
 }
-func (m *ListTodoResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListTodoResponse.DiscardUnknown(m)
+func (m *TodoCollection) XXX_DiscardUnknown() {
+	xxx_messageInfo_TodoCollection.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ListTodoResponse proto.InternalMessageInfo
+var xxx_messageInfo_TodoCollection proto.InternalMessageInfo
 
-func (m *ListTodoResponse) GetItems() []*Todo {
+func (m *TodoCollection) GetData() []*TodoEntity {
 	if m != nil {
-		return m.Items
+		return m.Data
 	}
 	return nil
 }
 
-func (m *ListTodoResponse) GetHateaoas() *Hateoas {
+func (m *TodoCollection) GetLinks() []*Link {
 	if m != nil {
-		return m.Hateaoas
+		return m.Links
 	}
 	return nil
 }
@@ -441,7 +441,7 @@ func (m *DeleteTodoRequest) Reset()         { *m = DeleteTodoRequest{} }
 func (m *DeleteTodoRequest) String() string { return proto.CompactTextString(m) }
 func (*DeleteTodoRequest) ProtoMessage()    {}
 func (*DeleteTodoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todo_1e85e33c1e411af0, []int{7}
+	return fileDescriptor_todo_e69c717f57c3501a, []int{7}
 }
 func (m *DeleteTodoRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -487,7 +487,7 @@ func (m *DeleteTodoResponse) Reset()         { *m = DeleteTodoResponse{} }
 func (m *DeleteTodoResponse) String() string { return proto.CompactTextString(m) }
 func (*DeleteTodoResponse) ProtoMessage()    {}
 func (*DeleteTodoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todo_1e85e33c1e411af0, []int{8}
+	return fileDescriptor_todo_e69c717f57c3501a, []int{8}
 }
 func (m *DeleteTodoResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -528,7 +528,7 @@ func (m *UpdateTodoRequest) Reset()         { *m = UpdateTodoRequest{} }
 func (m *UpdateTodoRequest) String() string { return proto.CompactTextString(m) }
 func (*UpdateTodoRequest) ProtoMessage()    {}
 func (*UpdateTodoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todo_1e85e33c1e411af0, []int{9}
+	return fileDescriptor_todo_e69c717f57c3501a, []int{9}
 }
 func (m *UpdateTodoRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -581,7 +581,7 @@ func (m *UpdateTodoResponse) Reset()         { *m = UpdateTodoResponse{} }
 func (m *UpdateTodoResponse) String() string { return proto.CompactTextString(m) }
 func (*UpdateTodoResponse) ProtoMessage()    {}
 func (*UpdateTodoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todo_1e85e33c1e411af0, []int{10}
+	return fileDescriptor_todo_e69c717f57c3501a, []int{10}
 }
 func (m *UpdateTodoResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -615,9 +615,9 @@ func init() {
 	proto.RegisterType((*CreateTodoRequest)(nil), "todo.v1.CreateTodoRequest")
 	proto.RegisterType((*CreateTodoResponse)(nil), "todo.v1.CreateTodoResponse")
 	proto.RegisterType((*GetTodoRequest)(nil), "todo.v1.GetTodoRequest")
-	proto.RegisterType((*GetTodoResponse)(nil), "todo.v1.GetTodoResponse")
+	proto.RegisterType((*TodoEntity)(nil), "todo.v1.TodoEntity")
 	proto.RegisterType((*ListTodoRequest)(nil), "todo.v1.ListTodoRequest")
-	proto.RegisterType((*ListTodoResponse)(nil), "todo.v1.ListTodoResponse")
+	proto.RegisterType((*TodoCollection)(nil), "todo.v1.TodoCollection")
 	proto.RegisterType((*DeleteTodoRequest)(nil), "todo.v1.DeleteTodoRequest")
 	proto.RegisterType((*DeleteTodoResponse)(nil), "todo.v1.DeleteTodoResponse")
 	proto.RegisterType((*UpdateTodoRequest)(nil), "todo.v1.UpdateTodoRequest")
@@ -637,8 +637,8 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type TodoServiceClient interface {
 	CreateTodo(ctx context.Context, in *CreateTodoRequest, opts ...grpc.CallOption) (*CreateTodoResponse, error)
-	GetTodo(ctx context.Context, in *GetTodoRequest, opts ...grpc.CallOption) (*GetTodoResponse, error)
-	ListTodo(ctx context.Context, in *ListTodoRequest, opts ...grpc.CallOption) (*ListTodoResponse, error)
+	GetTodo(ctx context.Context, in *GetTodoRequest, opts ...grpc.CallOption) (*TodoEntity, error)
+	ListTodo(ctx context.Context, in *ListTodoRequest, opts ...grpc.CallOption) (*TodoCollection, error)
 	DeleteTodo(ctx context.Context, in *DeleteTodoRequest, opts ...grpc.CallOption) (*DeleteTodoResponse, error)
 	UpdateTodo(ctx context.Context, in *UpdateTodoRequest, opts ...grpc.CallOption) (*UpdateTodoResponse, error)
 }
@@ -660,8 +660,8 @@ func (c *todoServiceClient) CreateTodo(ctx context.Context, in *CreateTodoReques
 	return out, nil
 }
 
-func (c *todoServiceClient) GetTodo(ctx context.Context, in *GetTodoRequest, opts ...grpc.CallOption) (*GetTodoResponse, error) {
-	out := new(GetTodoResponse)
+func (c *todoServiceClient) GetTodo(ctx context.Context, in *GetTodoRequest, opts ...grpc.CallOption) (*TodoEntity, error) {
+	out := new(TodoEntity)
 	err := c.cc.Invoke(ctx, "/todo.v1.TodoService/GetTodo", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -669,8 +669,8 @@ func (c *todoServiceClient) GetTodo(ctx context.Context, in *GetTodoRequest, opt
 	return out, nil
 }
 
-func (c *todoServiceClient) ListTodo(ctx context.Context, in *ListTodoRequest, opts ...grpc.CallOption) (*ListTodoResponse, error) {
-	out := new(ListTodoResponse)
+func (c *todoServiceClient) ListTodo(ctx context.Context, in *ListTodoRequest, opts ...grpc.CallOption) (*TodoCollection, error) {
+	out := new(TodoCollection)
 	err := c.cc.Invoke(ctx, "/todo.v1.TodoService/ListTodo", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -699,8 +699,8 @@ func (c *todoServiceClient) UpdateTodo(ctx context.Context, in *UpdateTodoReques
 // TodoServiceServer is the server API for TodoService service.
 type TodoServiceServer interface {
 	CreateTodo(context.Context, *CreateTodoRequest) (*CreateTodoResponse, error)
-	GetTodo(context.Context, *GetTodoRequest) (*GetTodoResponse, error)
-	ListTodo(context.Context, *ListTodoRequest) (*ListTodoResponse, error)
+	GetTodo(context.Context, *GetTodoRequest) (*TodoEntity, error)
+	ListTodo(context.Context, *ListTodoRequest) (*TodoCollection, error)
 	DeleteTodo(context.Context, *DeleteTodoRequest) (*DeleteTodoResponse, error)
 	UpdateTodo(context.Context, *UpdateTodoRequest) (*UpdateTodoResponse, error)
 }
@@ -891,16 +891,6 @@ func (m *Todo) MarshalTo(dAtA []byte) (int, error) {
 		}
 		i += n2
 	}
-	if m.Hateaoas != nil {
-		dAtA[i] = 0x3a
-		i++
-		i = encodeVarintTodo(dAtA, i, uint64(m.Hateaoas.Size()))
-		n3, err := m.Hateaoas.MarshalTo(dAtA[i:])
-		if err != nil {
-			return 0, err
-		}
-		i += n3
-	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
 	}
@@ -926,11 +916,11 @@ func (m *CreateTodoRequest) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0xa
 		i++
 		i = encodeVarintTodo(dAtA, i, uint64(m.Item.Size()))
-		n4, err := m.Item.MarshalTo(dAtA[i:])
+		n3, err := m.Item.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n4
+		i += n3
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -992,7 +982,7 @@ func (m *GetTodoRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *GetTodoResponse) Marshal() (dAtA []byte, err error) {
+func (m *TodoEntity) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -1002,20 +992,32 @@ func (m *GetTodoResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *GetTodoResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *TodoEntity) MarshalTo(dAtA []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
 	_ = l
-	if m.Item != nil {
+	if m.Data != nil {
 		dAtA[i] = 0xa
 		i++
-		i = encodeVarintTodo(dAtA, i, uint64(m.Item.Size()))
-		n5, err := m.Item.MarshalTo(dAtA[i:])
+		i = encodeVarintTodo(dAtA, i, uint64(m.Data.Size()))
+		n4, err := m.Data.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n5
+		i += n4
+	}
+	if len(m.Links) > 0 {
+		for _, msg := range m.Links {
+			dAtA[i] = 0x12
+			i++
+			i = encodeVarintTodo(dAtA, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(dAtA[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -1064,7 +1066,7 @@ func (m *ListTodoRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *ListTodoResponse) Marshal() (dAtA []byte, err error) {
+func (m *TodoCollection) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -1074,13 +1076,13 @@ func (m *ListTodoResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *ListTodoResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *TodoCollection) MarshalTo(dAtA []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
 	_ = l
-	if len(m.Items) > 0 {
-		for _, msg := range m.Items {
+	if len(m.Data) > 0 {
+		for _, msg := range m.Data {
 			dAtA[i] = 0xa
 			i++
 			i = encodeVarintTodo(dAtA, i, uint64(msg.Size()))
@@ -1091,15 +1093,17 @@ func (m *ListTodoResponse) MarshalTo(dAtA []byte) (int, error) {
 			i += n
 		}
 	}
-	if m.Hateaoas != nil {
-		dAtA[i] = 0x12
-		i++
-		i = encodeVarintTodo(dAtA, i, uint64(m.Hateaoas.Size()))
-		n6, err := m.Hateaoas.MarshalTo(dAtA[i:])
-		if err != nil {
-			return 0, err
+	if len(m.Links) > 0 {
+		for _, msg := range m.Links {
+			dAtA[i] = 0x12
+			i++
+			i = encodeVarintTodo(dAtA, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(dAtA[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
 		}
-		i += n6
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -1180,11 +1184,11 @@ func (m *UpdateTodoRequest) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x12
 		i++
 		i = encodeVarintTodo(dAtA, i, uint64(m.Item.Size()))
-		n7, err := m.Item.MarshalTo(dAtA[i:])
+		n5, err := m.Item.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n7
+		i += n5
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -1251,10 +1255,6 @@ func (m *Todo) Size() (n int) {
 		l = m.UpdatedAt.Size()
 		n += 1 + l + sovTodo(uint64(l))
 	}
-	if m.Hateaoas != nil {
-		l = m.Hateaoas.Size()
-		n += 1 + l + sovTodo(uint64(l))
-	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
 	}
@@ -1309,15 +1309,21 @@ func (m *GetTodoRequest) Size() (n int) {
 	return n
 }
 
-func (m *GetTodoResponse) Size() (n int) {
+func (m *TodoEntity) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	if m.Item != nil {
-		l = m.Item.Size()
+	if m.Data != nil {
+		l = m.Data.Size()
 		n += 1 + l + sovTodo(uint64(l))
+	}
+	if len(m.Links) > 0 {
+		for _, e := range m.Links {
+			l = e.Size()
+			n += 1 + l + sovTodo(uint64(l))
+		}
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -1346,21 +1352,23 @@ func (m *ListTodoRequest) Size() (n int) {
 	return n
 }
 
-func (m *ListTodoResponse) Size() (n int) {
+func (m *TodoCollection) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	if len(m.Items) > 0 {
-		for _, e := range m.Items {
+	if len(m.Data) > 0 {
+		for _, e := range m.Data {
 			l = e.Size()
 			n += 1 + l + sovTodo(uint64(l))
 		}
 	}
-	if m.Hateaoas != nil {
-		l = m.Hateaoas.Size()
-		n += 1 + l + sovTodo(uint64(l))
+	if len(m.Links) > 0 {
+		for _, e := range m.Links {
+			l = e.Size()
+			n += 1 + l + sovTodo(uint64(l))
+		}
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -1643,39 +1651,6 @@ func (m *Todo) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 7:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Hateaoas", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTodo
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthTodo
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.Hateaoas == nil {
-				m.Hateaoas = &Hateoas{}
-			}
-			if err := m.Hateaoas.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTodo(dAtA[iNdEx:])
@@ -1942,7 +1917,7 @@ func (m *GetTodoRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *GetTodoResponse) Unmarshal(dAtA []byte) error {
+func (m *TodoEntity) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1965,15 +1940,15 @@ func (m *GetTodoResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: GetTodoResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: TodoEntity: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: GetTodoResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: TodoEntity: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Item", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Data", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -1997,10 +1972,41 @@ func (m *GetTodoResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Item == nil {
-				m.Item = &Todo{}
+			if m.Data == nil {
+				m.Data = &Todo{}
 			}
-			if err := m.Item.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.Data.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Links", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTodo
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTodo
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Links = append(m.Links, &Link{})
+			if err := m.Links[len(m.Links)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -2135,7 +2141,7 @@ func (m *ListTodoRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *ListTodoResponse) Unmarshal(dAtA []byte) error {
+func (m *TodoCollection) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2158,15 +2164,15 @@ func (m *ListTodoResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: ListTodoResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: TodoCollection: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: ListTodoResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: TodoCollection: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Items", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Data", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -2190,14 +2196,14 @@ func (m *ListTodoResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Items = append(m.Items, &Todo{})
-			if err := m.Items[len(m.Items)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Data = append(m.Data, &TodoEntity{})
+			if err := m.Data[len(m.Data)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Hateaoas", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Links", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -2221,10 +2227,8 @@ func (m *ListTodoResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Hateaoas == nil {
-				m.Hateaoas = &Hateoas{}
-			}
-			if err := m.Hateaoas.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Links = append(m.Links, &Link{})
+			if err := m.Links[len(m.Links)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -2650,50 +2654,51 @@ var (
 	ErrIntOverflowTodo   = fmt.Errorf("proto: integer overflow")
 )
 
-func init() { proto.RegisterFile("protos/todo.proto", fileDescriptor_todo_1e85e33c1e411af0) }
+func init() { proto.RegisterFile("protos/todo.proto", fileDescriptor_todo_e69c717f57c3501a) }
 
-var fileDescriptor_todo_1e85e33c1e411af0 = []byte{
-	// 672 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x54, 0x4f, 0x6f, 0xd3, 0x3e,
-	0x18, 0x56, 0xb2, 0x76, 0xed, 0xde, 0xfe, 0xd6, 0xad, 0x5e, 0xa5, 0x5f, 0x96, 0x4d, 0x6d, 0xc9,
-	0x38, 0x4c, 0x68, 0xa4, 0x62, 0x20, 0x24, 0x76, 0x62, 0x1b, 0x02, 0x0e, 0x48, 0x88, 0x30, 0x2e,
-	0xe3, 0xb0, 0xa5, 0x8d, 0xe9, 0x2c, 0x35, 0x75, 0xa8, 0xdf, 0x4e, 0x42, 0x88, 0x0b, 0x5f, 0x81,
-	0x2f, 0xc5, 0x81, 0x03, 0x12, 0xf7, 0x0a, 0x4d, 0x7c, 0x82, 0x4a, 0xdc, 0x91, 0x1d, 0x37, 0x71,
-	0xd7, 0xb1, 0x71, 0xb3, 0xfd, 0xfc, 0xf1, 0x9b, 0xe7, 0xb1, 0x02, 0xb5, 0x64, 0xc8, 0x91, 0x8b,
-	0x36, 0xf2, 0x88, 0xfb, 0x6a, 0x4d, 0x4a, 0x6a, 0x7d, 0x7e, 0xcf, 0xdd, 0xec, 0x71, 0xde, 0xeb,
-	0xd3, 0x76, 0x98, 0xb0, 0x76, 0x38, 0x18, 0x70, 0x0c, 0x91, 0xf1, 0x81, 0x48, 0x69, 0x6e, 0x53,
-	0xa3, 0x6a, 0xd7, 0x19, 0xbd, 0x6b, 0x23, 0x8b, 0xa9, 0xc0, 0x30, 0x4e, 0x34, 0xe1, 0x6e, 0x8f,
-	0xe1, 0xd9, 0xa8, 0xe3, 0x77, 0x79, 0xdc, 0xee, 0xf1, 0x1e, 0xcf, 0x99, 0x72, 0xa7, 0x36, 0x6a,
-	0xa5, 0xe9, 0xd3, 0x49, 0x86, 0x54, 0x60, 0x7a, 0xe4, 0xfd, 0xb6, 0xa1, 0x70, 0xc4, 0x23, 0x4e,
-	0x36, 0xc0, 0x66, 0x91, 0x63, 0xb5, 0xac, 0xed, 0xa5, 0x83, 0xca, 0x64, 0xdc, 0x2c, 0x45, 0x9d,
-	0x3d, 0x8f, 0x45, 0x5e, 0x60, 0xb3, 0x88, 0xf8, 0x50, 0x44, 0x86, 0x7d, 0xea, 0xd8, 0x0a, 0x77,
-	0x26, 0xe3, 0x66, 0x5d, 0xe2, 0xea, 0x70, 0x87, 0xc7, 0x0c, 0x69, 0x9c, 0xe0, 0x07, 0x2f, 0x48,
-	0x69, 0xe4, 0x31, 0x54, 0x22, 0x2a, 0xba, 0x43, 0x96, 0xc8, 0xcf, 0x71, 0x16, 0x94, 0xaa, 0x31,
-	0x19, 0x37, 0x5d, 0xa9, 0x32, 0x20, 0x53, 0x6b, 0x4a, 0xc8, 0x1e, 0x2c, 0x75, 0x79, 0x9c, 0xf4,
-	0x29, 0xd2, 0xc8, 0x29, 0xb4, 0xac, 0xed, 0xf2, 0xc1, 0xe6, 0x64, 0xdc, 0x74, 0xa4, 0x3e, 0x03,
-	0x4c, 0x75, 0x4e, 0x27, 0x8f, 0x00, 0xba, 0x43, 0x1a, 0x22, 0x8d, 0x4e, 0x42, 0x74, 0x8a, 0x2d,
-	0x6b, 0xbb, 0xb2, 0xeb, 0xfa, 0x69, 0x96, 0xfe, 0x34, 0x21, 0xff, 0x68, 0x9a, 0x65, 0xb0, 0xa4,
-	0xd9, 0xfb, 0x28, 0xa5, 0xa3, 0x24, 0x9a, 0x4a, 0x17, 0x6f, 0x96, 0x6a, 0xf6, 0x3e, 0x92, 0x1d,
-	0x28, 0x9f, 0x85, 0x48, 0x43, 0x1e, 0x0a, 0xa7, 0xa4, 0x84, 0xab, 0xbe, 0xae, 0xd9, 0x7f, 0x1e,
-	0x22, 0xe5, 0xa1, 0x08, 0x32, 0x86, 0xf7, 0x10, 0x6a, 0x87, 0xea, 0x56, 0x19, 0x7e, 0x40, 0xdf,
-	0x8f, 0xa8, 0x40, 0x72, 0x0b, 0x0a, 0xf2, 0x7b, 0x54, 0x0b, 0x95, 0xdd, 0xe5, 0x4c, 0xae, 0x38,
-	0x0a, 0xf2, 0x6e, 0x03, 0x31, 0x75, 0x22, 0xe1, 0x03, 0x41, 0x49, 0x35, 0x2f, 0x4f, 0xf6, 0xe5,
-	0xb5, 0xa0, 0xfa, 0x8c, 0xa2, 0x69, 0x7d, 0x99, 0xf1, 0x00, 0x56, 0x32, 0x86, 0x36, 0xf9, 0x87,
-	0xdb, 0x4f, 0x61, 0xe5, 0x05, 0x13, 0x33, 0xc6, 0x75, 0x28, 0xf6, 0x59, 0xcc, 0x50, 0xc9, 0x8a,
-	0x41, 0xba, 0x21, 0x5b, 0xb0, 0x3c, 0xe0, 0x78, 0x92, 0x57, 0x28, 0x1f, 0x4e, 0x39, 0xf8, 0x6f,
-	0xc0, 0xf1, 0x30, 0xeb, 0x89, 0x40, 0x21, 0x09, 0x7b, 0x54, 0x3d, 0x8f, 0x62, 0xa0, 0xd6, 0x1e,
-	0x85, 0xd5, 0xfc, 0x06, 0x3d, 0xd8, 0x16, 0x14, 0xe5, 0xed, 0xc2, 0xb1, 0x5a, 0x0b, 0xf3, 0x93,
-	0xa5, 0xd8, 0x4c, 0xfc, 0xf6, 0x8d, 0xf1, 0x6f, 0x41, 0xed, 0x09, 0x95, 0x53, 0x5c, 0x97, 0x51,
-	0x1d, 0x88, 0x49, 0x4a, 0xa7, 0xf1, 0x9e, 0x42, 0xed, 0x8d, 0x2a, 0xfd, 0x1a, 0x69, 0x96, 0xa5,
-	0xfd, 0xf7, 0x2c, 0xeb, 0x40, 0x4c, 0x9f, 0xd4, 0x7d, 0xf7, 0xdb, 0x02, 0x54, 0xe4, 0xc1, 0x6b,
-	0x3a, 0x3c, 0x67, 0x5d, 0x4a, 0xde, 0x02, 0xe4, 0x7d, 0x13, 0x37, 0x33, 0x9a, 0x7b, 0x3c, 0xee,
-	0xc6, 0x95, 0x98, 0x1e, 0xba, 0xfe, 0xf9, 0xc7, 0xaf, 0x2f, 0x76, 0xd5, 0x5b, 0x54, 0x7f, 0x21,
-	0xb1, 0xa7, 0x46, 0x20, 0xaf, 0xa0, 0xa4, 0x1f, 0x01, 0xf9, 0x3f, 0x53, 0xcf, 0x3e, 0x1c, 0xd7,
-	0x99, 0x07, 0xb4, 0xe7, 0x9a, 0xf2, 0x5c, 0x26, 0x95, 0xd4, 0xb3, 0xfd, 0x91, 0x45, 0x9f, 0xc8,
-	0x4b, 0x28, 0x4f, 0xfb, 0x23, 0xb9, 0xf4, 0xd2, 0xa3, 0x71, 0xd7, 0xaf, 0x40, 0xb4, 0x6b, 0x55,
-	0xb9, 0x96, 0x89, 0x9e, 0x94, 0x1c, 0x03, 0xe4, 0x25, 0x18, 0x01, 0xcc, 0xd5, 0x67, 0x04, 0x70,
-	0x45, 0x6b, 0x7a, 0xd8, 0x3b, 0x33, 0xc3, 0x9e, 0x02, 0xe4, 0x15, 0x18, 0xde, 0x73, 0xfd, 0x1a,
-	0xde, 0xf3, 0x9d, 0x79, 0xeb, 0xca, 0x7b, 0xcd, 0x35, 0xbd, 0xd3, 0x84, 0x0f, 0xc8, 0xd7, 0x8b,
-	0x86, 0xf5, 0xfd, 0xa2, 0x61, 0xfd, 0xbc, 0x68, 0x58, 0xc7, 0x05, 0x89, 0x77, 0x16, 0xd5, 0x7f,
-	0xe4, 0xfe, 0x9f, 0x00, 0x00, 0x00, 0xff, 0xff, 0xb2, 0x6e, 0x00, 0x87, 0x18, 0x06, 0x00, 0x00,
+var fileDescriptor_todo_e69c717f57c3501a = []byte{
+	// 677 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x54, 0xcd, 0x6e, 0xd3, 0x4c,
+	0x14, 0x95, 0xdd, 0xa4, 0x4d, 0x6f, 0xbe, 0xe6, 0x53, 0xa6, 0x91, 0x6a, 0xdc, 0x2a, 0x09, 0x53,
+	0x24, 0x2a, 0x04, 0x8e, 0x28, 0x12, 0x12, 0x5d, 0xd1, 0x96, 0x9f, 0x4d, 0xd9, 0x98, 0xb2, 0x29,
+	0x12, 0xad, 0x93, 0x19, 0xc2, 0xa8, 0xb1, 0xc7, 0xc4, 0x37, 0x95, 0x2a, 0xc4, 0x86, 0x57, 0xe0,
+	0x99, 0x10, 0x2c, 0x91, 0xd8, 0x47, 0xa8, 0xe2, 0x09, 0xf2, 0x04, 0x68, 0xc6, 0x4e, 0x3c, 0x26,
+	0x6d, 0x11, 0xbb, 0x19, 0xdf, 0x73, 0xce, 0xdc, 0x7b, 0xce, 0x95, 0xa1, 0x1e, 0x0f, 0x25, 0xca,
+	0xa4, 0x83, 0x92, 0x49, 0x4f, 0x9f, 0xc9, 0x92, 0x3e, 0x9f, 0xdd, 0x77, 0x37, 0xfa, 0x52, 0xf6,
+	0x07, 0xbc, 0x13, 0xc4, 0xa2, 0x13, 0x44, 0x91, 0xc4, 0x00, 0x85, 0x8c, 0x92, 0x14, 0xe6, 0xb6,
+	0xb2, 0xaa, 0xbe, 0x75, 0x47, 0x6f, 0x3b, 0x28, 0x42, 0x9e, 0x60, 0x10, 0xc6, 0x19, 0xe0, 0x5e,
+	0x5f, 0xe0, 0xbb, 0x51, 0xd7, 0xeb, 0xc9, 0xb0, 0xd3, 0x97, 0x7d, 0x99, 0x23, 0xd5, 0x4d, 0x5f,
+	0xf4, 0x29, 0x83, 0x4f, 0x3b, 0x19, 0xf2, 0x04, 0xd3, 0x4f, 0xf4, 0xab, 0x0d, 0xa5, 0x43, 0xc9,
+	0x24, 0x59, 0x07, 0x5b, 0x30, 0xc7, 0x6a, 0x5b, 0x5b, 0xcb, 0x7b, 0xd5, 0xc9, 0xb8, 0xb5, 0xc4,
+	0xba, 0x3b, 0x54, 0x30, 0xea, 0xdb, 0x82, 0x11, 0x0f, 0xca, 0x28, 0x70, 0xc0, 0x1d, 0x5b, 0xd7,
+	0x9d, 0xc9, 0xb8, 0xd5, 0x50, 0x75, 0xfd, 0xf1, 0xae, 0x0c, 0x05, 0xf2, 0x30, 0xc6, 0x73, 0xea,
+	0xa7, 0x30, 0xf2, 0x18, 0xaa, 0x8c, 0x27, 0xbd, 0xa1, 0x88, 0xd5, 0x38, 0xce, 0x82, 0x66, 0x35,
+	0x27, 0xe3, 0x96, 0xab, 0x58, 0x46, 0xc9, 0xe4, 0x9a, 0x14, 0xb2, 0x03, 0xcb, 0x3d, 0x19, 0xc6,
+	0x03, 0x8e, 0x9c, 0x39, 0xa5, 0xb6, 0xb5, 0x55, 0xd9, 0xdb, 0x98, 0x8c, 0x5b, 0x8e, 0xe2, 0xcf,
+	0x0a, 0x26, 0x3b, 0x87, 0x93, 0x47, 0x00, 0xbd, 0x21, 0x0f, 0x90, 0xb3, 0xe3, 0x00, 0x9d, 0x72,
+	0xdb, 0xda, 0xaa, 0x6e, 0xbb, 0x5e, 0xea, 0xa5, 0x37, 0x75, 0xc8, 0x3b, 0x9c, 0x7a, 0xe9, 0x2f,
+	0x67, 0xe8, 0x5d, 0x54, 0xd4, 0x51, 0xcc, 0xa6, 0xd4, 0xc5, 0xbf, 0x53, 0x33, 0xf4, 0x2e, 0xd2,
+	0x87, 0x50, 0xdf, 0xd7, 0x3a, 0xca, 0x4e, 0x9f, 0xbf, 0x1f, 0xf1, 0x04, 0xc9, 0x4d, 0x28, 0xa9,
+	0x0e, 0xb5, 0xaf, 0xd5, 0xed, 0x15, 0x2f, 0xcb, 0xdd, 0xd3, 0x18, 0x5d, 0xa2, 0xb7, 0x80, 0x98,
+	0xbc, 0x24, 0x96, 0x51, 0xc2, 0x49, 0x2d, 0x8f, 0x43, 0x25, 0x40, 0xdb, 0x50, 0x7b, 0xce, 0xd1,
+	0x94, 0xfe, 0x13, 0x71, 0x08, 0xa0, 0xca, 0x4f, 0x23, 0x14, 0x78, 0xae, 0x1e, 0x66, 0x01, 0x06,
+	0x57, 0x3c, 0xac, 0x4a, 0x64, 0x13, 0xca, 0x03, 0x11, 0x9d, 0x26, 0x8e, 0xdd, 0x5e, 0x28, 0x60,
+	0x0e, 0x44, 0x74, 0xea, 0xa7, 0x35, 0x7a, 0x02, 0xff, 0x1f, 0x88, 0xa4, 0xf0, 0x70, 0x43, 0xf1,
+	0x42, 0x81, 0x5a, 0xbb, 0xec, 0xa7, 0x17, 0xb2, 0x09, 0x2b, 0x91, 0xc4, 0xe3, 0x3c, 0x34, 0xb5,
+	0x2a, 0x15, 0xff, 0xbf, 0x48, 0xe2, 0xfe, 0x2c, 0x19, 0x02, 0xa5, 0x38, 0xe8, 0x73, 0xbd, 0x10,
+	0x65, 0x5f, 0x9f, 0xe9, 0x1b, 0xa8, 0x29, 0xf5, 0x7d, 0x39, 0x18, 0xf0, 0x9e, 0xce, 0xfe, 0xf6,
+	0xac, 0x77, 0xd5, 0xd7, 0x6a, 0xa1, 0xf7, 0x74, 0xbc, 0x7f, 0x99, 0x60, 0x13, 0xea, 0x4f, 0xb8,
+	0x7a, 0xfe, 0x3a, 0xf3, 0x1a, 0x40, 0x4c, 0x50, 0x1a, 0x02, 0x7d, 0x06, 0xf5, 0x57, 0x3a, 0xdf,
+	0x6b, 0xa8, 0xb3, 0x88, 0xed, 0xab, 0x23, 0x6e, 0x00, 0x31, 0x75, 0x52, 0xf5, 0xed, 0x2f, 0x0b,
+	0x50, 0x55, 0x1f, 0x5e, 0xf2, 0xe1, 0x99, 0xe8, 0x71, 0xf2, 0x1a, 0x20, 0x5f, 0x04, 0xe2, 0xce,
+	0x84, 0xe6, 0xb6, 0xca, 0x5d, 0xbf, 0xb4, 0x96, 0x35, 0xdd, 0xf8, 0xf4, 0xe3, 0xd7, 0x67, 0xbb,
+	0x46, 0x17, 0xf5, 0x0f, 0x27, 0xd9, 0xd1, 0x2d, 0x90, 0x03, 0x58, 0xca, 0xf6, 0x87, 0xac, 0xcd,
+	0xd8, 0xc5, 0x8d, 0x72, 0x2f, 0x73, 0x9a, 0xae, 0x6a, 0xb9, 0x15, 0x52, 0x4d, 0xe5, 0x3a, 0x1f,
+	0x04, 0xfb, 0x48, 0x5e, 0x40, 0x65, 0xba, 0x15, 0xc4, 0x31, 0x5c, 0x2f, 0x2c, 0x8a, 0xbb, 0x56,
+	0xd0, 0xcb, 0x03, 0xa6, 0x35, 0xad, 0x59, 0x21, 0x59, 0x8b, 0xe4, 0x08, 0x20, 0x77, 0xdf, 0x98,
+	0x7c, 0x2e, 0x37, 0x63, 0xf2, 0x4b, 0xe2, 0xca, 0x5a, 0xbd, 0x53, 0x68, 0xf5, 0x04, 0x20, 0xf7,
+	0xde, 0xd0, 0x9e, 0x0b, 0xd6, 0xd0, 0x9e, 0x0f, 0x8b, 0xde, 0xd0, 0xda, 0xab, 0xae, 0xa9, 0x9d,
+	0x5a, 0xbb, 0x47, 0xbe, 0x5d, 0x34, 0xad, 0xef, 0x17, 0x4d, 0xeb, 0xe7, 0x45, 0xd3, 0x3a, 0x2a,
+	0xa9, 0x7a, 0x77, 0x51, 0xff, 0x2b, 0x1e, 0xfc, 0x0e, 0x00, 0x00, 0xff, 0xff, 0x3b, 0x1e, 0xf5,
+	0xd4, 0xfc, 0x05, 0x00, 0x00,
 }

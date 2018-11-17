@@ -18,13 +18,13 @@ service TodoService {
 	}
 
 
-	rpc GetTodo(GetTodoRequest) returns (GetTodoResponse) {
+	rpc GetTodo(GetTodoRequest) returns (TodoEntity) {
 		option (google.api.http) ={
 			get: "/todos/{id}"
 		};
 	}
 
-	rpc ListTodo(ListTodoRequest) returns (ListTodoResponse) {
+	rpc ListTodo(ListTodoRequest) returns (TodoCollection) {
 		option (google.api.http) ={
 			get: "/todos"
 		};
@@ -52,7 +52,6 @@ message Todo {
 	google.protobuf.Timestamp created_at = 5;
 	// @inject_tag: sql:"type:timestamp"
 	google.protobuf.Timestamp updated_at = 6;
-	Hateoas hateaoas = 7;
 }
 
 message CreateTodoRequest {
@@ -67,8 +66,9 @@ message GetTodoRequest {
 	string id = 1;
 }
 
-message GetTodoResponse {
-	Todo item = 1;
+message TodoEntity {
+	Todo data = 1;
+	repeated Link links = 2;
 }
 
 message ListTodoRequest {
@@ -77,9 +77,9 @@ message ListTodoRequest {
 	int32 page = 3;
 }
 
-message ListTodoResponse {
-	repeated Todo items = 1;
-	Hateoas hateaoas = 2;
+message TodoCollection {
+	repeated TodoEntity data = 1;
+	repeated Link links = 2;
 }
 
 message DeleteTodoRequest {

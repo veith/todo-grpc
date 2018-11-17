@@ -22,7 +22,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1ListTodoResponse"
+              "$ref": "#/definitions/v1TodoCollection"
             }
           }
         },
@@ -85,7 +85,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetTodoResponse"
+              "$ref": "#/definitions/v1TodoEntity"
             }
           }
         },
@@ -182,25 +182,6 @@
     "v1DeleteTodoResponse": {
       "type": "object"
     },
-    "v1GetTodoResponse": {
-      "type": "object",
-      "properties": {
-        "item": {
-          "$ref": "#/definitions/v1Todo"
-        }
-      }
-    },
-    "v1Hateoas": {
-      "type": "object",
-      "properties": {
-        "Links": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Link"
-          }
-        }
-      }
-    },
     "v1Link": {
       "type": "object",
       "properties": {
@@ -218,20 +199,6 @@
         }
       },
       "title": "/-------------------------------------------------------------------\n/ List of official link rels:\n/ http://www.iana.org/assignments/link-relations/link-relations.xhtml\n/-------------------------------------------------------------------"
-    },
-    "v1ListTodoResponse": {
-      "type": "object",
-      "properties": {
-        "items": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Todo"
-          }
-        },
-        "hateaoas": {
-          "$ref": "#/definitions/v1Hateoas"
-        }
-      }
     },
     "v1Todo": {
       "type": "object",
@@ -257,9 +224,37 @@
           "type": "string",
           "format": "date-time",
           "title": "@inject_tag: sql:\"type:timestamp\""
+        }
+      }
+    },
+    "v1TodoCollection": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1TodoEntity"
+          }
         },
-        "hateaoas": {
-          "$ref": "#/definitions/v1Hateoas"
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Link"
+          }
+        }
+      }
+    },
+    "v1TodoEntity": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/v1Todo"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Link"
+          }
         }
       }
     },
