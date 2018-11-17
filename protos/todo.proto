@@ -12,7 +12,7 @@ import "protos/rest.proto";
 service TodoService {
 	rpc CreateTodo(CreateTodoRequest) returns (CreateTodoResponse) {
 		option (google.api.http) ={
-			post: "/todo"
+			post: "/todos"
 			body: "item"
 		};
 	}
@@ -20,25 +20,25 @@ service TodoService {
 
 	rpc GetTodo(GetTodoRequest) returns (GetTodoResponse) {
 		option (google.api.http) ={
-			get: "/todo/{id}"
+			get: "/todos/{id}"
 		};
 	}
 
 	rpc ListTodo(ListTodoRequest) returns (ListTodoResponse) {
 		option (google.api.http) ={
-			get: "/todo"
+			get: "/todos"
 		};
 	}
 
 	rpc DeleteTodo(DeleteTodoRequest) returns (DeleteTodoResponse) {
 		option (google.api.http) ={
-			delete: "/todo/{id}"
+			delete: "/todos/{id}"
 		};
 	}
 
 	rpc UpdateTodo(UpdateTodoRequest) returns (UpdateTodoResponse) {
 		option (google.api.http) ={
-			put: "/todo"
+			put: "/todos/{id}"
 			body: "item"
 		};
 	}
@@ -89,7 +89,8 @@ message DeleteTodoRequest {
 message DeleteTodoResponse {}
 
 message UpdateTodoRequest {
-	Todo item = 1;
+	string id = 1;
+	Todo item = 2;
 }
 
 message UpdateTodoResponse {}

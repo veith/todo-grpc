@@ -1,10 +1,10 @@
 package todos
 
 import (
-	todo "../protos"
+	"../protos"
 	"golang.org/x/net/context"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 	"upper.io/db.v3"
 )
 
@@ -29,7 +29,7 @@ func (s *server) GetTodo(ctx context.Context, req *todo.GetTodoRequest) (*todo.G
 	var entity *todo.Todo
 	res := todoCollection.Find(db.Cond{"id": req.Id})
 	if err := res.One(&entity); err != nil {
-		return nil, grpc.Errorf(codes.NotFound, "Could not retrieve entity from the database: %s", err)
+		return nil, status.Errorf(codes.NotFound, "Could not retrieve entity from the database: %s", err)
 	}
 	return &todo.GetTodoResponse{Item: entity}, nil
 }
@@ -38,9 +38,9 @@ func (s *server) ListTodo(ctx context.Context, req *todo.ListTodoRequest) (*todo
 	var items []*todo.Todo
 	res := todoCollection.Find().Paginate(uint(req.Limit))
 	if err := res.Page(uint(req.Page)).All(&items); err != nil {
-		return nil, grpc.Errorf(codes.NotFound, "Could not retrieve item from the database: %s", err)
+		return nil, status.Errorf(codes.NotFound, "Could not retrieve item from the database: %s", err)
 	}
-	// Apply Hateoas to items
+	// todo: Apply Hateoas to items
 	var hts *todo.Hateoas
 
 	return &todo.ListTodoResponse{Items: items, Hateaoas: hts}, nil

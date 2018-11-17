@@ -120,6 +120,24 @@ func request_TodoService_UpdateTodo_0(ctx context.Context, marshaler runtime.Mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+	}
+
+	protoReq.Id, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+	}
+
 	msg, err := client.UpdateTodo(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -267,15 +285,15 @@ func RegisterTodoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 }
 
 var (
-	pattern_TodoService_CreateTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"todo"}, ""))
+	pattern_TodoService_CreateTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"todos"}, ""))
 
-	pattern_TodoService_GetTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"todo", "id"}, ""))
+	pattern_TodoService_GetTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"todos", "id"}, ""))
 
-	pattern_TodoService_ListTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"todo"}, ""))
+	pattern_TodoService_ListTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"todos"}, ""))
 
-	pattern_TodoService_DeleteTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"todo", "id"}, ""))
+	pattern_TodoService_DeleteTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"todos", "id"}, ""))
 
-	pattern_TodoService_UpdateTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"todo"}, ""))
+	pattern_TodoService_UpdateTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"todos", "id"}, ""))
 )
 
 var (

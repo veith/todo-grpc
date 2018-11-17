@@ -25,9 +25,9 @@ message Link {
     Method method = 2;
     string href = 3;
     string type = 4;
-    string name = 5;
+
 }
 
 message Hateoas {
-    repeated Hateoas Link = 1;
+    repeated Link Links = 1;
 }

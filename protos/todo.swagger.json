@@ -15,7 +15,7 @@
     "application/json"
   ],
   "paths": {
-    "/todo": {
+    "/todos": {
       "get": {
         "operationId": "ListTodo",
         "responses": {
@@ -76,33 +76,9 @@
         "tags": [
           "TodoService"
         ]
-      },
-      "put": {
-        "operationId": "UpdateTodo",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1UpdateTodoResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1Todo"
-            }
-          }
-        ],
-        "tags": [
-          "TodoService"
-        ]
       }
     },
-    "/todo/{id}": {
+    "/todos/{id}": {
       "get": {
         "operationId": "GetTodo",
         "responses": {
@@ -146,10 +122,55 @@
         "tags": [
           "TodoService"
         ]
+      },
+      "put": {
+        "operationId": "UpdateTodo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateTodoResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1Todo"
+            }
+          }
+        ],
+        "tags": [
+          "TodoService"
+        ]
       }
     }
   },
   "definitions": {
+    "LinkMethod": {
+      "type": "string",
+      "enum": [
+        "PUT",
+        "GET",
+        "HEAD",
+        "POST",
+        "PATCH",
+        "DELETE",
+        "TRACE",
+        "OPTIONS"
+      ],
+      "default": "PUT",
+      "title": "https://tools.ietf.org/html/rfc7231#section-4"
+    },
     "v1CreateTodoResponse": {
       "type": "object",
       "properties": {
@@ -172,13 +193,31 @@
     "v1Hateoas": {
       "type": "object",
       "properties": {
-        "Link": {
+        "Links": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Hateoas"
+            "$ref": "#/definitions/v1Link"
           }
         }
       }
+    },
+    "v1Link": {
+      "type": "object",
+      "properties": {
+        "rel": {
+          "type": "string"
+        },
+        "method": {
+          "$ref": "#/definitions/LinkMethod"
+        },
+        "href": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "/-------------------------------------------------------------------\n/ List of official link rels:\n/ http://www.iana.org/assignments/link-relations/link-relations.xhtml\n/-------------------------------------------------------------------"
     },
     "v1ListTodoResponse": {
       "type": "object",
