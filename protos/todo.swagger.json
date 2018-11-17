@@ -169,6 +169,17 @@
         }
       }
     },
+    "v1Hateoas": {
+      "type": "object",
+      "properties": {
+        "Link": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Hateoas"
+          }
+        }
+      }
+    },
     "v1ListTodoResponse": {
       "type": "object",
       "properties": {
@@ -179,7 +190,7 @@
           }
         },
         "hateaoas": {
-          "type": "string"
+          "$ref": "#/definitions/v1Hateoas"
         }
       }
     },
@@ -209,7 +220,7 @@
           "title": "@inject_tag: sql:\"type:timestamp\""
         },
         "hateaoas": {
-          "type": "string"
+          "$ref": "#/definitions/v1Hateoas"
         }
       }
     },

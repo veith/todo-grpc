@@ -26,12 +26,12 @@ func (s *server) CreateTodo(context.Context, *todo.CreateTodoRequest) (*todo.Cre
 }
 
 func (s *server) GetTodo(ctx context.Context, req *todo.GetTodoRequest) (*todo.GetTodoResponse, error) {
-	var item *todo.Todo
+	var entity *todo.Todo
 	res := todoCollection.Find(db.Cond{"id": req.Id})
-	if err := res.One(&item); err != nil {
-		return nil, grpc.Errorf(codes.NotFound, "Could not retrieve item from the database: %s", err)
+	if err := res.One(&entity); err != nil {
+		return nil, grpc.Errorf(codes.NotFound, "Could not retrieve entity from the database: %s", err)
 	}
-	return &todo.GetTodoResponse{Item: item}, nil
+	return &todo.GetTodoResponse{Item: entity}, nil
 }
 
 func (s *server) ListTodo(ctx context.Context, req *todo.ListTodoRequest) (*todo.ListTodoResponse, error) {
@@ -41,8 +41,9 @@ func (s *server) ListTodo(ctx context.Context, req *todo.ListTodoRequest) (*todo
 		return nil, grpc.Errorf(codes.NotFound, "Could not retrieve item from the database: %s", err)
 	}
 	// Apply Hateoas to items
+	var hts *todo.Hateoas
 
-	return &todo.ListTodoResponse{Items: items, Hateaoas: "collection"}, nil
+	return &todo.ListTodoResponse{Items: items, Hateaoas: hts}, nil
 }
 
 func (s *server) DeleteTodo(context.Context, *todo.DeleteTodoRequest) (*todo.DeleteTodoResponse, error) {

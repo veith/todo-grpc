@@ -7,6 +7,7 @@ option go_package = "todo";
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "protos/rest.proto";
 
 service TodoService {
 	rpc CreateTodo(CreateTodoRequest) returns (CreateTodoResponse) {
@@ -51,7 +52,7 @@ message Todo {
 	google.protobuf.Timestamp created_at = 5;
 	// @inject_tag: sql:"type:timestamp"
 	google.protobuf.Timestamp updated_at = 6;
-	string hateaoas = 7;
+	Hateoas hateaoas = 7;
 }
 
 message CreateTodoRequest {
@@ -78,7 +79,7 @@ message ListTodoRequest {
 
 message ListTodoResponse {
 	repeated Todo items = 1;
-	string hateaoas = 2;
+	Hateoas hateaoas = 2;
 }
 
 message DeleteTodoRequest {
