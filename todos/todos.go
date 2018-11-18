@@ -46,9 +46,9 @@ func (s *server) CreateTodo(ctx context.Context, req *todo.CreateTodoRequest) (*
 		return nil, status.Errorf(codes.NotFound, "Could not create entity: %s", err)
 	}
 	var h Hateoas
-	h.AddLink("self", "application/json", "http:localhost:8080/todos/"+item.Id, todo.Link_GET)
-	h.AddLink("delete", "application/json", "http:localhost:8080/todos/"+item.Id, todo.Link_DELETE)
-	h.AddLink("update", "application/json", "http:localhost:8080/todos/"+item.Id, todo.Link_PATCH)
+	h.AddLink("self", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_GET)
+	h.AddLink("delete", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_DELETE)
+	h.AddLink("update", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_PATCH)
 	// todo Proto CreateTodoResponse anpassen
 	return &todo.CreateTodoResponse{Id: id}, nil
 }
@@ -101,23 +101,23 @@ func (s *server) ListTodo(ctx context.Context, req *todo.ListTodoRequest) (*todo
 		collection = append(collection, &entity)
 	}
 	var h Hateoas
-	h.AddLink("self", "application/json", "http:localhost:8080/todos?page="+currentPage, todo.Link_GET)
+	h.AddLink("self", "application/json", "http://localhost:8080/todos?page="+currentPage, todo.Link_GET)
 	if page > 1 {
-		h.AddLink("prev", "application/json", "http:localhost:8080/todos?page="+prevPage, todo.Link_GET)
+		h.AddLink("prev", "application/json", "http://localhost:8080/todos?page="+prevPage, todo.Link_GET)
 	}
 	if page < totalNumberOfPages {
-		h.AddLink("next", "application/json", "http:localhost:8080/todos?page="+nextPage, todo.Link_GET)
+		h.AddLink("next", "application/json", "http://localhost:8080/todos?page="+nextPage, todo.Link_GET)
 	}
-	h.AddLink("first", "application/json", "http:localhost:8080/todos?page=1", todo.Link_GET)
-	h.AddLink("last", "application/json", "http:localhost:8080/todos?page="+lastPage, todo.Link_GET)
+	h.AddLink("first", "application/json", "http://localhost:8080/todos?page=1", todo.Link_GET)
+	h.AddLink("last", "application/json", "http://localhost:8080/todos?page="+lastPage, todo.Link_GET)
 	return &todo.TodoCollection{Data: collection, Links: h.links}, nil
 }
 
 func makeTodoEntity(item todo.Todo) todo.TodoEntity {
 	var h Hateoas
-	h.AddLink("self", "application/json", "http:localhost:8080/todos/"+item.Id, todo.Link_GET)
-	h.AddLink("delete", "application/json", "http:localhost:8080/todos/"+item.Id, todo.Link_DELETE)
-	h.AddLink("update", "application/json", "http:localhost:8080/todos/"+item.Id, todo.Link_PATCH)
+	h.AddLink("self", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_GET)
+	h.AddLink("delete", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_DELETE)
+	h.AddLink("update", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_PATCH)
 	entity := todo.TodoEntity{Data: &item, Links: h.links}
 	return entity
 }
