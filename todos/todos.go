@@ -53,8 +53,17 @@ func (s *server) CreateTodo(ctx context.Context, req *todo.CreateTodoRequest) (*
 	return &todo.CreateTodoResponse{Links: e.Links}, nil
 }
 
-func (s *server) DeleteTodo(context.Context, *todo.DeleteTodoRequest) (*todo.DeleteTodoResponse, error) {
-	panic("implement me")
+func (s *server) DeleteTodo(ctx context.Context, req *todo.DeleteTodoRequest) (*todo.DeleteTodoResponse, error) {
+	var item todo.Todo
+	res := dbCollectionTodo.Find(db.Cond{"id": req.Id})
+	if err := res.One(&item); err != nil {
+		return nil, status.Errorf(codes.NotFound, "Could not retrieve entity from the database: %s", err)
+	}
+
+	if err := res.Delete(); err != nil {
+		return nil, status.Errorf(codes.NotFound, "Could not delete entity from the database: %s", err)
+	}
+	return &todo.DeleteTodoResponse{}, nil
 }
 
 func (s *server) UpdateTodo(ctx context.Context, req *todo.UpdateTodoRequest) (*todo.UpdateTodoResponse, error) {
