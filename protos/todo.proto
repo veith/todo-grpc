@@ -50,14 +50,13 @@ enum Complete {
 	COMPLETED = 2;
 }
 
-
+//@gensql
 message Todo {
 	string id = 1 [(gogoproto.moretags) = "db:\"id\""];
 	string title = 2 [(gogoproto.moretags) = "db:\"title,omitempty\""];
 	string description = 3 [(gogoproto.moretags) = "db:\"description,omitempty\""];
 	Complete completed = 4 [(gogoproto.moretags) = "db:\"completed\""];
 	google.protobuf.Timestamp created_at = 5;
-	// @inject_tag: sql:"type:timestamp"
 	google.protobuf.Timestamp updated_at = 6;
 }
 

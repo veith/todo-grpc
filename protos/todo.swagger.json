@@ -216,7 +216,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "title": "@gensql id"
         },
         "title": {
           "type": "string"
@@ -233,8 +234,7 @@
         },
         "updated_at": {
           "type": "string",
-          "format": "date-time",
-          "title": "@inject_tag: sql:\"type:timestamp\""
+          "format": "date-time"
         }
       }
     },
