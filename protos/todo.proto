@@ -94,6 +94,8 @@ message UpdateTodoRequest {
 	Todo item = 2;
 }
 
-message UpdateTodoResponse {}
+message UpdateTodoResponse {
+	repeated Link links = 2;
+}
 
 

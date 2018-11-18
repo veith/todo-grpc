@@ -262,7 +262,15 @@
       }
     },
     "v1UpdateTodoResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Link"
+          }
+        }
+      }
     }
   }
 }
