@@ -40,7 +40,11 @@ func (s *server) CreateTodo(ctx context.Context, req *todo.CreateTodoRequest) (*
 	item.Id = id
 	item.Title = req.Item.Title
 	item.Description = req.Item.Description
-	item.Completed = req.Item.Completed
+	if req.Item.Completed != 0 {
+		item.Completed = req.Item.Completed
+	} else {
+		item.Completed = 1
+	}
 	_, err := dbCollectionTodo.Insert(&item)
 	if err != nil {
 		return nil, status.Errorf(codes.NotFound, "Could not create entity: %s", err)
@@ -61,16 +65,22 @@ func (s *server) UpdateTodo(ctx context.Context, req *todo.UpdateTodoRequest) (*
 		return nil, status.Errorf(codes.NotFound, "Could not retrieve entity from the database: %s", err)
 	}
 	// fields update
-	item.Title = req.Item.Title
-	item.Description = req.Item.Description
-	item.Completed = req.Item.Completed
+	if len(req.Item.Title) > 0 {
+		item.Title = req.Item.Title
+	}
+	if len(req.Item.Description) > 0 {
+		item.Description = req.Item.Description
+	}
+	if req.Item.Completed != 0 {
+		item.Completed = req.Item.Completed
+	}
 
 	err := res.Update(&item)
 	if err != nil {
 		return nil, status.Errorf(codes.NotFound, "Could not update entity: %s", err)
 	}
-	e := makeTodoEntity(item)
-	return &todo.UpdateTodoResponse{Links: e.Links}, nil
+	entity := makeTodoEntity(item)
+	return &todo.UpdateTodoResponse{Data: entity.Data, Links: entity.Links}, nil
 }
 
 func (s *server) GetTodo(ctx context.Context, req *todo.GetTodoRequest) (*todo.TodoEntity, error) {

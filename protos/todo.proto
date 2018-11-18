@@ -44,12 +44,18 @@ service TodoService {
 	}
 
 }
+enum Complete {
+	UNKNOWN = 0;
+	RUNNING = 1;
+	COMPLETED = 2;
+}
+
 
 message Todo {
 	string id = 1 [(gogoproto.moretags) = "db:\"id\""];
 	string title = 2 [(gogoproto.moretags) = "db:\"title,omitempty\""];
 	string description = 3 [(gogoproto.moretags) = "db:\"description,omitempty\""];
-	bool completed = 4 [(gogoproto.moretags) = "db:\"completed,omitempty\""];
+	Complete completed = 4 [(gogoproto.moretags) = "db:\"completed\""];
 	google.protobuf.Timestamp created_at = 5;
 	// @inject_tag: sql:"type:timestamp"
 	google.protobuf.Timestamp updated_at = 6;
@@ -95,6 +101,7 @@ message UpdateTodoRequest {
 }
 
 message UpdateTodoResponse {
+	Todo data = 1;
 	repeated Link links = 2;
 }
 
