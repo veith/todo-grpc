@@ -74,7 +74,7 @@ func (s *server) GetTodo(ctx context.Context, req *todo.GetTodoRequest) (*todo.T
 
 func (s *server) ListTodo(ctx context.Context, req *todo.ListTodoRequest) (*todo.TodoCollection, error) {
 	var items []todo.Todo
-	var limit uint = 2
+	var limit uint = 23
 	if req.Limit > 0 {
 		limit = uint(req.Limit)
 	}
