@@ -92,7 +92,7 @@ func (s *server) ListTodo(ctx context.Context, req *todo.ListTodoRequest) (*todo
 	totalNumberOfPages, _ := res.TotalPages()
 	lastPage := strconv.FormatUint(uint64(totalNumberOfPages), 10)
 
-	if err := res.Page(uint(page)).All(&items); err != nil {
+	if err := res.Page(uint(page)).OrderBy("-id").All(&items); err != nil {
 		return nil, status.Errorf(codes.NotFound, "Could not retrieve item from the database: %s", err)
 	}
 	var collection []*todo.TodoEntity
