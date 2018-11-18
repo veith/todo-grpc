@@ -174,8 +174,11 @@
     "v1CreateTodoResponse": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Link"
+          }
         }
       }
     },

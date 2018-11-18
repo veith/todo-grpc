@@ -42,6 +42,7 @@ service TodoService {
 			body: "item"
 		};
 	}
+
 }
 
 message Todo {
@@ -59,7 +60,7 @@ message CreateTodoRequest {
 }
 
 message CreateTodoResponse {
-	string id = 1;
+	repeated Link links = 2;
 }
 
 message GetTodoRequest {

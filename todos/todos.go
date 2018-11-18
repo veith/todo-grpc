@@ -40,17 +40,13 @@ func (s *server) CreateTodo(ctx context.Context, req *todo.CreateTodoRequest) (*
 	item.Id = id
 	item.Title = req.Item.Title
 	item.Description = req.Item.Description
-	item.Completed = false
+	item.Completed = req.Item.Completed
 	_, err := dbCollectionTodo.Insert(&item)
 	if err != nil {
 		return nil, status.Errorf(codes.NotFound, "Could not create entity: %s", err)
 	}
-	var h Hateoas
-	h.AddLink("self", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_GET)
-	h.AddLink("delete", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_DELETE)
-	h.AddLink("update", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_PATCH)
-	// todo Proto CreateTodoResponse anpassen
-	return &todo.CreateTodoResponse{Id: id}, nil
+	e := makeTodoEntity(item)
+	return &todo.CreateTodoResponse{Links: e.Links}, nil
 }
 
 func (s *server) DeleteTodo(context.Context, *todo.DeleteTodoRequest) (*todo.DeleteTodoResponse, error) {
@@ -113,15 +109,18 @@ func (s *server) ListTodo(ctx context.Context, req *todo.ListTodoRequest) (*todo
 	return &todo.TodoCollection{Data: collection, Links: h.links}, nil
 }
 
+// erzeuge aus einem db todo item eine todoEntity
 func makeTodoEntity(item todo.Todo) todo.TodoEntity {
 	var h Hateoas
 	h.AddLink("self", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_GET)
 	h.AddLink("delete", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_DELETE)
 	h.AddLink("update", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_PATCH)
+	h.AddLink("up", "application/json", "http://localhost:8080/todos", todo.Link_GET)
 	entity := todo.TodoEntity{Data: &item, Links: h.links}
 	return entity
 }
 
+// Erzeuge eine ULID
 func GenerateULID() ulid.ULID {
 	t := time.Now().UTC()
 	entropy := rand.New(rand.NewSource(t.UnixNano()))
