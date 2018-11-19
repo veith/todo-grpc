@@ -74,15 +74,9 @@ func (s *server) UpdateTodo(ctx context.Context, req *todo.UpdateTodoRequest) (*
 		return nil, status.Errorf(codes.NotFound, "Could not retrieve entity from the database: %s", err)
 	}
 	// fields update
-	if len(req.Item.Title) > 0 {
-		item.Title = req.Item.Title
-	}
-	if len(req.Item.Description) > 0 {
-		item.Description = req.Item.Description
-	}
-	if req.Item.Completed != 0 {
-		item.Completed = req.Item.Completed
-	}
+	item.Title = req.Item.Title
+	item.Description = req.Item.Description
+	item.Completed = req.Item.Completed
 
 	err := res.Update(&item)
 	if err != nil {
@@ -141,6 +135,7 @@ func (s *server) ListTodo(ctx context.Context, req *todo.ListTodoRequest) (*todo
 	}
 	h.AddLink("first", "application/json", "http://localhost:8080/todos?page=1", todo.Link_GET)
 	h.AddLink("last", "application/json", "http://localhost:8080/todos?page="+lastPage, todo.Link_GET)
+	h.AddLink("create", "application/json", "http://localhost:8080/todos", todo.Link_POST)
 	return &todo.TodoCollection{Data: collection, Links: h.links}, nil
 }
 
