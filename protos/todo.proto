@@ -77,10 +77,19 @@ message TodoEntity {
 	repeated Link links = 2;
 }
 
+
 message ListTodoRequest {
-	int32 limit = 1;
-	bool not_completed = 2;
-	int32 page = 3;
+	//reserved 1 to 5;
+	//reserved "fields", "expands", "page", "limit", "offset","sort", "filter","count","sum","context";
+	string fields = 1;
+	string sort = 2;
+	string filter = 3;
+	int32 page = 4;
+	int32 limit = 5;
+	string count = 6;
+	string sum = 7;
+	string context = 8;
+	bool not_completed = 9;
 }
 
 message TodoCollection {

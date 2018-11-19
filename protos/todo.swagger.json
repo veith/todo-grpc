@@ -28,18 +28,23 @@
         },
         "parameters": [
           {
-            "name": "limit",
+            "name": "fields",
+            "description": "reserved 1 to 5;\nreserved \"fields\", \"expands\", \"page\", \"limit\", \"offset\",\"sort\", \"filter\",\"count\",\"sum\",\"context\";.",
             "in": "query",
             "required": false,
-            "type": "integer",
-            "format": "int32"
+            "type": "string"
           },
           {
-            "name": "not_completed",
+            "name": "sort",
             "in": "query",
             "required": false,
-            "type": "boolean",
-            "format": "boolean"
+            "type": "string"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "page",
@@ -47,6 +52,38 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sum",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "not_completed",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
@@ -216,8 +253,7 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "title": "@gensql id"
+          "type": "string"
         },
         "title": {
           "type": "string"
@@ -236,7 +272,8 @@
           "type": "string",
           "format": "date-time"
         }
-      }
+      },
+      "title": "@gensql"
     },
     "v1TodoCollection": {
       "type": "object",

@@ -8,6 +8,7 @@ import (
 	"google.golang.org/grpc/status"
 	"math/rand"
 	"strconv"
+	"strings"
 	"time"
 	"upper.io/db.v3"
 )
@@ -116,8 +117,17 @@ func (s *server) ListTodo(ctx context.Context, req *todo.ListTodoRequest) (*todo
 
 	totalNumberOfPages, _ := res.TotalPages()
 	lastPage := strconv.FormatUint(uint64(totalNumberOfPages), 10)
+	res = res.Page(page).OrderBy(req.Sort)
+	if req.Fields != "" {
+		fields := strings.Split(req.Fields, ",")
+		s := make([]interface{}, len(fields))
+		for i, field := range fields {
+			s[i] = field
+		}
+		res = res.Select(s...)
+	}
 
-	if err := res.Page(uint(page)).OrderBy("-id").All(&items); err != nil {
+	if err := res.All(&items); err != nil {
 		return nil, status.Errorf(codes.NotFound, "Could not retrieve item from the database: %s", err)
 	}
 	var collection []*todo.TodoEntity
@@ -145,7 +155,7 @@ func makeTodoEntity(item todo.Todo) todo.TodoEntity {
 	h.AddLink("self", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_GET)
 	h.AddLink("delete", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_DELETE)
 	h.AddLink("update", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_PATCH)
-	h.AddLink("up", "application/json", "http://localhost:8080/todos", todo.Link_GET)
+	h.AddLink("parent", "application/json", "http://localhost:8080/todos", todo.Link_GET)
 	entity := todo.TodoEntity{Data: &item, Links: h.links}
 	return entity
 }
