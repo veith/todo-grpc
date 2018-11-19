@@ -15,6 +15,10 @@ go get github.com/gogo/protobuf/protoc-gen-gogofast
 go get github.com/gogo/protobuf/proto
 go get github.com/gogo/protobuf/gogoproto
 
+go get github.com/oklog/ulid
+go get upper.io/db.v3
+go get upper.io/db.v3/sqlite
+
 ```
 
 OR to build protobuf from source, the following tools are needed:
@@ -51,5 +55,9 @@ go get -u github.com/micro/protobuf/protoc-gen-go
 go get github.com/gogo/protobuf/protoc-gen-gogofast 
 go get github.com/gogo/protobuf/proto
 go get github.com/gogo/protobuf/gogoproto
+
+go get github.com/oklog/ulid
+go get upper.io/db.v3
+go get upper.io/db.v3/sqlite
 
 ```
