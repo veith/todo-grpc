@@ -25,7 +25,7 @@ func createTodoItem(data *todo.Todo) (todo.Todo, error) {
 	} else {
 		item.Completed = 1
 	}
-	// id interface not needed, we create it ourself
+	// id interface not needed, we create the ids ourself
 	_, err := dbCollectionTodo.Insert(&item)
 	return item, err
 }
