@@ -13,6 +13,22 @@ func ConnectDatabase(database db.Database) {
 	dbCollectionTodo = database.Collection("todo")
 	paginationDefault = 23
 }
+func createTodoItem(data *todo.Todo) (todo.Todo, error) {
+	var item todo.Todo
+	//todo ulid typ in protobuf bauen
+
+	item.Id = GenerateULID().String()
+	item.Title = data.Title
+	item.Description = data.Description
+	if data.Completed != 0 {
+		item.Completed = data.Completed
+	} else {
+		item.Completed = 1
+	}
+	// id interface not needed, we create it ourself
+	_, err := dbCollectionTodo.Insert(&item)
+	return item, err
+}
 
 func listTodoItems(options QueryOptions) ([]todo.Todo, DBMeta, error) {
 	res := dbCollectionTodo.Find()

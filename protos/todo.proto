@@ -10,7 +10,7 @@ import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "protos/rest.proto";
 
 service TodoService {
-	rpc CreateTodo(CreateTodoRequest) returns (CreateTodoResponse) {
+	rpc CreateTodo(CreateTodoRequest) returns (TodoEntity) {
 		option (google.api.http) ={
 			post: "/todos"
 			body: "item"
@@ -36,7 +36,7 @@ service TodoService {
 		};
 	}
 
-	rpc UpdateTodo(UpdateTodoRequest) returns (UpdateTodoResponse) {
+	rpc UpdateTodo(UpdateTodoRequest) returns (TodoEntity) {
 		option (google.api.http) ={
 			put: "/todos/{id}"
 			body: "item"
@@ -65,6 +65,7 @@ message CreateTodoRequest {
 }
 
 message CreateTodoResponse {
+	Todo data = 1;
 	repeated Link links = 2;
 }
 

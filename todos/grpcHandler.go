@@ -17,32 +17,10 @@ func GetServiceServer() todo.TodoServiceServer {
 type todoServiceServer struct {
 }
 
-type Hateoas struct {
-	Links []*todo.Link
-}
-
-func (h *Hateoas) AddLink(rel, contenttype, href string, method todo.Link_Method) {
-	self := todo.Link{Rel: rel, Href: href, Type: contenttype, Method: method}
-	h.Links = append(h.Links, &self)
-}
-
-func (s *todoServiceServer) CreateTodo(ctx context.Context, req *todo.CreateTodoRequest) (*todo.CreateTodoResponse, error) {
-	id := GenerateULID().String()
-	var item todo.Todo
-	item.Id = id
-	item.Title = req.Item.Title
-	item.Description = req.Item.Description
-	if req.Item.Completed != 0 {
-		item.Completed = req.Item.Completed
-	} else {
-		item.Completed = 1
-	}
-	_, err := dbCollectionTodo.Insert(&item)
-	if err != nil {
-		return nil, status.Errorf(codes.NotFound, "Could not create entity: %s", err)
-	}
-	e := makeTodoEntity(item)
-	return &todo.CreateTodoResponse{Links: e.Links}, nil
+func (s *todoServiceServer) CreateTodo(ctx context.Context, req *todo.CreateTodoRequest) (*todo.TodoEntity, error) {
+	item, err := createTodoItem(req.Item)
+	entity := makeTodoEntity(item)
+	return &entity, err
 }
 
 func (s *todoServiceServer) DeleteTodo(ctx context.Context, req *todo.DeleteTodoRequest) (*todo.DeleteTodoResponse, error) {
@@ -53,13 +31,13 @@ func (s *todoServiceServer) DeleteTodo(ctx context.Context, req *todo.DeleteTodo
 	return nil, nil
 }
 
-func (s *todoServiceServer) UpdateTodo(ctx context.Context, req *todo.UpdateTodoRequest) (*todo.UpdateTodoResponse, error) {
+func (s *todoServiceServer) UpdateTodo(ctx context.Context, req *todo.UpdateTodoRequest) (*todo.TodoEntity, error) {
 	item, err := updateTodoItem(req.Id, req.Item)
 	if err != nil {
 		return nil, status.Errorf(codes.NotFound, "Could not update entity: %s", err)
 	}
 	entity := makeTodoEntity(item)
-	return &todo.UpdateTodoResponse{Data: entity.Data, Links: entity.Links}, nil
+	return &entity, nil
 }
 
 func (s *todoServiceServer) GetTodo(ctx context.Context, req *todo.GetTodoRequest) (*todo.TodoEntity, error) {

@@ -31,6 +31,16 @@ type DBMeta struct {
 	LastPage    uint
 }
 
+type Hateoas struct {
+	Links []*todo.Link
+}
+
+// links einem HTS hinzufügen
+func (h *Hateoas) AddLink(rel, contenttype, href string, method todo.Link_Method) {
+	self := todo.Link{Rel: rel, Href: href, Type: contenttype, Method: method}
+	h.Links = append(h.Links, &self)
+}
+
 // Erzeuge eine ULID
 func GenerateULID() ulid.ULID {
 	t := time.Now().UTC()
@@ -39,6 +49,8 @@ func GenerateULID() ulid.ULID {
 	return newID
 }
 
+// Optionen für Listenelemente kommen aus dem proto als beliebiger Typ daher, jedoch immer in der gleichen nummerierung
+// diese werden in die QueryOptions Form gebracht, damit upper sauber damit umgehen kann.
 func GetListOptionsFromRequest(options interface{}) QueryOptions {
 	tmp, _ := json.Marshal(options)
 	var opts QueryOptions
@@ -46,6 +58,7 @@ func GetListOptionsFromRequest(options interface{}) QueryOptions {
 	return opts
 }
 
+// hateoas anhand DBMEta für eine Collection erzeugen
 func GenerateCollectionHATEOAS(dbMeta DBMeta) Hateoas {
 	//todo todo.Link_Get,.. nach REST schieben
 	var h Hateoas
@@ -62,12 +75,15 @@ func GenerateCollectionHATEOAS(dbMeta DBMeta) Hateoas {
 	return h
 }
 
+// Query Options für auf das db.Result anwenden.
+// fields, sort, limit, page, sind implementiert
+// mit der dbMeta kann man sich eine Pagination bauen...
 func ApplyRequestOptionsToQuery(res db.Result, options QueryOptions) (db.Result, DBMeta) {
 	var meta DBMeta
-	if options.Limit > 0 {
+	if options.Limit != 0 {
 		res = res.Paginate(options.Limit)
 	} else {
-		res.Paginate(paginationDefault)
+		res = res.Paginate(paginationDefault)
 	}
 
 	if options.Fields != "" {
