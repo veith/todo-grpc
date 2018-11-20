@@ -2,14 +2,9 @@ package todos
 
 import (
 	"../protos"
-	"encoding/json"
-	"github.com/oklog/ulid"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"math/rand"
-	"strconv"
-	"time"
 )
 
 // Gibt den grpc ServiceServer zurück
@@ -76,44 +71,18 @@ func (s *todoServiceServer) GetTodo(ctx context.Context, req *todo.GetTodoReques
 	return &entity, nil
 }
 
-func GetListOptionsFromRequest(options interface{}) QueryOptions {
-	tmp, _ := json.Marshal(options)
-	var opts QueryOptions
-	json.Unmarshal(tmp, &opts)
-	return opts
-}
-
 func (s *todoServiceServer) ListTodo(ctx context.Context, req *todo.ListTodoRequest) (*todo.TodoCollection, error) {
-
 	opts := GetListOptionsFromRequest(req)
 	items, dbMeta, err := listTodoItems(opts)
-
 	if err != nil {
 		return nil, status.Errorf(codes.Unavailable, "Data Error: %s", err)
 	}
-
 	var collection []*todo.TodoEntity
 	for _, item := range items {
 		entity := makeTodoEntity(item)
 		collection = append(collection, &entity)
 	}
-
 	return &todo.TodoCollection{Data: collection, Links: GenerateCollectionHATEOAS(dbMeta).Links}, nil
-}
-
-func GenerateCollectionHATEOAS(dbMeta DBMeta) Hateoas {
-	var h Hateoas
-	h.AddLink("self", "application/json", "http://localhost:8080/todos?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage), 10), todo.Link_GET)
-	if dbMeta.PrevPage != 0 {
-		h.AddLink("prev", "application/json", "http://localhost:8080/todos?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage-1), 10), todo.Link_GET)
-	}
-	if dbMeta.NextPage != 0 {
-		h.AddLink("next", "application/json", "http://localhost:8080/todos?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage+1), 10), todo.Link_GET)
-	}
-	h.AddLink("first", "application/json", "http://localhost:8080/todos?page="+strconv.FormatUint(uint64(dbMeta.FirstPage+1), 10), todo.Link_GET)
-	h.AddLink("last", "application/json", "http://localhost:8080/todos?page="+strconv.FormatUint(uint64(dbMeta.LastPage), 10), todo.Link_GET)
-	h.AddLink("create", "application/json", "http://localhost:8080/todos", todo.Link_POST)
-	return h
 }
 
 // erzeuge aus einem db todo item eine todoEntity
@@ -125,12 +94,4 @@ func makeTodoEntity(item todo.Todo) todo.TodoEntity {
 	h.AddLink("parent", "application/json", "http://localhost:8080/todos", todo.Link_GET)
 	entity := todo.TodoEntity{Data: &item, Links: h.Links}
 	return entity
-}
-
-// Erzeuge eine ULID
-func GenerateULID() ulid.ULID {
-	t := time.Now().UTC()
-	entropy := rand.New(rand.NewSource(t.UnixNano()))
-	newID, _ := ulid.New(ulid.Timestamp(t), entropy)
-	return newID
 }
