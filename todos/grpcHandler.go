@@ -23,12 +23,12 @@ type todoServiceServer struct {
 }
 
 type Hateoas struct {
-	links []*todo.Link
+	Links []*todo.Link
 }
 
 func (h *Hateoas) AddLink(rel, contenttype, href string, method todo.Link_Method) {
 	self := todo.Link{Rel: rel, Href: href, Type: contenttype, Method: method}
-	h.links = append(h.links, &self)
+	h.Links = append(h.Links, &self)
 }
 
 func (s *todoServiceServer) CreateTodo(ctx context.Context, req *todo.CreateTodoRequest) (*todo.CreateTodoResponse, error) {
@@ -86,7 +86,6 @@ func GetListOptionsFromRequest(options interface{}) QueryOptions {
 func (s *todoServiceServer) ListTodo(ctx context.Context, req *todo.ListTodoRequest) (*todo.TodoCollection, error) {
 
 	opts := GetListOptionsFromRequest(req)
-
 	items, dbMeta, err := listTodoItems(opts)
 
 	if err != nil {
@@ -99,24 +98,22 @@ func (s *todoServiceServer) ListTodo(ctx context.Context, req *todo.ListTodoRequ
 		collection = append(collection, &entity)
 	}
 
-	var h Hateoas
-	// todo pagination als methode generalisieren
-	nextPage := strconv.FormatUint(uint64(dbMeta.CurrentPage+1), 10)
-	currentPage := strconv.FormatUint(uint64(dbMeta.CurrentPage), 10)
-	prevPage := strconv.FormatUint(uint64(dbMeta.CurrentPage-1), 10)
-	lastPage := strconv.FormatUint(uint64(dbMeta.TotalPages), 10)
+	return &todo.TodoCollection{Data: collection, Links: GenerateCollectionHATEOAS(dbMeta).Links}, nil
+}
 
-	h.AddLink("self", "application/json", "http://localhost:8080/todos?page="+currentPage, todo.Link_GET)
-	if dbMeta.CurrentPage > 1 {
-		h.AddLink("prev", "application/json", "http://localhost:8080/todos?page="+prevPage, todo.Link_GET)
+func GenerateCollectionHATEOAS(dbMeta DBMeta) Hateoas {
+	var h Hateoas
+	h.AddLink("self", "application/json", "http://localhost:8080/todos?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage), 10), todo.Link_GET)
+	if dbMeta.PrevPage != 0 {
+		h.AddLink("prev", "application/json", "http://localhost:8080/todos?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage-1), 10), todo.Link_GET)
 	}
-	if dbMeta.CurrentPage < dbMeta.TotalPages {
-		h.AddLink("next", "application/json", "http://localhost:8080/todos?page="+nextPage, todo.Link_GET)
+	if dbMeta.NextPage != 0 {
+		h.AddLink("next", "application/json", "http://localhost:8080/todos?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage+1), 10), todo.Link_GET)
 	}
-	h.AddLink("first", "application/json", "http://localhost:8080/todos?page=1", todo.Link_GET)
-	h.AddLink("last", "application/json", "http://localhost:8080/todos?page="+lastPage, todo.Link_GET)
+	h.AddLink("first", "application/json", "http://localhost:8080/todos?page="+strconv.FormatUint(uint64(dbMeta.FirstPage+1), 10), todo.Link_GET)
+	h.AddLink("last", "application/json", "http://localhost:8080/todos?page="+strconv.FormatUint(uint64(dbMeta.LastPage), 10), todo.Link_GET)
 	h.AddLink("create", "application/json", "http://localhost:8080/todos", todo.Link_POST)
-	return &todo.TodoCollection{Data: collection, Links: h.links}, nil
+	return h
 }
 
 // erzeuge aus einem db todo item eine todoEntity
@@ -126,7 +123,7 @@ func makeTodoEntity(item todo.Todo) todo.TodoEntity {
 	h.AddLink("delete", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_DELETE)
 	h.AddLink("update", "application/json", "http://localhost:8080/todos/"+item.Id, todo.Link_PATCH)
 	h.AddLink("parent", "application/json", "http://localhost:8080/todos", todo.Link_GET)
-	entity := todo.TodoEntity{Data: &item, Links: h.links}
+	entity := todo.TodoEntity{Data: &item, Links: h.Links}
 	return entity
 }
 

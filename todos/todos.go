@@ -27,13 +27,15 @@ type QueryOptions struct {
 }
 
 type DBMeta struct {
-	TotalPages  uint
 	Count       uint64
 	CurrentPage uint
+	NextPage    uint
+	PrevPage    uint
+	FirstPage   uint
+	LastPage    uint
 }
 
 func ApplyRequestOptionsToResult(res db.Result, options QueryOptions) (db.Result, DBMeta) {
-
 	var meta DBMeta
 	if options.Limit > 0 {
 		res = res.Paginate(options.Limit)
@@ -54,13 +56,20 @@ func ApplyRequestOptionsToResult(res db.Result, options QueryOptions) (db.Result
 		res = res.OrderBy(options.Sort)
 	}
 
+	meta.CurrentPage = 1
 	if options.Page > 0 {
 		meta.CurrentPage = options.Page
 		res = res.Page(options.Page)
 	}
-
 	pages, _ := res.TotalPages()
-	meta.TotalPages = pages
+	meta.LastPage = pages
+	meta.FirstPage = 1
+	if meta.CurrentPage < meta.LastPage {
+		meta.NextPage = meta.CurrentPage + 1
+	}
+	if meta.CurrentPage > 1 {
+		meta.PrevPage = meta.CurrentPage - 1
+	}
 
 	if options.Count {
 		meta.Count, _ = res.Count()
