@@ -33,9 +33,9 @@ func createTodoItem(data *todo.Todo) (todo.Todo, error) {
 func listTodoItems(options QueryOptions) ([]todo.Todo, DBMeta, error) {
 	res := dbCollectionTodo.Find()
 	var meta DBMeta
-	r, meta := ApplyRequestOptionsToQuery(res, options)
+	res, meta = ApplyRequestOptionsToQuery(res, options)
 	var items []todo.Todo
-	err := r.All(&items)
+	err := res.All(&items)
 
 	return items, meta, err
 }

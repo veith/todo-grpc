@@ -64,11 +64,6 @@ message CreateTodoRequest {
 	Todo item = 1;
 }
 
-message CreateTodoResponse {
-	Todo data = 1;
-	repeated Link links = 2;
-}
-
 message GetTodoRequest {
 	string id = 1;
 }
@@ -108,10 +103,3 @@ message UpdateTodoRequest {
 	string id = 1;
 	Todo item = 2;
 }
-
-message UpdateTodoResponse {
-	Todo data = 1;
-	repeated Link links = 2;
-}
-
-
