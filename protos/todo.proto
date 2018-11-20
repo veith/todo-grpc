@@ -86,7 +86,7 @@ message ListTodoRequest {
 	string filter = 3;
 	int32 page = 4;
 	int32 limit = 5;
-	string count = 6;
+	bool count = 6;
 	string sum = 7;
 	string context = 8;
 	bool not_completed = 9;

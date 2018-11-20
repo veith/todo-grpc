@@ -64,7 +64,8 @@
             "name": "count",
             "in": "query",
             "required": false,
-            "type": "string"
+            "type": "boolean",
+            "format": "boolean"
           },
           {
             "name": "sum",

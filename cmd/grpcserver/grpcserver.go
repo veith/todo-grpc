@@ -38,8 +38,11 @@ func main() {
 	}
 	grpcServer := grpc.NewServer()
 
+	// DB session weitergeben
+	todos.ConnectDatabase(dbSession)
+
 	// weitere Services kann man hier registrieren
-	todo.RegisterTodoServiceServer(grpcServer, todos.Register(dbSession))
+	todo.RegisterTodoServiceServer(grpcServer, todos.GetServiceServer())
 
 	// Register reflection service on gRPC server.
 	reflection.Register(grpcServer)
