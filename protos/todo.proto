@@ -10,96 +10,102 @@ import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "protos/rest.proto";
 
 service TodoService {
-	rpc CreateTodo(CreateTodoRequest) returns (TodoEntity) {
-		option (google.api.http) ={
+    rpc CreateTodo (CreateTodoRequest) returns (TodoEntity) {
+        option (google.api.http) = {
 			post: "/todos"
 			body: "item"
 		};
-	}
+    }
 
-
-	rpc GetTodo(GetTodoRequest) returns (TodoEntity) {
-		option (google.api.http) ={
+    rpc GetTodo (GetTodoRequest) returns (TodoEntity) {
+        option (google.api.http) = {
 			get: "/todos/{id}"
 		};
-	}
+    }
 
-	rpc ListTodo(ListTodoRequest) returns (TodoCollection) {
-		option (google.api.http) ={
+    rpc ListTodo (ListTodoRequest) returns (TodoCollection) {
+        option (google.api.http) = {
 			get: "/todos"
 		};
-	}
+    }
 
-	rpc DeleteTodo(DeleteTodoRequest) returns (DeleteTodoResponse) {
-		option (google.api.http) ={
+    rpc DeleteTodo (DeleteTodoRequest) returns (DeleteTodoResponse) {
+        option (google.api.http) = {
 			delete: "/todos/{id}"
 		};
-	}
+    }
 
-	rpc UpdateTodo(UpdateTodoRequest) returns (TodoEntity) {
-		option (google.api.http) ={
+    rpc UpdateTodo (UpdateTodoRequest) returns (TodoEntity) {
+        option (google.api.http) = {
 			put: "/todos/{id}"
 			body: "item"
 		};
-	}
+    }
+
+    rpc CompleteTodo (GetTodoRequest) returns (TodoEntity) {
+        option (google.api.http) = {
+			post: "/todos/{id}:complete"
+		};
+    }
 
 }
 enum Complete {
-	UNKNOWN = 0;
-	RUNNING = 1;
-	COMPLETED = 2;
+    UNKNOWN = 0;
+    RUNNING = 1;
+    COMPLETED = 2;
 }
 
-//@gensql
+
 message Todo {
-	string id = 1 [(gogoproto.moretags) = "db:\"id\""];
-	string title = 2 [(gogoproto.moretags) = "db:\"title,omitempty\""];
-	string description = 3 [(gogoproto.moretags) = "db:\"description,omitempty\""];
-	Complete completed = 4 [(gogoproto.moretags) = "db:\"completed\""];
-	google.protobuf.Timestamp created_at = 5;
-	google.protobuf.Timestamp updated_at = 6;
+    string id = 1 [(gogoproto.moretags) = "db:\"id,pk,omitempty\""];
+    string title = 2 [(gogoproto.moretags) = "db:\"title,omitempty\""];
+    string description = 3 [(gogoproto.moretags) = "db:\"description,omitempty\""];
+    Complete completed = 4 [(gogoproto.moretags) = "db:\"completed\""];
+    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp updated_at = 6;
 }
 
 message CreateTodoRequest {
-	Todo item = 1;
+    Todo item = 1;
 }
 
 message GetTodoRequest {
-	string id = 1;
+    string id = 1;
 }
 
 message TodoEntity {
-	Todo data = 1;
-	repeated Link links = 2;
+    Todo data = 1;
+    repeated Link links = 2;
 }
 
 
 message ListTodoRequest {
-	//reserved 1 to 5;
-	//reserved "fields", "expands", "page", "limit", "offset","sort", "filter","count","sum","context";
-	string fields = 1;
-	string sort = 2;
-	string filter = 3;
-	int32 page = 4;
-	int32 limit = 5;
-	bool count = 6;
-	string sum = 7;
-	string context = 8;
-	bool not_completed = 9;
+    //reserved 1 to 5;
+    //reserved "fields", "expands", "page", "limit", "offset","sort", "filter","count","sum","context";
+    string fields = 1;
+    string sort = 2;
+    string filter = 3;
+    int32 page = 4;
+    int32 limit = 5;
+    bool count = 6;
+    string sum = 7;
+    string context = 8;
+    bool not_completed = 9;
 }
 
 message TodoCollection {
-	repeated TodoEntity data = 1;
-	repeated Link links = 2;
+    repeated TodoEntity data = 1;
+    repeated Link links = 2;
 }
 
 message DeleteTodoRequest {
-	string id = 1;
+    string id = 1;
 }
 
-message DeleteTodoResponse {}
+message DeleteTodoResponse {
+}
 
 message UpdateTodoRequest {
-	string id = 1;
-	Todo item = 2;
+    string id = 1;
+    Todo item = 2;
 }

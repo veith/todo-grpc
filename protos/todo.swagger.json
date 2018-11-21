@@ -191,6 +191,30 @@
           "TodoService"
         ]
       }
+    },
+    "/todos/{id}:complete": {
+      "post": {
+        "operationId": "CompleteTodo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1TodoEntity"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TodoService"
+        ]
+      }
     }
   },
   "definitions": {
@@ -262,8 +286,7 @@
           "type": "string",
           "format": "date-time"
         }
-      },
-      "title": "@gensql"
+      }
     },
     "v1TodoCollection": {
       "type": "object",

@@ -75,6 +75,17 @@ func GenerateCollectionHATEOAS(dbMeta DBMeta) Hateoas {
 	return h
 }
 
+func GenerateEntityHateoas(id string) Hateoas {
+	// todo check gegen spec machen
+	var h Hateoas
+	h.AddLink("self", "application/json", "http://localhost:8080/todos/"+id, todo.Link_GET)
+	h.AddLink("delete", "application/json", "http://localhost:8080/todos/"+id, todo.Link_DELETE)
+	h.AddLink("update", "application/json", "http://localhost:8080/todos/"+id, todo.Link_PATCH)
+	h.AddLink("parent", "application/json", "http://localhost:8080/todos", todo.Link_GET)
+	h.AddLink("complete", "application/json", "http://localhost:8080/todos"+id+":complete", todo.Link_POST)
+	return h
+}
+
 // Query Options für auf das db.Result anwenden.
 // fields, sort, limit, page, sind implementiert
 // mit der dbMeta kann man sich eine Pagination bauen...

@@ -27,6 +27,7 @@ func createTodoItem(data *todo.Todo) (todo.Todo, error) {
 	}
 	// id interface not needed, we create the ids ourself
 	_, err := dbCollectionTodo.Insert(&item)
+	//fire("item.generated",&item)
 	return item, err
 }
 
@@ -39,6 +40,13 @@ func listTodoItems(options QueryOptions) ([]todo.Todo, DBMeta, error) {
 
 	return items, meta, err
 }
+
+func completeTodoItem(id string) (todo.Todo, error) {
+	var item todo.Todo
+	item.Completed = 2
+	return updateTodoItem(id, &item)
+}
+
 func deleteTodoItem(id string) error {
 	var item todo.Todo
 	res := dbCollectionTodo.Find(db.Cond{"id": id})
@@ -58,15 +66,15 @@ func getTodoItem(id string) (todo.Todo, error) {
 func updateTodoItem(id string, data *todo.Todo) (todo.Todo, error) {
 	var item todo.Todo
 	res := dbCollectionTodo.Find(db.Cond{"id": id})
-
-	if err := res.One(&item); err != nil {
-		return item, err
-	}
-	// fields update
+	// fields to update
 	item.Title = data.Title
 	item.Description = data.Description
 	item.Completed = data.Completed
 
-	err := res.Update(&item)
+	if err := res.Update(&item); err != nil {
+		return todo.Todo{}, err
+	}
+	// read your write
+	err := res.One(&item)
 	return item, err
 }
