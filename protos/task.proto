@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package todo.v1;
+package task.v1;
 
-option go_package = "todo";
+option go_package = "task";
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
@@ -12,39 +12,39 @@ import "protos/rest.proto";
 service TodoService {
     rpc CreateTodo (CreateTodoRequest) returns (TodoEntity) {
         option (google.api.http) = {
-			post: "/todos"
+			post: "/tasks"
 			body: "item"
 		};
     }
 
     rpc GetTodo (GetTodoRequest) returns (TodoEntity) {
         option (google.api.http) = {
-			get: "/todos/{id}"
+			get: "/tasks/{id}"
 		};
     }
 
     rpc ListTodo (ListTodoRequest) returns (TodoCollection) {
         option (google.api.http) = {
-			get: "/todos"
+			get: "/tasks"
 		};
     }
 
     rpc DeleteTodo (DeleteTodoRequest) returns (DeleteTodoResponse) {
         option (google.api.http) = {
-			delete: "/todos/{id}"
+			delete: "/tasks/{id}"
 		};
     }
 
     rpc UpdateTodo (UpdateTodoRequest) returns (TodoEntity) {
         option (google.api.http) = {
-			put: "/todos/{id}"
+			put: "/tasks/{id}"
 			body: "item"
 		};
     }
 
     rpc CompleteTodo (GetTodoRequest) returns (TodoEntity) {
         option (google.api.http) = {
-			post: "/todos/{id}:complete"
+			post: "/tasks/{id}:complete"
 		};
     }
 

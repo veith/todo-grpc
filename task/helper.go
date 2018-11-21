@@ -1,4 +1,4 @@
-package todos
+package task
 
 import (
 	"../protos"
@@ -32,12 +32,12 @@ type DBMeta struct {
 }
 
 type Hateoas struct {
-	Links []*todo.Link
+	Links []*task.Link
 }
 
 // links einem HTS hinzufügen
-func (h *Hateoas) AddLink(rel, contenttype, href string, method todo.Link_Method) {
-	self := todo.Link{Rel: rel, Href: href, Type: contenttype, Method: method}
+func (h *Hateoas) AddLink(rel, contenttype, href string, method task.Link_Method) {
+	self := task.Link{Rel: rel, Href: href, Type: contenttype, Method: method}
 	h.Links = append(h.Links, &self)
 }
 
@@ -60,29 +60,29 @@ func GetListOptionsFromRequest(options interface{}) QueryOptions {
 
 // hateoas anhand DBMEta für eine Collection erzeugen
 func GenerateCollectionHATEOAS(dbMeta DBMeta) Hateoas {
-	//todo todo.Link_Get,.. nach REST schieben
+	//task task.Link_Get,.. nach REST schieben
 	var h Hateoas
-	h.AddLink("self", "application/json", "http://localhost:8080/todos?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage), 10), todo.Link_GET)
+	h.AddLink("self", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage), 10), task.Link_GET)
 	if dbMeta.PrevPage != 0 {
-		h.AddLink("prev", "application/json", "http://localhost:8080/todos?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage-1), 10), todo.Link_GET)
+		h.AddLink("prev", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage-1), 10), task.Link_GET)
 	}
 	if dbMeta.NextPage != 0 {
-		h.AddLink("next", "application/json", "http://localhost:8080/todos?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage+1), 10), todo.Link_GET)
+		h.AddLink("next", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage+1), 10), task.Link_GET)
 	}
-	h.AddLink("first", "application/json", "http://localhost:8080/todos?page="+strconv.FormatUint(uint64(dbMeta.FirstPage+1), 10), todo.Link_GET)
-	h.AddLink("last", "application/json", "http://localhost:8080/todos?page="+strconv.FormatUint(uint64(dbMeta.LastPage), 10), todo.Link_GET)
-	h.AddLink("create", "application/json", "http://localhost:8080/todos", todo.Link_POST)
+	h.AddLink("first", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.FirstPage+1), 10), task.Link_GET)
+	h.AddLink("last", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.LastPage), 10), task.Link_GET)
+	h.AddLink("create", "application/json", "http://localhost:8080/tasks", task.Link_POST)
 	return h
 }
 
 func GenerateEntityHateoas(id string) Hateoas {
-	// todo check gegen spec machen
+	//todo check gegen spec machen
 	var h Hateoas
-	h.AddLink("self", "application/json", "http://localhost:8080/todos/"+id, todo.Link_GET)
-	h.AddLink("delete", "application/json", "http://localhost:8080/todos/"+id, todo.Link_DELETE)
-	h.AddLink("update", "application/json", "http://localhost:8080/todos/"+id, todo.Link_PATCH)
-	h.AddLink("parent", "application/json", "http://localhost:8080/todos", todo.Link_GET)
-	h.AddLink("complete", "application/json", "http://localhost:8080/todos"+id+":complete", todo.Link_POST)
+	h.AddLink("self", "application/json", "http://localhost:8080/tasks/"+id, task.Link_GET)
+	h.AddLink("delete", "application/json", "http://localhost:8080/tasks/"+id, task.Link_DELETE)
+	h.AddLink("update", "application/json", "http://localhost:8080/tasks/"+id, task.Link_PATCH)
+	h.AddLink("parent", "application/json", "http://localhost:8080/tasks", task.Link_GET)
+	h.AddLink("complete", "application/json", "http://localhost:8080/tasks"+id+":complete", task.Link_POST)
 	return h
 }
 

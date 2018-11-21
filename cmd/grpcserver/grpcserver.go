@@ -2,7 +2,7 @@ package main
 
 import (
 	"../../protos"
-	"../../todos"
+	t "../../task"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
@@ -21,7 +21,7 @@ type ConnectionURL struct {
 }
 
 var settings = sqlite.ConnectionURL{
-	Database: `data/todos.db`, // Path to database file.
+	Database: `data/task.db`, // Path to database file.
 }
 
 func main() {
@@ -39,10 +39,10 @@ func main() {
 	grpcServer := grpc.NewServer()
 
 	// DB session weitergeben
-	todos.ConnectDatabase(dbSession)
+	t.ConnectDatabase(dbSession)
 
 	// weitere Services kann man hier registrieren
-	todo.RegisterTodoServiceServer(grpcServer, todos.GetServiceServer())
+	task.RegisterTodoServiceServer(grpcServer, t.GetServiceServer())
 
 	// Register reflection service on gRPC server.
 	reflection.Register(grpcServer)

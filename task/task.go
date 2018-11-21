@@ -1,4 +1,4 @@
-package todos
+package task
 
 import (
 	"../protos"
@@ -10,12 +10,12 @@ var dbCollectionTodo db.Collection
 var paginationDefault uint
 
 func ConnectDatabase(database db.Database) {
-	dbCollectionTodo = database.Collection("todo")
+	dbCollectionTodo = database.Collection("tasks")
 	paginationDefault = 23
 }
-func createTodoItem(data *todo.Todo) (todo.Todo, error) {
-	var item todo.Todo
-	//todo ulid typ in protobuf bauen
+func createTodoItem(data *task.Todo) (task.Todo, error) {
+	var item task.Todo
+	//task ulid typ in protobuf bauen
 
 	item.Id = GenerateULID().String()
 	item.Title = data.Title
@@ -31,24 +31,24 @@ func createTodoItem(data *todo.Todo) (todo.Todo, error) {
 	return item, err
 }
 
-func listTodoItems(options QueryOptions) ([]todo.Todo, DBMeta, error) {
+func listTodoItems(options QueryOptions) ([]task.Todo, DBMeta, error) {
 	res := dbCollectionTodo.Find()
 	var meta DBMeta
 	res, meta = ApplyRequestOptionsToQuery(res, options)
-	var items []todo.Todo
+	var items []task.Todo
 	err := res.All(&items)
 
 	return items, meta, err
 }
 
-func completeTodoItem(id string) (todo.Todo, error) {
-	var item todo.Todo
+func completeTodoItem(id string) (task.Todo, error) {
+	var item task.Todo
 	item.Completed = 2
 	return updateTodoItem(id, &item)
 }
 
 func deleteTodoItem(id string) error {
-	var item todo.Todo
+	var item task.Todo
 	res := dbCollectionTodo.Find(db.Cond{"id": id})
 	if err := res.One(&item); err != nil {
 		return err
@@ -56,15 +56,15 @@ func deleteTodoItem(id string) error {
 	err := res.Delete()
 	return err
 }
-func getTodoItem(id string) (todo.Todo, error) {
-	var item todo.Todo
+func getTodoItem(id string) (task.Todo, error) {
+	var item task.Todo
 	res := dbCollectionTodo.Find(db.Cond{"id": id})
 	err := res.One(&item)
 	return item, err
 }
 
-func updateTodoItem(id string, data *todo.Todo) (todo.Todo, error) {
-	var item todo.Todo
+func updateTodoItem(id string, data *task.Todo) (task.Todo, error) {
+	var item task.Todo
 	res := dbCollectionTodo.Find(db.Cond{"id": id})
 	// fields to update
 	item.Title = data.Title
@@ -72,7 +72,7 @@ func updateTodoItem(id string, data *todo.Todo) (todo.Todo, error) {
 	item.Completed = data.Completed
 
 	if err := res.Update(&item); err != nil {
-		return todo.Todo{}, err
+		return task.Todo{}, err
 	}
 	// read your write
 	err := res.One(&item)

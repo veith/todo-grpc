@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package todo.v1;
+package task.v1;
 
-option go_package = "todo";
+option go_package = "task";
 
 ///-------------------------------------------------------------------
 /// List of official link rels:
