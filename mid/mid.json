@@ -1,0 +1,40 @@
+{
+  "types": [
+    {
+      "name": "Task",
+      "description": "Tasks items...",
+      "fields": [
+
+    {
+      "name": "id",
+      "type": "string",
+      "description": "für IDs werden wir intern ulid verwenden",
+      "__gotags": [
+        {
+          "key": "gogoproto.moretags",
+          "value": "db:\\\"id,pk,omitempty\\\""
+        }
+      ],
+      "__sqllite": "BLOB NOT NULL",
+      "__protoNumber": 1
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Titel des Tasks",
+      "__gotags": [
+        {
+          "key": "gogoproto.moretags",
+          "value": "db:\\\"title,pk,omitempty\\\""
+        }
+      ],
+      "__sqllite": "BLOB NOT NULL",
+      "__protoNumber": 1
+    }
+  ],
+  "__sqlPrimaryKey": "id",
+  "__gensql": true,
+  "__genproto": true
+}
+]
+}

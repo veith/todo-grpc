@@ -1,0 +1,9 @@
+-- auto generated definition
+{{ range $k, $type := .types }}
+-- {{.description}}
+CREATE TABLE "{{.name | lower}}s"
+({{ range $k, $field := .fields }}
+  `{{.name | lower}}`       {{.__sqllite}},         -- {{.description}}{{end}}
+  PRIMARY KEY (`{{.__sqlPrimaryKey}}`)
+)
+{{end}}
