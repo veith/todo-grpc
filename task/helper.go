@@ -60,7 +60,7 @@ func GetListOptionsFromRequest(options interface{}) QueryOptions {
 
 // hateoas anhand DBMEta für eine Collection erzeugen
 func GenerateCollectionHATEOAS(dbMeta DBMeta) Hateoas {
-	//task task.Link_Get,.. nach REST schieben
+	//todo task.Link_Get,.. nach REST schieben
 	var h Hateoas
 	h.AddLink("self", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage), 10), task.Link_GET)
 	if dbMeta.PrevPage != 0 {

@@ -1,5 +1,5 @@
 {
-  "build-date": "2018-11-21T17:59:48.026727+01:00",
+  "build-date": "2018-11-21T18:15:11.275607+01:00",
   "build-hostname": "z-industries.local",
   "build-user": "veith",
   "pwd": "/Users/veith/Projects/tests/protogen",
@@ -16,7 +16,7 @@
     ],
     "message_type": [
       {
-        "name": "Todo",
+        "name": "Task",
         "field": [
           {
             "name": "id",
@@ -70,20 +70,20 @@
         ]
       },
       {
-        "name": "CreateTodoRequest",
+        "name": "CreateTaskRequest",
         "field": [
           {
             "name": "item",
             "number": 1,
             "label": 1,
             "type": 11,
-            "type_name": ".task.v1.Todo",
+            "type_name": ".task.v1.Task",
             "json_name": "item"
           }
         ]
       },
       {
-        "name": "GetTodoRequest",
+        "name": "GetTaskRequest",
         "field": [
           {
             "name": "id",
@@ -95,14 +95,14 @@
         ]
       },
       {
-        "name": "TodoEntity",
+        "name": "TaskEntity",
         "field": [
           {
             "name": "data",
             "number": 1,
             "label": 1,
             "type": 11,
-            "type_name": ".task.v1.Todo",
+            "type_name": ".task.v1.Task",
             "json_name": "data"
           },
           {
@@ -116,7 +116,7 @@
         ]
       },
       {
-        "name": "ListTodoRequest",
+        "name": "ListTaskRequest",
         "field": [
           {
             "name": "fields",
@@ -184,14 +184,14 @@
         ]
       },
       {
-        "name": "TodoCollection",
+        "name": "TaskCollection",
         "field": [
           {
             "name": "data",
             "number": 1,
             "label": 3,
             "type": 11,
-            "type_name": ".task.v1.TodoEntity",
+            "type_name": ".task.v1.TaskEntity",
             "json_name": "data"
           },
           {
@@ -205,7 +205,7 @@
         ]
       },
       {
-        "name": "DeleteTodoRequest",
+        "name": "DeleteTaskRequest",
         "field": [
           {
             "name": "id",
@@ -217,10 +217,10 @@
         ]
       },
       {
-        "name": "DeleteTodoResponse"
+        "name": "DeleteTaskResponse"
       },
       {
-        "name": "UpdateTodoRequest",
+        "name": "UpdateTaskRequest",
         "field": [
           {
             "name": "id",
@@ -234,7 +234,7 @@
             "number": 2,
             "label": 1,
             "type": 11,
-            "type_name": ".task.v1.Todo",
+            "type_name": ".task.v1.Task",
             "json_name": "item"
           }
         ]
@@ -261,42 +261,42 @@
     ],
     "service": [
       {
-        "name": "TodoService",
+        "name": "TaskService",
         "method": [
           {
-            "name": "CreateTodo",
-            "input_type": ".task.v1.CreateTodoRequest",
-            "output_type": ".task.v1.TodoEntity",
+            "name": "CreateTask",
+            "input_type": ".task.v1.CreateTaskRequest",
+            "output_type": ".task.v1.TaskEntity",
             "options": {}
           },
           {
-            "name": "GetTodo",
-            "input_type": ".task.v1.GetTodoRequest",
-            "output_type": ".task.v1.TodoEntity",
+            "name": "GetTask",
+            "input_type": ".task.v1.GetTaskRequest",
+            "output_type": ".task.v1.TaskEntity",
             "options": {}
           },
           {
-            "name": "ListTodo",
-            "input_type": ".task.v1.ListTodoRequest",
-            "output_type": ".task.v1.TodoCollection",
+            "name": "ListTask",
+            "input_type": ".task.v1.ListTaskRequest",
+            "output_type": ".task.v1.TaskCollection",
             "options": {}
           },
           {
-            "name": "DeleteTodo",
-            "input_type": ".task.v1.DeleteTodoRequest",
-            "output_type": ".task.v1.DeleteTodoResponse",
+            "name": "DeleteTask",
+            "input_type": ".task.v1.DeleteTaskRequest",
+            "output_type": ".task.v1.DeleteTaskResponse",
             "options": {}
           },
           {
-            "name": "UpdateTodo",
-            "input_type": ".task.v1.UpdateTodoRequest",
-            "output_type": ".task.v1.TodoEntity",
+            "name": "UpdateTask",
+            "input_type": ".task.v1.UpdateTaskRequest",
+            "output_type": ".task.v1.TaskEntity",
             "options": {}
           },
           {
-            "name": "CompleteTodo",
-            "input_type": ".task.v1.GetTodoRequest",
-            "output_type": ".task.v1.TodoEntity",
+            "name": "CompleteTask",
+            "input_type": ".task.v1.GetTaskRequest",
+            "output_type": ".task.v1.TaskEntity",
             "options": {}
           }
         ]
@@ -3111,42 +3111,42 @@
   "filename": "doc/ast.json.tmpl",
   "template-dir": "./templates",
   "service": {
-    "name": "TodoService",
+    "name": "TaskService",
     "method": [
       {
-        "name": "CreateTodo",
-        "input_type": ".task.v1.CreateTodoRequest",
-        "output_type": ".task.v1.TodoEntity",
+        "name": "CreateTask",
+        "input_type": ".task.v1.CreateTaskRequest",
+        "output_type": ".task.v1.TaskEntity",
         "options": {}
       },
       {
-        "name": "GetTodo",
-        "input_type": ".task.v1.GetTodoRequest",
-        "output_type": ".task.v1.TodoEntity",
+        "name": "GetTask",
+        "input_type": ".task.v1.GetTaskRequest",
+        "output_type": ".task.v1.TaskEntity",
         "options": {}
       },
       {
-        "name": "ListTodo",
-        "input_type": ".task.v1.ListTodoRequest",
-        "output_type": ".task.v1.TodoCollection",
+        "name": "ListTask",
+        "input_type": ".task.v1.ListTaskRequest",
+        "output_type": ".task.v1.TaskCollection",
         "options": {}
       },
       {
-        "name": "DeleteTodo",
-        "input_type": ".task.v1.DeleteTodoRequest",
-        "output_type": ".task.v1.DeleteTodoResponse",
+        "name": "DeleteTask",
+        "input_type": ".task.v1.DeleteTaskRequest",
+        "output_type": ".task.v1.DeleteTaskResponse",
         "options": {}
       },
       {
-        "name": "UpdateTodo",
-        "input_type": ".task.v1.UpdateTodoRequest",
-        "output_type": ".task.v1.TodoEntity",
+        "name": "UpdateTask",
+        "input_type": ".task.v1.UpdateTaskRequest",
+        "output_type": ".task.v1.TaskEntity",
         "options": {}
       },
       {
-        "name": "CompleteTodo",
-        "input_type": ".task.v1.GetTodoRequest",
-        "output_type": ".task.v1.TodoEntity",
+        "name": "CompleteTask",
+        "input_type": ".task.v1.GetTaskRequest",
+        "output_type": ".task.v1.TaskEntity",
         "options": {}
       }
     ]

@@ -22,7 +22,7 @@ func run() error {
 
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
-	err := gw.RegisterTodoServiceHandlerFromEndpoint(ctx, mux, *echoEndpoint, opts)
+	err := gw.RegisterTaskServiceHandlerFromEndpoint(ctx, mux, *echoEndpoint, opts)
 	if err != nil {
 		return err
 	}

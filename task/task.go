@@ -6,16 +6,16 @@ import (
 )
 
 // Interface zur DB
-var dbCollectionTodo db.Collection
+var dbCollectionTask db.Collection
 var paginationDefault uint
 
 func ConnectDatabase(database db.Database) {
-	dbCollectionTodo = database.Collection("tasks")
+	dbCollectionTask = database.Collection("tasks")
 	paginationDefault = 23
 }
-func createTodoItem(data *task.Todo) (task.Todo, error) {
-	var item task.Todo
-	//task ulid typ in protobuf bauen
+func createTaskItem(data *task.Task) (task.Task, error) {
+	var item task.Task
+	//todo ulid typ in protobuf bauen
 
 	item.Id = GenerateULID().String()
 	item.Title = data.Title
@@ -26,53 +26,53 @@ func createTodoItem(data *task.Todo) (task.Todo, error) {
 		item.Completed = 1
 	}
 	// id interface not needed, we create the ids ourself
-	_, err := dbCollectionTodo.Insert(&item)
+	_, err := dbCollectionTask.Insert(&item)
 	//fire("item.generated",&item)
 	return item, err
 }
 
-func listTodoItems(options QueryOptions) ([]task.Todo, DBMeta, error) {
-	res := dbCollectionTodo.Find()
+func listTaskItems(options QueryOptions) ([]task.Task, DBMeta, error) {
+	res := dbCollectionTask.Find()
 	var meta DBMeta
 	res, meta = ApplyRequestOptionsToQuery(res, options)
-	var items []task.Todo
+	var items []task.Task
 	err := res.All(&items)
 
 	return items, meta, err
 }
 
-func completeTodoItem(id string) (task.Todo, error) {
-	var item task.Todo
+func completeTaskItem(id string) (task.Task, error) {
+	var item task.Task
 	item.Completed = 2
-	return updateTodoItem(id, &item)
+	return updateTaskItem(id, &item)
 }
 
-func deleteTodoItem(id string) error {
-	var item task.Todo
-	res := dbCollectionTodo.Find(db.Cond{"id": id})
+func deleteTaskItem(id string) error {
+	var item task.Task
+	res := dbCollectionTask.Find(db.Cond{"id": id})
 	if err := res.One(&item); err != nil {
 		return err
 	}
 	err := res.Delete()
 	return err
 }
-func getTodoItem(id string) (task.Todo, error) {
-	var item task.Todo
-	res := dbCollectionTodo.Find(db.Cond{"id": id})
+func getTaskItem(id string) (task.Task, error) {
+	var item task.Task
+	res := dbCollectionTask.Find(db.Cond{"id": id})
 	err := res.One(&item)
 	return item, err
 }
 
-func updateTodoItem(id string, data *task.Todo) (task.Todo, error) {
-	var item task.Todo
-	res := dbCollectionTodo.Find(db.Cond{"id": id})
+func updateTaskItem(id string, data *task.Task) (task.Task, error) {
+	var item task.Task
+	res := dbCollectionTask.Find(db.Cond{"id": id})
 	// fields to update
 	item.Title = data.Title
 	item.Description = data.Description
 	item.Completed = data.Completed
 
 	if err := res.Update(&item); err != nil {
-		return task.Todo{}, err
+		return task.Task{}, err
 	}
 	// read your write
 	err := res.One(&item)

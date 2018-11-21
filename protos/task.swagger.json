@@ -17,12 +17,12 @@
   "paths": {
     "/tasks": {
       "get": {
-        "operationId": "ListTodo",
+        "operationId": "ListTask",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1TodoCollection"
+              "$ref": "#/definitions/v1TaskCollection"
             }
           }
         },
@@ -88,16 +88,16 @@
           }
         ],
         "tags": [
-          "TodoService"
+          "TaskService"
         ]
       },
       "post": {
-        "operationId": "CreateTodo",
+        "operationId": "CreateTask",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1TodoEntity"
+              "$ref": "#/definitions/v1TaskEntity"
             }
           }
         },
@@ -107,23 +107,23 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1Todo"
+              "$ref": "#/definitions/v1Task"
             }
           }
         ],
         "tags": [
-          "TodoService"
+          "TaskService"
         ]
       }
     },
     "/tasks/{id}": {
       "get": {
-        "operationId": "GetTodo",
+        "operationId": "GetTask",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1TodoEntity"
+              "$ref": "#/definitions/v1TaskEntity"
             }
           }
         },
@@ -136,16 +136,16 @@
           }
         ],
         "tags": [
-          "TodoService"
+          "TaskService"
         ]
       },
       "delete": {
-        "operationId": "DeleteTodo",
+        "operationId": "DeleteTask",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1DeleteTodoResponse"
+              "$ref": "#/definitions/v1DeleteTaskResponse"
             }
           }
         },
@@ -158,16 +158,16 @@
           }
         ],
         "tags": [
-          "TodoService"
+          "TaskService"
         ]
       },
       "put": {
-        "operationId": "UpdateTodo",
+        "operationId": "UpdateTask",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1TodoEntity"
+              "$ref": "#/definitions/v1TaskEntity"
             }
           }
         },
@@ -183,23 +183,23 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1Todo"
+              "$ref": "#/definitions/v1Task"
             }
           }
         ],
         "tags": [
-          "TodoService"
+          "TaskService"
         ]
       }
     },
     "/tasks/{id}:complete": {
       "post": {
-        "operationId": "CompleteTodo",
+        "operationId": "CompleteTask",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1TodoEntity"
+              "$ref": "#/definitions/v1TaskEntity"
             }
           }
         },
@@ -212,7 +212,7 @@
           }
         ],
         "tags": [
-          "TodoService"
+          "TaskService"
         ]
       }
     }
@@ -242,7 +242,7 @@
       ],
       "default": "UNKNOWN"
     },
-    "v1DeleteTodoResponse": {
+    "v1DeleteTaskResponse": {
       "type": "object"
     },
     "v1Link": {
@@ -263,7 +263,7 @@
       },
       "title": "/-------------------------------------------------------------------\n/ List of official link rels:\n/ http://www.iana.org/assignments/link-relations/link-relations.xhtml\n/-------------------------------------------------------------------"
     },
-    "v1Todo": {
+    "v1Task": {
       "type": "object",
       "properties": {
         "id": {
@@ -288,13 +288,13 @@
         }
       }
     },
-    "v1TodoCollection": {
+    "v1TaskCollection": {
       "type": "object",
       "properties": {
         "data": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1TodoEntity"
+            "$ref": "#/definitions/v1TaskEntity"
           }
         },
         "links": {
@@ -305,11 +305,11 @@
         }
       }
     },
-    "v1TodoEntity": {
+    "v1TaskEntity": {
       "type": "object",
       "properties": {
         "data": {
-          "$ref": "#/definitions/v1Todo"
+          "$ref": "#/definitions/v1Task"
         },
         "links": {
           "type": "array",

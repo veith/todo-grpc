@@ -42,7 +42,7 @@ func main() {
 	t.ConnectDatabase(dbSession)
 
 	// weitere Services kann man hier registrieren
-	task.RegisterTodoServiceServer(grpcServer, t.GetServiceServer())
+	task.RegisterTaskServiceServer(grpcServer, t.GetServiceServer())
 
 	// Register reflection service on gRPC server.
 	reflection.Register(grpcServer)
