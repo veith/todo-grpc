@@ -12,7 +12,7 @@ func ConnectDatabase(database db.Database) {
 	dbCollectionTask = database.Collection("tasks")
 	paginationDefault = 23
 }
-func createTaskItem(data *Task) (Task, error) {
+func CreateTaskItem(data *Task) (Task, error) {
 	var item Task
 	//todo ulid typ in protobuf bauen
 
@@ -30,7 +30,7 @@ func createTaskItem(data *Task) (Task, error) {
 	return item, err
 }
 
-func listTaskItems(options QueryOptions) ([]Task, DBMeta, error) {
+func ListTaskItems(options QueryOptions) ([]Task, DBMeta, error) {
 	res := dbCollectionTask.Find()
 	var meta DBMeta
 	res, meta = ApplyRequestOptionsToQuery(res, options)
@@ -40,13 +40,13 @@ func listTaskItems(options QueryOptions) ([]Task, DBMeta, error) {
 	return items, meta, err
 }
 
-func completeTaskItem(id string) (Task, error) {
+func CompleteTaskItem(id string) (Task, error) {
 	var item Task
 	item.Completed = 2
-	return updateTaskItem(id, &item)
+	return UpdateTaskItem(id, &item)
 }
 
-func deleteTaskItem(id string) error {
+func DeleteTaskItem(id string) error {
 	var item Task
 	res := dbCollectionTask.Find(db.Cond{"id": id})
 	if err := res.One(&item); err != nil {
@@ -55,14 +55,14 @@ func deleteTaskItem(id string) error {
 	err := res.Delete()
 	return err
 }
-func getTaskItem(id string) (Task, error) {
+func GetTaskItem(id string) (Task, error) {
 	var item Task
 	res := dbCollectionTask.Find(db.Cond{"id": id})
 	err := res.One(&item)
 	return item, err
 }
 
-func updateTaskItem(id string, data *Task) (Task, error) {
+func UpdateTaskItem(id string, data *Task) (Task, error) {
 	var item Task
 	res := dbCollectionTask.Find(db.Cond{"id": id})
 	// fields to update

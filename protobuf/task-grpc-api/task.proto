@@ -7,7 +7,7 @@ option go_package = "task";
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
-import "task/rest.proto";
+import "protobuf/task-grpc-api/rest.proto";
 
 service TaskService {
     rpc CreateTask (CreateTaskRequest) returns (TaskEntity) {

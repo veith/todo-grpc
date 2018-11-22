@@ -1,7 +1,8 @@
 package main
 
 import (
-	"../../internal/task"
+	taskimpl "../../internal/task"
+	"../../internal/task-grpc-api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
@@ -38,7 +39,7 @@ func main() {
 	grpcServer := grpc.NewServer()
 
 	// DB session weitergeben
-	task.ConnectDatabase(dbSession)
+	taskimpl.ConnectDatabase(dbSession)
 
 	// weitere Services kann man hier registrieren
 	task.RegisterTaskServiceServer(grpcServer, task.GetServiceServer())

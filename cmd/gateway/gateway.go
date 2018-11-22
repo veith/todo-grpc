@@ -1,7 +1,7 @@
 package main
 
 import (
-	gw "../../internal/task"
+	gw "../../internal/task-grpc-api"
 	"flag"
 	"github.com/golang/glog"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"

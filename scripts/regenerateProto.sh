@@ -16,4 +16,4 @@ plugins=grpc:../internal/ \
 --gotemplate_out=../ \
 --swagger_out=logtostderr=true:../api \
 --grpc-gateway_out=logtostderr=true:../internal/ \
-task/*.proto
+task-grpc-api/*.proto
