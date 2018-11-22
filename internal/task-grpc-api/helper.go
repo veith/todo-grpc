@@ -4,6 +4,7 @@ import (
 	"../task"
 	"encoding/json"
 	"github.com/gogo/protobuf/types"
+	"github.com/oklog/ulid"
 	"strconv"
 )
 
@@ -14,11 +15,13 @@ type Hateoas struct {
 func MapTaskToProtoTask(ob1 *task.Task) *Task {
 	var t types.Timestamp
 	var q struct{}
-	ob2 := Task{ob1.Id, ob1.Title, ob1.Description, Complete(ob1.Completed), &t, &t, q, []byte{}, 0}
+
+	ob2 := Task{ob1.Id.String(), ob1.Title, ob1.Description, Complete(ob1.Completed), &t, &t, q, []byte{}, 0}
 	return &ob2
 }
 func MapProtoTaskToTask(ob1 *Task) *task.Task {
-	ob2 := task.Task{ob1.Id, ob1.Title, ob1.Description, int32(ob1.Completed)}
+	id, _ := ulid.Parse(ob1.Id)
+	ob2 := task.Task{id, ob1.Title, ob1.Description, int32(ob1.Completed)}
 	return &ob2
 }
 

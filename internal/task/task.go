@@ -1,6 +1,7 @@
 package task
 
 import (
+	"github.com/oklog/ulid"
 	"upper.io/db.v3"
 )
 
@@ -16,7 +17,7 @@ func CreateTaskItem(data *Task) (Task, error) {
 	var item Task
 	//todo ulid typ in protobuf bauen
 
-	item.Id = GenerateULID().String()
+	item.Id = GenerateULID()
 	item.Title = data.Title
 	item.Description = data.Description
 	if data.Completed != 0 {
@@ -40,13 +41,13 @@ func ListTaskItems(options QueryOptions) ([]Task, DBMeta, error) {
 	return items, meta, err
 }
 
-func CompleteTaskItem(id string) (Task, error) {
+func CompleteTaskItem(id ulid.ULID) (Task, error) {
 	var item Task
 	item.Completed = 2
 	return UpdateTaskItem(id, &item)
 }
 
-func DeleteTaskItem(id string) error {
+func DeleteTaskItem(id ulid.ULID) error {
 	var item Task
 	res := dbCollectionTask.Find(db.Cond{"id": id})
 	if err := res.One(&item); err != nil {
@@ -55,14 +56,14 @@ func DeleteTaskItem(id string) error {
 	err := res.Delete()
 	return err
 }
-func GetTaskItem(id string) (Task, error) {
+func GetTaskItem(id ulid.ULID) (Task, error) {
 	var item Task
 	res := dbCollectionTask.Find(db.Cond{"id": id})
 	err := res.One(&item)
 	return item, err
 }
 
-func UpdateTaskItem(id string, data *Task) (Task, error) {
+func UpdateTaskItem(id ulid.ULID, data *Task) (Task, error) {
 	var item Task
 	res := dbCollectionTask.Find(db.Cond{"id": id})
 	// fields to update

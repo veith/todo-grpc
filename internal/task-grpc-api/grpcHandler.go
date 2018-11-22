@@ -2,6 +2,7 @@ package task
 
 import (
 	"../task"
+	"github.com/oklog/ulid"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -18,20 +19,24 @@ type taskServiceServer struct {
 }
 
 func (s *taskServiceServer) CompleteTask(ctx context.Context, req *GetTaskRequest) (*TaskEntity, error) {
-	item, err := task.CompleteTaskItem(req.Id)
+	taskID, _ := ulid.Parse(req.Id)
 
-	entity := TaskEntity{Data: MapTaskToProtoTask(&item), Links: GenerateEntityHateoas(item.Id).Links}
+	item, err := task.CompleteTaskItem(taskID)
+
+	entity := TaskEntity{Data: MapTaskToProtoTask(&item), Links: GenerateEntityHateoas(item.Id.String()).Links}
 	return &entity, err
 }
 
 func (s *taskServiceServer) CreateTask(ctx context.Context, req *CreateTaskRequest) (*TaskEntity, error) {
 	item, err := task.CreateTaskItem(MapProtoTaskToTask(req.Item))
-	entity := TaskEntity{Data: MapTaskToProtoTask(&item), Links: GenerateEntityHateoas(item.Id).Links}
+	entity := TaskEntity{Data: MapTaskToProtoTask(&item), Links: GenerateEntityHateoas(item.Id.String()).Links}
 	return &entity, err
 }
 
 func (s *taskServiceServer) DeleteTask(ctx context.Context, req *DeleteTaskRequest) (*DeleteTaskResponse, error) {
-	err := task.DeleteTaskItem(req.Id)
+	taskID, _ := ulid.Parse(req.Id)
+
+	err := task.DeleteTaskItem(taskID)
 	if err != nil {
 		return nil, status.Errorf(codes.NotFound, "Could not retrieve entity from the database: %s", err)
 	}
@@ -39,20 +44,23 @@ func (s *taskServiceServer) DeleteTask(ctx context.Context, req *DeleteTaskReque
 }
 
 func (s *taskServiceServer) UpdateTask(ctx context.Context, req *UpdateTaskRequest) (*TaskEntity, error) {
-	item, err := task.UpdateTaskItem(req.Id, MapProtoTaskToTask(req.Item))
+	taskID, _ := ulid.Parse(req.Id)
+
+	item, err := task.UpdateTaskItem(taskID, MapProtoTaskToTask(req.Item))
 	if err != nil {
 		return nil, status.Errorf(codes.NotFound, "Could not update entity: %s", err)
 	}
-	entity := TaskEntity{Data: MapTaskToProtoTask(&item), Links: GenerateEntityHateoas(item.Id).Links}
+	entity := TaskEntity{Data: MapTaskToProtoTask(&item), Links: GenerateEntityHateoas(item.Id.String()).Links}
 	return &entity, nil
 }
 
 func (s *taskServiceServer) GetTask(ctx context.Context, req *GetTaskRequest) (*TaskEntity, error) {
-	item, err := task.GetTaskItem(req.Id)
+	taskID, _ := ulid.Parse(req.Id)
+	item, err := task.GetTaskItem(taskID)
 	if err != nil {
 		return nil, status.Errorf(codes.NotFound, "Task not Found: %s", err)
 	}
-	entity := TaskEntity{Data: MapTaskToProtoTask(&item), Links: GenerateEntityHateoas(item.Id).Links}
+	entity := TaskEntity{Data: MapTaskToProtoTask(&item), Links: GenerateEntityHateoas(item.Id.String()).Links}
 	return &entity, nil
 }
 
@@ -65,7 +73,7 @@ func (s *taskServiceServer) ListTask(ctx context.Context, req *ListTaskRequest) 
 	}
 	var collection []*TaskEntity
 	for _, item := range items {
-		entity := TaskEntity{Data: MapTaskToProtoTask(&item), Links: GenerateEntityHateoas(item.Id).Links}
+		entity := TaskEntity{Data: MapTaskToProtoTask(&item), Links: GenerateEntityHateoas(item.Id.String()).Links}
 		collection = append(collection, &entity)
 	}
 	return &TaskCollection{Data: collection, Links: GenerateCollectionHATEOAS(dbMeta).Links}, nil

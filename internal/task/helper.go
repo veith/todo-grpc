@@ -10,14 +10,14 @@ import (
 
 // Anfrageoptionen für upper
 type QueryOptions struct {
-	Fields  string `json:"fields,omitempty"`
+	Fields  string `json:"fields,omitempty"` // partial representation
 	Sort    string `json:"sort,omitempty"`
 	Filter  string `json:"filter,omitempty"`
-	Count   bool   `json:"count,omitempty"`
-	Sum     string `json:"sum,omitempty"`
+	Count   bool   `json:"count,omitempty"` // return count in meta
+	Sum     string `json:"sum,omitempty"`   // calculate sum
 	Context string `json:"context,omitempty"`
-	Limit   uint   `json:"limit,omitempty"`
-	Page    uint   `json:"page,omitempty"`
+	Limit   uint   `json:"limit,omitempty"`  // set page limit to limit
+	Page    uint   `json:"page,omitempty"`   // pagination
 	Cursor  uint   `json:"cursor,omitempty"` // for cursor pagination
 }
 
@@ -30,11 +30,12 @@ type DBMeta struct {
 	LastPage    uint
 }
 
+// Task
 type Task struct {
-	Id          string `json:"id,omitempty" db:"id,pk,omitempty"`
-	Title       string `json:"title,omitempty" db:"title,omitempty"`
-	Description string `json:"description,omitempty" db:"description,omitempty"`
-	Completed   int32  `json:"completed,omitempty" db:"completed"`
+	Id          ulid.ULID `json:"id,omitempty" db:"id,pk,omitempty"`
+	Title       string    `json:"title,omitempty" db:"title,omitempty"`
+	Description string    `json:"description,omitempty" db:"description,omitempty"`
+	Completed   int32     `json:"completed,omitempty" db:"completed"`
 }
 
 // Erzeuge eine ULID
