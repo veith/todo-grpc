@@ -1,7 +1,6 @@
 package task
 
 import (
-	"../protos"
 	"encoding/json"
 	"github.com/oklog/ulid"
 	"math/rand"
@@ -32,12 +31,19 @@ type DBMeta struct {
 }
 
 type Hateoas struct {
-	Links []*task.Link
+	Links []*Link
+}
+
+type TaskItem struct {
+	Id          string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" db:"id,pk,omitempty"`
+	Title       string   `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty" db:"title,omitempty"`
+	Description string   `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty" db:"description,omitempty"`
+	Completed   Complete `protobuf:"varint,4,opt,name=completed,proto3,enum=task.v1.Complete" json:"completed,omitempty" db:"completed"`
 }
 
 // links einem HTS hinzufügen
-func (h *Hateoas) AddLink(rel, contenttype, href string, method task.Link_Method) {
-	self := task.Link{Rel: rel, Href: href, Type: contenttype, Method: method}
+func (h *Hateoas) AddLink(rel, contenttype, href string, method Link_Method) {
+	self := Link{Rel: rel, Href: href, Type: contenttype, Method: method}
 	h.Links = append(h.Links, &self)
 }
 
@@ -60,29 +66,29 @@ func GetListOptionsFromRequest(options interface{}) QueryOptions {
 
 // hateoas anhand DBMEta für eine Collection erzeugen
 func GenerateCollectionHATEOAS(dbMeta DBMeta) Hateoas {
-	//todo task.Link_Get,.. nach REST schieben
+	//todo Link_Get,.. nach REST schieben
 	var h Hateoas
-	h.AddLink("self", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage), 10), task.Link_GET)
+	h.AddLink("self", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage), 10), Link_GET)
 	if dbMeta.PrevPage != 0 {
-		h.AddLink("prev", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage-1), 10), task.Link_GET)
+		h.AddLink("prev", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage-1), 10), Link_GET)
 	}
 	if dbMeta.NextPage != 0 {
-		h.AddLink("next", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage+1), 10), task.Link_GET)
+		h.AddLink("next", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage+1), 10), Link_GET)
 	}
-	h.AddLink("first", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.FirstPage+1), 10), task.Link_GET)
-	h.AddLink("last", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.LastPage), 10), task.Link_GET)
-	h.AddLink("create", "application/json", "http://localhost:8080/tasks", task.Link_POST)
+	h.AddLink("first", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.FirstPage+1), 10), Link_GET)
+	h.AddLink("last", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.LastPage), 10), Link_GET)
+	h.AddLink("create", "application/json", "http://localhost:8080/tasks", Link_POST)
 	return h
 }
 
 func GenerateEntityHateoas(id string) Hateoas {
 	//todo check gegen spec machen
 	var h Hateoas
-	h.AddLink("self", "application/json", "http://localhost:8080/tasks/"+id, task.Link_GET)
-	h.AddLink("delete", "application/json", "http://localhost:8080/tasks/"+id, task.Link_DELETE)
-	h.AddLink("update", "application/json", "http://localhost:8080/tasks/"+id, task.Link_PATCH)
-	h.AddLink("parent", "application/json", "http://localhost:8080/tasks", task.Link_GET)
-	h.AddLink("complete", "application/json", "http://localhost:8080/tasks"+id+":complete", task.Link_POST)
+	h.AddLink("self", "application/json", "http://localhost:8080/tasks/"+id, Link_GET)
+	h.AddLink("delete", "application/json", "http://localhost:8080/tasks/"+id, Link_DELETE)
+	h.AddLink("update", "application/json", "http://localhost:8080/tasks/"+id, Link_PATCH)
+	h.AddLink("parent", "application/json", "http://localhost:8080/tasks", Link_GET)
+	h.AddLink("complete", "application/json", "http://localhost:8080/tasks"+id+":complete", Link_POST)
 	return h
 }
 

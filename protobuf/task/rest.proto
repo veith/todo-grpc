@@ -27,7 +27,3 @@ message Link {
     string type = 4;
 
 }
-
-message Hateoas {
-    repeated Link Links = 1;
-}

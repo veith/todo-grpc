@@ -3,7 +3,7 @@
 -- {{.description}}
 CREATE TABLE "{{.name | lower}}s"
 ({{ range $k, $field := .fields }}
-  `{{.name | lower}}`       {{.__sqllite}},         -- {{.description}}{{end}}
+  `{{.name | lower}}`       {{.__sqllite.type | upper}},         -- {{.description}}{{end}}
   PRIMARY KEY (`{{.__sqlPrimaryKey}}`)
 )
 {{end}}

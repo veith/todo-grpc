@@ -7,7 +7,7 @@ option go_package = "task";
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
-import "protos/rest.proto";
+import "task/rest.proto";
 
 service TaskService {
     rpc CreateTask (CreateTaskRequest) returns (TaskEntity) {
@@ -15,6 +15,7 @@ service TaskService {
 			post: "/tasks"
 			body: "item"
 		};
+
     }
 
     rpc GetTask (GetTaskRequest) returns (TaskEntity) {
@@ -75,7 +76,7 @@ message GetTaskRequest {
 
 message TaskEntity {
     Task data = 1;
-    repeated Link links = 2;
+    repeated Link links = 2; //dsfsdf
 }
 
 
