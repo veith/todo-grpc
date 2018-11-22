@@ -1,0 +1,42 @@
+
+GET http://{{host}}/tasks
+Accept: application/json
+
+> {%
+ client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+ client.test("default limit ist 23", function() {
+        client.assert(response.body.data.length === 23," Limit ist nicht 23" );
+    });
+
+// setze erstes element
+client.global.set("taskid",response.body.data[0].data.id)
+%}
+###
+
+
+POST http://{{host}}/tasks
+Content-Type: application/json
+
+{"title": "neuer","description": ""}
+> {%
+ client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+ client.test("Titel gesetzt", function() {
+        client.assert(response.body.data.id === "neuer","Titel nicht korrekt erstellt" );
+    });
+
+// setze akuelles element
+client.global.set("taskid",response.body.data.id)
+%}
+###
+
+
+GET http://{{host}}/tasks/{{taskid}}
+Accept: application/json
+
+###
