@@ -1,0 +1,729 @@
+{
+  "build-date": "2018-11-23T07:42:16.22794+01:00",
+  "build-hostname": "z-industries.local",
+  "build-user": "veith",
+  "pwd": "/Users/veith/Projects/tests/protogen/protobuf",
+  "debug": false,
+  "destination-dir": ".",
+  "file": {
+    "name": "task-grpc-api/services.proto",
+    "package": "task.v1",
+    "dependency": [
+      "google/api/annotations.proto",
+      "task-grpc-api/messages.proto"
+    ],
+    "service": [
+      {
+        "name": "TaskService",
+        "method": [
+          {
+            "name": "CreateTask",
+            "input_type": ".task.v1.CreateTaskRequest",
+            "output_type": ".task.v1.TaskEntity",
+            "options": {}
+          },
+          {
+            "name": "GetTask",
+            "input_type": ".task.v1.GetTaskRequest",
+            "output_type": ".task.v1.TaskEntity",
+            "options": {}
+          },
+          {
+            "name": "ListTask",
+            "input_type": ".task.v1.ListTaskRequest",
+            "output_type": ".task.v1.TaskCollection",
+            "options": {}
+          },
+          {
+            "name": "DeleteTask",
+            "input_type": ".task.v1.DeleteTaskRequest",
+            "output_type": ".task.v1.DeleteTaskResponse",
+            "options": {}
+          },
+          {
+            "name": "UpdateTask",
+            "input_type": ".task.v1.UpdateTaskRequest",
+            "output_type": ".task.v1.TaskEntity",
+            "options": {}
+          },
+          {
+            "name": "CompleteTask",
+            "input_type": ".task.v1.GetTaskRequest",
+            "output_type": ".task.v1.TaskEntity",
+            "options": {}
+          }
+        ]
+      }
+    ],
+    "options": {
+      "go_package": "task"
+    },
+    "source_code_info": {
+      "location": [
+        {
+          "span": [
+            0,
+            0,
+            50,
+            1
+          ]
+        },
+        {
+          "path": [
+            12
+          ],
+          "span": [
+            0,
+            0,
+            18
+          ]
+        },
+        {
+          "path": [
+            2
+          ],
+          "span": [
+            2,
+            8,
+            15
+          ]
+        },
+        {
+          "path": [
+            8
+          ],
+          "span": [
+            4,
+            0,
+            27
+          ]
+        },
+        {
+          "path": [
+            8,
+            11
+          ],
+          "span": [
+            4,
+            0,
+            27
+          ]
+        },
+        {
+          "path": [
+            3,
+            0
+          ],
+          "span": [
+            6,
+            7,
+            37
+          ]
+        },
+        {
+          "path": [
+            3,
+            1
+          ],
+          "span": [
+            8,
+            7,
+            37
+          ]
+        },
+        {
+          "path": [
+            6,
+            0
+          ],
+          "span": [
+            10,
+            0,
+            50,
+            1
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            1
+          ],
+          "span": [
+            10,
+            8,
+            19
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            0
+          ],
+          "span": [
+            11,
+            4,
+            17,
+            5
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            0,
+            1
+          ],
+          "span": [
+            11,
+            8,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            0,
+            2
+          ],
+          "span": [
+            11,
+            20,
+            37
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            0,
+            3
+          ],
+          "span": [
+            11,
+            48,
+            58
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            0,
+            4
+          ],
+          "span": [
+            12,
+            8,
+            15,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            0,
+            4,
+            72295728
+          ],
+          "span": [
+            12,
+            8,
+            15,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            1
+          ],
+          "span": [
+            19,
+            4,
+            23,
+            5
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            1,
+            1
+          ],
+          "span": [
+            19,
+            8,
+            15
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            1,
+            2
+          ],
+          "span": [
+            19,
+            17,
+            31
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            1,
+            3
+          ],
+          "span": [
+            19,
+            42,
+            52
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            1,
+            4
+          ],
+          "span": [
+            20,
+            8,
+            22,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            1,
+            4,
+            72295728
+          ],
+          "span": [
+            20,
+            8,
+            22,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            2
+          ],
+          "span": [
+            25,
+            4,
+            29,
+            5
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            2,
+            1
+          ],
+          "span": [
+            25,
+            8,
+            16
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            2,
+            2
+          ],
+          "span": [
+            25,
+            18,
+            33
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            2,
+            3
+          ],
+          "span": [
+            25,
+            44,
+            58
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            2,
+            4
+          ],
+          "span": [
+            26,
+            8,
+            28,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            2,
+            4,
+            72295728
+          ],
+          "span": [
+            26,
+            8,
+            28,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            3
+          ],
+          "span": [
+            31,
+            4,
+            35,
+            5
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            3,
+            1
+          ],
+          "span": [
+            31,
+            8,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            3,
+            2
+          ],
+          "span": [
+            31,
+            20,
+            37
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            3,
+            3
+          ],
+          "span": [
+            31,
+            48,
+            66
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            3,
+            4
+          ],
+          "span": [
+            32,
+            8,
+            34,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            3,
+            4,
+            72295728
+          ],
+          "span": [
+            32,
+            8,
+            34,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            4
+          ],
+          "span": [
+            37,
+            4,
+            42,
+            5
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            4,
+            1
+          ],
+          "span": [
+            37,
+            8,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            4,
+            2
+          ],
+          "span": [
+            37,
+            20,
+            37
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            4,
+            3
+          ],
+          "span": [
+            37,
+            48,
+            58
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            4,
+            4
+          ],
+          "span": [
+            38,
+            8,
+            41,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            4,
+            4,
+            72295728
+          ],
+          "span": [
+            38,
+            8,
+            41,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            5
+          ],
+          "span": [
+            44,
+            4,
+            48,
+            5
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            5,
+            1
+          ],
+          "span": [
+            44,
+            8,
+            20
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            5,
+            2
+          ],
+          "span": [
+            44,
+            22,
+            36
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            5,
+            3
+          ],
+          "span": [
+            44,
+            47,
+            57
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            5,
+            4
+          ],
+          "span": [
+            45,
+            8,
+            47,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            5,
+            4,
+            72295728
+          ],
+          "span": [
+            45,
+            8,
+            47,
+            18
+          ]
+        }
+      ]
+    },
+    "syntax": "proto3"
+  },
+  "raw-filename": "doc/%7B%7B.File.Package%7D%7D_ast.json.tmpl",
+  "filename": "doc/task.v1_ast.json.tmpl",
+  "template-dir": "./templates",
+  "service": {
+    "name": "TaskService",
+    "method": [
+      {
+        "name": "CreateTask",
+        "input_type": ".task.v1.CreateTaskRequest",
+        "output_type": ".task.v1.TaskEntity",
+        "options": {}
+      },
+      {
+        "name": "GetTask",
+        "input_type": ".task.v1.GetTaskRequest",
+        "output_type": ".task.v1.TaskEntity",
+        "options": {}
+      },
+      {
+        "name": "ListTask",
+        "input_type": ".task.v1.ListTaskRequest",
+        "output_type": ".task.v1.TaskCollection",
+        "options": {}
+      },
+      {
+        "name": "DeleteTask",
+        "input_type": ".task.v1.DeleteTaskRequest",
+        "output_type": ".task.v1.DeleteTaskResponse",
+        "options": {}
+      },
+      {
+        "name": "UpdateTask",
+        "input_type": ".task.v1.UpdateTaskRequest",
+        "output_type": ".task.v1.TaskEntity",
+        "options": {}
+      },
+      {
+        "name": "CompleteTask",
+        "input_type": ".task.v1.GetTaskRequest",
+        "output_type": ".task.v1.TaskEntity",
+        "options": {}
+      }
+    ]
+  },
+  "enum": null
+}
