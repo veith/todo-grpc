@@ -20,7 +20,7 @@ client.global.set("taskid",response.body.data[0].data.id)
 POST http://{{host}}/tasks
 Content-Type: application/json
 
-{"title": "neuer","description": ""}
+{"title": "last","description": ""}
 > {%
  client.test("Request executed successfully", function() {
         client.assert(response.status === 200, "Response status is not 200");
@@ -34,6 +34,25 @@ Content-Type: application/json
 client.global.set("taskid",response.body.data.id)
 %}
 ###
+
+
+PUT http://{{host}}/tasks/{{taskid}}
+Content-Type: application/json
+
+{"title": "updated","description": "Jeee"}
+> {%
+ client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+ client.test("Titel gesetzt", function() {
+        client.assert(response.body.data.title === "updated","Datensatz inkorrekt aktualiert" );
+    });
+
+%}
+###
+
+
 
 
 GET http://{{host}}/tasks/{{taskid}}

@@ -35,7 +35,7 @@ type Task struct {
 	Id          ulid.ULID `json:"id,omitempty" db:"id,pk,omitempty"`
 	Title       string    `json:"title,omitempty" db:"title,omitempty"`
 	Description string    `json:"description,omitempty" db:"description,omitempty"`
-	Completed   int32     `json:"completed,omitempty" db:"completed"`
+	Completed   int32     `json:"completed,omitempty" db:"completed,omitempty"`
 }
 
 // Erzeuge eine ULID

@@ -67,6 +67,7 @@ func UpdateTaskItem(id ulid.ULID, data *Task) (Task, error) {
 	var item Task
 	res := dbCollectionTask.Find(db.Cond{"id": id})
 	// fields to update
+	item.Id = id
 	item.Title = data.Title
 	item.Description = data.Description
 	item.Completed = data.Completed
