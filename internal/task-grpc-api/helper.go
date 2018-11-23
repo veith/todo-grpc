@@ -15,7 +15,6 @@ type Hateoas struct {
 func MapTaskToProtoTask(ob1 *task.Task) *Task {
 	var t types.Timestamp
 	var q struct{}
-
 	ob2 := Task{ob1.Id.String(), ob1.Title, ob1.Description, Complete(ob1.Completed), &t, &t, q, []byte{}, 0}
 	return &ob2
 }
@@ -27,8 +26,8 @@ func MapProtoTaskToTask(ob1 *Task) *task.Task {
 
 // links einem HTS hinzufügen
 func (h *Hateoas) AddLink(rel, contenttype, href string, method Link_Method) {
-	self := Link{Rel: rel, Href: href, Type: contenttype, Method: method}
-	h.Links = append(h.Links, &self)
+	link := Link{Rel: rel, Href: href, Type: contenttype, Method: method}
+	h.Links = append(h.Links, &link)
 }
 
 // Optionen für Listenelemente kommen aus dem proto als beliebiger Typ daher, jedoch immer in der gleichen nummerierung

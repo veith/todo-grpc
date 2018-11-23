@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package task.v1;
+
+option go_package = "task";
+
+import "google/api/annotations.proto";
+
+import "task-grpc-api/messages.proto";
+
+service TaskService {
+    rpc CreateTask (CreateTaskRequest) returns (TaskEntity) {
+        option (google.api.http) = {
+			post: "/tasks"
+			body: "item"
+		};
+
+    }
+
+    rpc GetTask (GetTaskRequest) returns (TaskEntity) {
+        option (google.api.http) = {
+			get: "/tasks/{id}"
+		};
+    }
+
+    rpc ListTask (ListTaskRequest) returns (TaskCollection) {
+        option (google.api.http) = {
+			get: "/tasks"
+		};
+    }
+
+    rpc DeleteTask (DeleteTaskRequest) returns (DeleteTaskResponse) {
+        option (google.api.http) = {
+			delete: "/tasks/{id}"
+		};
+    }
+
+    rpc UpdateTask (UpdateTaskRequest) returns (TaskEntity) {
+        option (google.api.http) = {
+			put: "/tasks/{id}"
+			body: "item"
+		};
+    }
+
+    rpc CompleteTask (GetTaskRequest) returns (TaskEntity) {
+        option (google.api.http) = {
+			post: "/tasks/{id}:complete"
+		};
+    }
+
+}
+
