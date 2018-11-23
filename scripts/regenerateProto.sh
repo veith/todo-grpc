@@ -14,6 +14,6 @@ Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,\
 Mgoogle/protobuf/wrappers.proto=github.com/gogo/protobuf/types,\
 plugins=grpc:../internal/ \
 --gotemplate_out=../ \
---swagger_out=logtostderr=true:../api \
+--swagger_out=logtostderr=true:../api/docs \
 --grpc-gateway_out=logtostderr=true:../internal/ \
 task-grpc-api/*.proto
