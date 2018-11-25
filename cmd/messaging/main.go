@@ -14,6 +14,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"log"
@@ -21,10 +22,10 @@ import (
 	"os/signal"
 	"time"
 
-	"../../internal/task"
+	tskdb "../../internal/task"
 	"github.com/nats-io/go-nats-streaming"
 
-	pbm "../../expermients/task"
+	"../../expermients/task"
 	"github.com/nats-io/go-nats-streaming/pb"
 	"upper.io/db.v3/sqlite"
 )
@@ -76,7 +77,7 @@ func main() {
 	}
 	defer dbSession.Close() // Remember to close the database session.
 	// DB session weitergeben
-	task.ConnectDatabase(dbSession)
+	tskdb.ConnectDatabase(dbSession)
 
 	var clusterID string
 	var clientID string
@@ -104,7 +105,7 @@ func main() {
 	flag.BoolVar(&deliverAll, "all", false, "Deliver all")
 	flag.BoolVar(&deliverLast, "last", false, "Start with last value")
 	flag.StringVar(&startDelta, "since", "", "Deliver messages since specified time offset")
-	flag.StringVar(&durable, "durable", "taskServer", "Durable subscriber name")
+	flag.StringVar(&durable, "durable", "taskServerB", "Durable subscriber name")
 	flag.StringVar(&qgroup, "qgroup", "", "Queue group name")
 	flag.BoolVar(&unsubscribe, "unsubscribe", false, "Unsubscribe the durable on exit")
 
@@ -136,10 +137,13 @@ func main() {
 
 	// callback function für empfangene nachricht
 	mcb := func(msg *stan.Msg) {
-		t := pbm.Task{}
+		t := task.Task{}
 		t.Unmarshal(msg.Data)
 		tt := task.Task{Title: t.Title}
-		task.CreateTaskItem(&tt)
+		s := task.GetServiceServer()
+		reqItem := task.CreateTaskRequest{Item: &tt}
+		s.CreateTask(context.Background(), &reqItem)
+
 		i++
 		printMsg(msg, i)
 

@@ -1,0 +1,16 @@
+{
+  "publish":[
+  {
+    "event":"task-created",
+    "channel":"taks.created",
+    "async":true
+  }
+  ],
+  "subscribe":[
+  {
+    "handler":"CreateTask",
+    "channel":"bot.task.recognized",
+    "durable":true
+  }
+  ],
+}
