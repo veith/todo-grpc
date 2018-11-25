@@ -78,6 +78,8 @@ func main() {
 	defer dbSession.Close() // Remember to close the database session.
 	// DB session weitergeben
 	tskdb.ConnectDatabase(dbSession)
+	// grpc handler
+	handler := task.GetServiceServer()
 
 	var clusterID string
 	var clientID string
@@ -135,14 +137,16 @@ func main() {
 
 	subj, i := args[0], 0
 
+	callbackfuncs := map[string]func(msg *stan.Msg){}
+
 	// callback function für empfangene nachricht
-	mcb := func(msg *stan.Msg) {
+	callbackfuncs["createTask"] = func(msg *stan.Msg) {
 		t := task.Task{}
 		t.Unmarshal(msg.Data)
 		tt := task.Task{Title: t.Title}
-		s := task.GetServiceServer()
+
 		reqItem := task.CreateTaskRequest{Item: &tt}
-		s.CreateTask(context.Background(), &reqItem)
+		handler.CreateTask(context.Background(), &reqItem)
 
 		i++
 		printMsg(msg, i)
@@ -167,7 +171,7 @@ func main() {
 		startOpt = stan.StartAtTimeDelta(ago)
 	}
 
-	sub, err := sc.QueueSubscribe(subj, qgroup, mcb, startOpt, stan.DurableName(durable))
+	sub, err := sc.QueueSubscribe(subj, qgroup, callbackfuncs["createTask"], startOpt, stan.DurableName(durable))
 	if err != nil {
 		sc.Close()
 		log.Fatal(err)
