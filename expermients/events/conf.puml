@@ -1,0 +1,23 @@
+@startuml
+
+
+[Bot] as Bot
+() "taskRecognized" as btr
+Bot . btr
+
+[Tasks] as Tsk
+() "createTask" as tct
+tct  . Tsk
+
+() "taskCreated" as ttc
+Tsk . ttc
+
+[CMS] as cms
+() "trackTask" as ctt
+ctt . cms
+
+btr --> tct :"bot.tasks.recognized ACK"
+ttc --> ctt:"tasks.task.created"
+
+
+@enduml
