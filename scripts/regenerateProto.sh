@@ -3,7 +3,8 @@
 # https://github.com/gogo/protobuf/issues/325
 cd protobuf
 
-protoc -I. -I/usr/local/include \
+protoc -I. \
+-I/usr/local/include \
 -I$GOPATH/src \
 -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
 --gogofast_out=\
@@ -16,4 +17,4 @@ plugins=grpc:../internal/ \
 --gotemplate_out=../ \
 --swagger_out=logtostderr=true:../api/docs \
 --grpc-gateway_out=logtostderr=true:../internal/ \
-task-grpc-api/*.proto
+task-api/*.proto

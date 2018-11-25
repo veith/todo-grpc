@@ -5,8 +5,7 @@ package task.v1;
 option go_package = "task";
 
 import "google/api/annotations.proto";
-
-import "task-grpc-api/messages.proto";
+import "task-api/messages.proto";
 
 service TaskService {
     rpc CreateTask (CreateTaskRequest) returns (TaskEntity) {

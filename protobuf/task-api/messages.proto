@@ -7,8 +7,32 @@ option go_package = "task";
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
-import "task-grpc-api/rest.proto";
 
+
+
+///-------------------------------------------------------------------
+/// List of official link rels:
+/// http://www.iana.org/assignments/link-relations/link-relations.xhtml
+///-------------------------------------------------------------------
+message Link {
+    string rel = 1;
+
+    //https://tools.ietf.org/html/rfc7231#section-4
+    enum Method {
+        PUT = 0;
+        GET = 1;
+        HEAD = 2;
+        POST = 3;
+        PATCH = 4;
+        DELETE = 5;
+        TRACE = 6;
+        OPTIONS = 7;
+    }
+    Method method = 2;
+    string href = 3;
+    string type = 4;
+
+}
 
 
 enum Complete {
