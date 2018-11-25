@@ -2,7 +2,7 @@ package main
 
 import (
 	taskimpl "../../internal/task"
-	"../../internal/task-grpc-api"
+	"../../internal/task-api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"

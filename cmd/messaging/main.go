@@ -25,7 +25,7 @@ import (
 	tskdb "../../internal/task"
 	"github.com/nats-io/go-nats-streaming"
 
-	"../../expermients/task"
+	"../../internal/task-api"
 	"github.com/nats-io/go-nats-streaming/pb"
 	"upper.io/db.v3/sqlite"
 )
@@ -105,7 +105,7 @@ func main() {
 	flag.BoolVar(&deliverAll, "all", false, "Deliver all")
 	flag.BoolVar(&deliverLast, "last", false, "Start with last value")
 	flag.StringVar(&startDelta, "since", "", "Deliver messages since specified time offset")
-	flag.StringVar(&durable, "durable", "taskServerB", "Durable subscriber name")
+	flag.StringVar(&durable, "durable", "taskServer", "Durable subscriber name")
 	flag.StringVar(&qgroup, "qgroup", "", "Queue group name")
 	flag.BoolVar(&unsubscribe, "unsubscribe", false, "Unsubscribe the durable on exit")
 
