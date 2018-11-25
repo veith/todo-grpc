@@ -30,7 +30,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("db.Open(): %q\n", err)
 	}
-	defer dbSession.Close() // Remember to close the database session.
+	defer dbSession.Close()
 
 	lis, err := net.Listen("tcp", port)
 	if err != nil {

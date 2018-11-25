@@ -72,7 +72,8 @@ func main() {
 	defer sc.Close()
 
 	subj, mstr := args[0], []byte(args[1])
-	m := task.Task{Title: string(mstr)}
+	tsk := task.Task{Title: string(mstr)}
+	m := task.CreateTaskRequest{Item: &tsk}
 	msg, _ := m.Marshal()
 
 	ch := make(chan bool)

@@ -75,9 +75,10 @@ func main() {
 
 		log.Fatalf("db.Open(): %q\n", err)
 	}
-	defer dbSession.Close() // Remember to close the database session.
+	defer dbSession.Close()
 	// DB session weitergeben
 	tskdb.ConnectDatabase(dbSession)
+
 	// grpc handler
 	handler := task.GetServiceServer()
 
@@ -141,13 +142,13 @@ func main() {
 
 	// callback function für empfangene nachricht
 	callbackfuncs["createTask"] = func(msg *stan.Msg) {
-		t := task.Task{}
-		t.Unmarshal(msg.Data)
-		tt := task.Task{Title: t.Title}
-
-		reqItem := task.CreateTaskRequest{Item: &tt}
-		handler.CreateTask(context.Background(), &reqItem)
-
+		t := task.CreateTaskRequest{}
+		err := t.Unmarshal(msg.Data)
+		if err != nil {
+			log.Println(msg)
+		} else {
+			handler.CreateTask(context.Background(), &t)
+		}
 		i++
 		printMsg(msg, i)
 

@@ -1,3 +1,8 @@
+rufe einfach folgenden Befehl auf um eine Nachricht zu senden.
+``` 
+go run expermients/events/main.go task.recognized "Callbacks"  
+```
+
 Ein Modul kennt seine Handler und Events mit ihren definierten Typen.
 
 Über die Konfiguration registirert ein Modul seine Handler zu den entsprechenden Topics und 
@@ -6,7 +11,6 @@ Ein Modul **Task** kann nur auf ein Topic werfen das mit **task.** beginnt. Folg
 - **task.created**
 - **task.vip.created**
 - **task.vip.completed**
-
  
 
 
