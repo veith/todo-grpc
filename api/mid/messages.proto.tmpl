@@ -1,14 +1,16 @@
-// Code generated from MID. DO NOT EDIT.
-// source: ???
+{{if .__proto}}// Code generated from MID. DO NOT EDIT.
+// source: {{.__proto.messages_source_repo}}
+// Message Types for {{.package}}
+{{$desc := splitList "\n" .description}}{{range $desc}}
+// {{.}}{{end}}
 
 syntax = "proto3";
-{{if .__proto}}
 package {{.package}}.v{{.major_version}};
 
 // Options {{ range $key, $proto := .__proto.options }}
 option {{$proto.key}} = "{{$proto.value}}";{{ end }}
 
-// Imports {{ range $key, $import := .__proto.imports }}
+// Imports {{ range $key, $import := .__proto.messages_imports }}
 import "{{$import}}";{{ end }}
 
 // Enums

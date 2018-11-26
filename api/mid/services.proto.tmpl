@@ -1,0 +1,29 @@
+{{if .__proto}}// Code generated from MID. DO NOT EDIT.
+// source: {{.__proto.services_source_repo}}
+// Message Types for {{.package}}
+{{$desc := splitList "\n" .description}}{{range $desc}}
+// {{.}}{{end}}
+
+syntax = "proto3";
+package {{.package}}.v{{.major_version}};
+
+// Options {{ range $key, $proto := .__proto.options }}
+option {{$proto.key}} = "{{$proto.value}}";{{ end }}
+
+// Imports {{ range $key, $import := .__proto.services_imports }}
+import "{{$import}}";{{ end }}
+
+// Services
+{{ range $key, $service := .services }}{{$desc := splitList "\n" $service.description}}{{range $desc}}
+//{{.}}{{end}}
+service {{$service.name}} {{"{"}}{{ range $key, $method := $service.methods}}{{$desc := splitList "\n" $method.description}}{{range $desc}}
+    //{{.}}{{end}}
+    rpc {{$method.name}} ({{$method.input_type}}) returns ({{$method.output_type}}) {{"{"}}{{if $method.options}}{{ range $key, $option := $method.options }}
+        option ({{$option.name}}) = {{"{"}}{{range $key, $var := $option.vars }}
+            {{$var.key}}: "{{$var.value}}"{{end}}
+        {{"}"}};{{end}}{{end}}
+    {{"}"}}
+    {{end}}
+{{"}"}}{{end}}
+
+{{end}}

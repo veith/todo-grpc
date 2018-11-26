@@ -1,12 +1,19 @@
 {
   "package": "task",
+
   "major_version": "1",
-  "description": "ddd",
+  "description": "Interface Definitonen für das Modul Task \nZweck diese Moduls ist es sowas wie eine TO-DO Liste zu haben",
   "__proto": {
-    "imports": [
+    "messages_source_repo": "git.adcubum.com/tasks/protobuf/messages",
+    "services_source_repo": "git.adcubum.com/tasks/protobuf/services",
+    "messages_imports": [
       "google/api/annotations.proto",
       "google/protobuf/timestamp.proto",
       "github.com/gogo/protobuf/gogoproto/gogo.proto"
+    ],
+    "services_imports": [
+      "google/api/annotations.proto",
+      "mid/messages.proto"
     ],
     "options": [
       {
@@ -38,9 +45,11 @@
   "services": [
     {
       "name": "TaskService",
+      "description": "Beschreibung der Services \n Neue Zeile",
       "methods": [
         {
           "name": "CreateTask",
+          "description": "Erstellen eines neuen Tasks",
           "input_type": "CreateTaskRequest",
           "output_type": "TaskEntity",
           "options": [
@@ -61,24 +70,28 @@
         },
         {
           "name": "GetTask",
+          "description": "Abfragen eines Tasks",
           "input_type": "GetTaskRequest",
           "output_type": "TaskEntity",
           "options": []
         },
         {
           "name": "ListTask",
+          "description": "Abfragen der Taskliste",
           "input_type": "ListTaskRequest",
           "output_type": "TaskCollection",
           "options": []
         },
         {
           "name": "DeleteTask",
+          "description": "Löschen eines Tasks \nNicht widerrufbar",
           "input_type": "DeleteTaskRequest",
           "output_type": "DeleteTaskResponse",
           "options": []
         },
         {
           "name": "UpdateTask",
+          "description": "Aktualiseren eines Tasks",
           "input_type": "UpdateTaskRequest",
           "output_type": "TaskEntity",
           "options": [
@@ -99,6 +112,7 @@
         },
         {
           "name": "CompleteTask",
+          "description": "Benutzerdefinierte Methode um einen Task direkt als abgeschlossen zu setzen",
           "input_type": "GetTaskRequest",
           "output_type": "TaskEntity",
           "options": []
