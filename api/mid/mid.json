@@ -1,12 +1,12 @@
 {
   "package": "task",
-  "description": "",
+  "major_version": "1",
+  "description": "ddd",
   "__proto": {
     "imports": [
       "google/api/annotations.proto",
       "google/protobuf/timestamp.proto",
-      "github.com/gogo/protobuf/gogoproto/gogo.proto",
-      "protos/rest.proto"
+      "github.com/gogo/protobuf/gogoproto/gogo.proto"
     ],
     "options": [
       {
@@ -19,7 +19,7 @@
       },
       {
         "key": "go_package",
-        "value": "\"google.golang.org/genproto/googleapis/api/annotations;annotations\""
+        "value": "google.golang.org/genproto/googleapis/api/annotations;annotations"
       },
       {
         "key": "java_multiple_files",
@@ -27,15 +27,15 @@
       },
       {
         "key": "java_outer_classname",
-        "value": "\"HttpProto\""
+        "value": "HttpProto"
       },
       {
         "key": "java_package",
-        "value": "\"com.google.api\""
+        "value": "com.google.api"
       },
       {
         "key": "objc_class_prefix",
-        "value": "\"GAPI\""
+        "value": "GAPI"
       }
     ]
   },
@@ -113,21 +113,21 @@
   "enum_types": [
     {
       "name": "Complete",
-      "description": "",
+      "description": "Unkown mit 0 ist bewusst. So können wir feststellen ob ein Wert auch wirklich gesetzt wurde \n Neue Zeile",
       "value": [
         {
           "name": "UNKNOWN",
-          "description": "",
+          "description": "Zustand unbekannt oder nicht gesetzt",
           "number": 0
         },
         {
           "name": "RUNNING",
-          "description": "",
+          "description": "Task läuft",
           "number": 1
         },
         {
           "name": "COMPLETED",
-          "description": "",
+          "description": "Task abgeschlossen",
           "number": 2
         }
       ]
@@ -136,7 +136,7 @@
   "types": [
     {
       "name": "EreignisFotoCreate",
-      "description": "",
+      "description": "Ereignisse welche von der Galerie erkannt wurden \nDie Funktion ist nur gefaket \nDas ist ein test von mutilines",
       "fields": [
         {
           "name": "id",
@@ -146,12 +146,13 @@
           "__proto": {
             "type": "string",
             "number": 1,
-            "options": {
-              "gogoproto.moretags": {
+            "options": [
+              {
+                "name": "gogoproto.moretags",
                 "key": "db",
                 "value": "id,pk,omitempty"
               }
-            }
+            ]
           },
           "__sqllite": {
             "type": "BLOB not null primary key"
@@ -166,12 +167,13 @@
           "__proto": {
             "type": "string",
             "number": 2,
-            "options": {
-              "gogoproto.moretags": {
+            "options": [
+              {
+                "name": "gogoproto.moretags",
                 "key": "db",
                 "value": "data,omitempty"
               }
-            }
+            ]
           },
           "__sqllite": {
             "type": "TEXT"

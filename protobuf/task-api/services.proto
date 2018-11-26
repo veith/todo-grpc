@@ -13,7 +13,6 @@ service TaskService {
 			post: "/tasks"
 			body: "item"
 		};
-
     }
 
     rpc GetTask (GetTaskRequest) returns (TaskEntity) {

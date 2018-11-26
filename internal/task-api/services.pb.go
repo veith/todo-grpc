@@ -261,9 +261,9 @@ var _TaskService_serviceDesc = grpc.ServiceDesc{
 	Metadata: "task-api/services.proto",
 }
 
-func init() { proto.RegisterFile("task-api/services.proto", fileDescriptor_services_7adf0c3c123699a4) }
+func init() { proto.RegisterFile("task-api/services.proto", fileDescriptor_services_63b31692be3d3410) }
 
-var fileDescriptor_services_7adf0c3c123699a4 = []byte{
+var fileDescriptor_services_63b31692be3d3410 = []byte{
 	// 325 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0xd2, 0xc1, 0x4a, 0xf3, 0x40,
 	0x10, 0x07, 0x70, 0xfa, 0x11, 0xda, 0xb2, 0xfd, 0xec, 0x61, 0x53, 0x8c, 0xc6, 0x92, 0x43, 0x8e,

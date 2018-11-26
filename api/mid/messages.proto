@@ -9,17 +9,6 @@ import "google/protobuf/timestamp.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 
 
-//https://tools.ietf.org/html/rfc7231#section-4
-enum Method {
-    PUT = 0;
-    GET = 1;
-    HEAD = 2;
-    POST = 3;
-    PATCH = 4;
-    DELETE = 5;
-    TRACE = 6;
-    OPTIONS = 7;
-}
 
 ///-------------------------------------------------------------------
 /// List of official link rels:
@@ -28,7 +17,17 @@ enum Method {
 message Link {
     string rel = 1;
 
-
+    //https://tools.ietf.org/html/rfc7231#section-4
+    enum Method {
+        PUT = 0;
+        GET = 1;
+        HEAD = 2;
+        POST = 3;
+        PATCH = 4;
+        DELETE = 5;
+        TRACE = 6;
+        OPTIONS = 7;
+    }
     Method method = 2;
     string href = 3;
     string type = 4;
