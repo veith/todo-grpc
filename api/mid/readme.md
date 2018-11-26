@@ -1,1 +1,5 @@
-simple-generator -d api/mid/mid.json -t api/mid/messages.proto.tmpl > api/mid/messages.proto
+## usage
+just execute
+```
+scripts/midDemo.sh
+```

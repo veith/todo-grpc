@@ -1,0 +1,51 @@
+// Code generated from MID. DO NOT EDIT.
+// source template: messages.proto.java.tmpl
+// soure mid: ???
+// generate time 2018-11-26 10:57:00
+
+// Code generated from MID. DO NOT EDIT.
+// source: git.adcubum.com/tasks/protobuf/messages
+// Message Types for task
+
+// Interface Definitonen für das Modul Task 
+// Zweck diese Moduls ist es sowas wie eine TO-DO Liste zu haben
+
+syntax = "proto3";
+package task.v1;
+
+// Options 
+option go_package = "task";
+option cc_enable_arenas = "true";
+option java_multiple_files = "true";
+option java_outer_classname = "HttpProto";
+option java_package = "com.google.api";
+option objc_class_prefix = "GAPI";
+
+// Imports 
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+// Enums
+
+//Unkown mit 0 ist bewusst. So können wir feststellen ob ein Wert auch wirklich gesetzt wurde 
+// Neue Zeile
+enum Complete {
+    UNKNOWN = 0; //Zustand unbekannt oder nicht gesetzt
+    RUNNING = 1; //Task läuft
+    COMPLETED = 2; //Task abgeschlossen
+}
+
+// Messages
+
+//Ereignisse welche von der Galerie erkannt wurden 
+//Die Funktion ist nur gefaket 
+//Das ist ein test von mutilines
+message EreignisFotoCreate {
+    //für IDs werden wir intern ulid verwenden
+    string id = 1 [(gogoproto.moretags) = "db:\"id,pk,omitempty\""];
+    //Base64 encodetes Bild des Ereigniss
+    string data = 2 [(gogoproto.moretags) = "db:\"data,omitempty\""];
+    //Beschreibung des Tasks
+    string description = 33;
+}

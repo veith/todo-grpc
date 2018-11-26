@@ -165,7 +165,7 @@
             ]
           },
           "__sqlite": {
-            "type": "BLOB not null primary key"
+            "type": "BLOB"
           }
         },
         {
