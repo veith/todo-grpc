@@ -164,7 +164,7 @@
               }
             ]
           },
-          "__sqllite": {
+          "__sqlite": {
             "type": "BLOB not null primary key"
           }
         },
@@ -185,7 +185,7 @@
               }
             ]
           },
-          "__sqllite": {
+          "__sqlite": {
             "type": "TEXT"
           }
         },
@@ -199,11 +199,15 @@
             "type": "string",
             "number": 33
           },
-          "__sqllite": {
+          "__sqlite": {
             "type": "TEXT"
           }
         }
-      ]
+      ],
+      "__sqlite": {
+        "name": "fotos",
+        "primary_key": "id"
+      }
     }
   ]
 }
