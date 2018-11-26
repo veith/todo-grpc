@@ -1,5 +1,5 @@
 {
-  "build-date": "2018-11-26T18:46:55.709099+01:00",
+  "build-date": "2018-11-26T18:48:36.923474+01:00",
   "build-hostname": "z-industries.local",
   "build-user": "veith",
   "pwd": "/Users/veith/Projects/tests/protogen/protobuf",
@@ -10,8 +10,7 @@
     "package": "task.v1",
     "dependency": [
       "google/api/annotations.proto",
-      "task-api/messages.proto",
-      "task-api/rest.proto"
+      "task-api/messages.proto"
     ],
     "service": [
       {
@@ -130,17 +129,6 @@
             7,
             7,
             32
-          ]
-        },
-        {
-          "path": [
-            3,
-            2
-          ],
-          "span": [
-            8,
-            7,
-            28
           ]
         },
         {
