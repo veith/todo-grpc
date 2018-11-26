@@ -46,8 +46,8 @@ make check
 sudo make install
 ```
 
-
-To use `scripts/regenerateProto.sh for generating stuff from proto files install
+## built in Generators
+To use `scripts/regenerateProto.sh for generating the proto stubs and the REST-grpc-REST transcoder from proto files install
 ```
 go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 go get -u github.com/micro/protobuf/protoc-gen-go
