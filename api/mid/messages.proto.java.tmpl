@@ -23,6 +23,6 @@ enum {{$enum.name}} {{"{"}}{{ range $key, $field := $enum.value }}
 //{{.}}{{end}}
 message {{$type.name}} {{"{"}}{{ range $key, $field := $type.fields }}
     //{{$field.description}}
-    {{$field.__proto.type}} {{$field.name}} = {{$field.__proto.number}}{{if $field.__proto.options}} [{{ range $key, $option := $field.__proto.options }}({{$option.name}}) = "{{$option.key}}:\"{{$option.value}}\""{{end}}]{{end}};{{end}}
+    {{$field.__proto.type}} {{$field.name}} = {{$field.__proto.number}};{{end}}
 }{{ end }}
 {{end}}

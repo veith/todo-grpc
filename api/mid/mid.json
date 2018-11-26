@@ -18,10 +18,6 @@
         "value": "true"
       },
       {
-        "key": "go_package",
-        "value": "google.golang.org/genproto/googleapis/api/annotations;annotations"
-      },
-      {
         "key": "java_multiple_files",
         "value": "true"
       },
@@ -174,6 +170,20 @@
                 "value": "data,omitempty"
               }
             ]
+          },
+          "__sqllite": {
+            "type": "TEXT"
+          }
+        },
+        {
+          "name": "description",
+          "description": "Beschreibung des Tasks",
+          "type": "base64",
+          "repeated": false,
+          "mandatory": true,
+          "__proto": {
+            "type": "string",
+            "number": 33
           },
           "__sqllite": {
             "type": "TEXT"
