@@ -47,7 +47,7 @@ sudo make install
 ```
 
 
-To use regenerateProto.sh install
+To use `scripts/regenerateProto.sh for generating stuff from proto files install
 ```
 go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 go get -u github.com/micro/protobuf/protoc-gen-go
@@ -60,4 +60,9 @@ go get github.com/oklog/ulid
 go get upper.io/db.v3
 go get upper.io/db.v3/sqlite
 
+```
+
+To use `scripts/midDemo.sh` to generate protos install 
+```
+go get github.com/veith/simple-generator
 ```

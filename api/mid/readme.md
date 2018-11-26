@@ -1,5 +1,5 @@
 # Multi Interface Description
-is a extendable **IDL** and description language to declare your interfaces.
+MID is a extendable **IDL** and description language to declare your interfaces. It is just a simple JSON or YAML file ;-) .
 Write your MIDs centrally and create protos, schemas and more from them.
 
 ## under the hood
