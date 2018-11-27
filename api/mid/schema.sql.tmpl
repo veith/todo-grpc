@@ -1,11 +1,12 @@
 -- auto generated definition
 -- source ____
 -- generate time {{now | date "2006-01-02 03:04:05"}}
-{{ range $k, $type := .types }}{{$desc := splitList "\n" .description}}{{range $desc}}
+{{ range $k, $type := .types }}{{if $type.__sqlite}}{{$desc := splitList "\n" .description}}{{range $desc}}
 -- {{.}}{{end}}
 CREATE TABLE "{{if $type.__sqlite.name}}{{$type.__sqlite.name | lower}}{{else}}{{$type.name | lower}}s{{end}}"
 ({{ range $k, $field := .fields }}
   `{{.name | lower}}`       {{.__sqlite.type | upper}},        -- {{.description}}{{end}}{{if $type.__sqlite.primary_key}}
   PRIMARY KEY (`{{$type.__sqlite.primary_key}}`){{end}}
 )
+{{end}}
 {{end}}

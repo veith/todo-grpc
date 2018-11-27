@@ -1,6 +1,7 @@
 -- auto generated definition
 -- source ____
--- generate time 2018-11-26 10:57:00
+-- generate time 2018-11-27 11:32:22
+
 
 -- Ereignisse welche von der Galerie erkannt wurden 
 -- Die Funktion ist nur gefaket 
@@ -12,3 +13,4 @@ CREATE TABLE "fotos"
   `description`       TEXT,        -- Beschreibung des Tasks
   PRIMARY KEY (`id`)
 )
+

@@ -1,7 +1,7 @@
 // Code generated from MID. DO NOT EDIT.
 // source template: messages.proto.java.tmpl
 // soure mid: ???
-// generate time 2018-11-26 10:57:00
+// generate time 2018-11-27 11:32:22
 
 // Code generated from MID. DO NOT EDIT.
 // source: git.adcubum.com/tasks/protobuf/messages
@@ -41,7 +41,14 @@ enum Complete {
 //Ereignisse welche von der Galerie erkannt wurden 
 //Die Funktion ist nur gefaket 
 //Das ist ein test von mutilines
-message EreignisFotoCreate {
+message CreateTaskRequest {
+    //für IDs werden wir intern ulid verwenden
+    string id = 1 [(gogoproto.moretags) = "db:\"id,pk,omitempty\""];
+}
+//Ereignisse welche von der Galerie erkannt wurden 
+//Die Funktion ist nur gefaket 
+//Das ist ein test von mutilines
+message EreignisFoto {
     //für IDs werden wir intern ulid verwenden
     string id = 1 [(gogoproto.moretags) = "db:\"id,pk,omitempty\""];
     //Base64 encodetes Bild des Ereigniss

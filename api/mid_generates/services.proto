@@ -18,7 +18,7 @@ option objc_class_prefix = "GAPI";
 
 // Imports 
 import "google/api/annotations.proto";
-import "mid/messages.proto";
+import "mid_generates/messages.proto";
 
 // Services
 
@@ -26,7 +26,7 @@ import "mid/messages.proto";
 // Neue Zeile
 service TaskService {
     //Erstellen eines neuen Tasks
-    rpc CreateTask (CreateTaskRequest) returns (TaskEntity) {
+    rpc CreateTask (CreateTaskRequest) returns (EreignisFoto) {
         option (google.api.http) = {
             post: "/v1/{parent=shelves/*}/books"
             body: "books"
@@ -34,20 +34,20 @@ service TaskService {
     }
     
     //Abfragen eines Tasks
-    rpc GetTask (GetTaskRequest) returns (TaskEntity) {
+    rpc GetTask (CreateTaskRequest) returns (EreignisFoto) {
     }
     
     //Abfragen der Taskliste
-    rpc ListTask (ListTaskRequest) returns (TaskCollection) {
+    rpc ListTask (CreateTaskRequest) returns (EreignisFoto) {
     }
     
     //Löschen eines Tasks 
     //Nicht widerrufbar
-    rpc DeleteTask (DeleteTaskRequest) returns (DeleteTaskResponse) {
+    rpc DeleteTask (CreateTaskRequest) returns (EreignisFoto) {
     }
     
     //Aktualiseren eines Tasks
-    rpc UpdateTask (UpdateTaskRequest) returns (TaskEntity) {
+    rpc UpdateTask (CreateTaskRequest) returns (EreignisFoto) {
         option (google.api.http) = {
             put: "/tasks/{id}"
             body: "item"
@@ -55,7 +55,7 @@ service TaskService {
     }
     
     //Benutzerdefinierte Methode um einen Task direkt als abgeschlossen zu setzen
-    rpc CompleteTask (GetTaskRequest) returns (TaskEntity) {
+    rpc CompleteTask (CreateTaskRequest) returns (EreignisFoto) {
     }
     
 }

@@ -13,7 +13,7 @@
     ],
     "services_imports": [
       "google/api/annotations.proto",
-      "mid/messages.proto"
+      "mid_generates/messages.proto"
     ],
     "options": [
       {
@@ -51,7 +51,7 @@
           "name": "CreateTask",
           "description": "Erstellen eines neuen Tasks",
           "input_type": "CreateTaskRequest",
-          "output_type": "TaskEntity",
+          "output_type": "EreignisFoto",
           "options": [
             {
               "name": "google.api.http",
@@ -71,29 +71,29 @@
         {
           "name": "GetTask",
           "description": "Abfragen eines Tasks",
-          "input_type": "GetTaskRequest",
-          "output_type": "TaskEntity",
+          "input_type": "CreateTaskRequest",
+          "output_type": "EreignisFoto",
           "options": []
         },
         {
           "name": "ListTask",
           "description": "Abfragen der Taskliste",
-          "input_type": "ListTaskRequest",
-          "output_type": "TaskCollection",
+          "input_type": "CreateTaskRequest",
+          "output_type": "EreignisFoto",
           "options": []
         },
         {
           "name": "DeleteTask",
           "description": "Löschen eines Tasks \nNicht widerrufbar",
-          "input_type": "DeleteTaskRequest",
-          "output_type": "DeleteTaskResponse",
+          "input_type": "CreateTaskRequest",
+          "output_type": "EreignisFoto",
           "options": []
         },
         {
           "name": "UpdateTask",
           "description": "Aktualiseren eines Tasks",
-          "input_type": "UpdateTaskRequest",
-          "output_type": "TaskEntity",
+          "input_type": "CreateTaskRequest",
+          "output_type": "EreignisFoto",
           "options": [
             {
               "name": "google.api.http",
@@ -113,8 +113,8 @@
         {
           "name": "CompleteTask",
           "description": "Benutzerdefinierte Methode um einen Task direkt als abgeschlossen zu setzen",
-          "input_type": "GetTaskRequest",
-          "output_type": "TaskEntity",
+          "input_type": "CreateTaskRequest",
+          "output_type": "EreignisFoto",
           "options": []
         }
       ]
@@ -145,7 +145,30 @@
   ],
   "types": [
     {
-      "name": "EreignisFotoCreate",
+      "name": "CreateTaskRequest",
+      "description": "Ereignisse welche von der Galerie erkannt wurden \nDie Funktion ist nur gefaket \nDas ist ein test von mutilines",
+      "fields": [
+        {
+          "name": "id",
+          "description": "für IDs werden wir intern ulid verwenden",
+          "type": "ulid",
+          "mandatory": false,
+          "__proto": {
+            "type": "string",
+            "number": 1,
+            "options": [
+              {
+                "name": "gogoproto.moretags",
+                "key": "db",
+                "value": "id,pk,omitempty"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "EreignisFoto",
       "description": "Ereignisse welche von der Galerie erkannt wurden \nDie Funktion ist nur gefaket \nDas ist ein test von mutilines",
       "fields": [
         {

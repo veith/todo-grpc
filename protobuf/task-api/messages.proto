@@ -24,6 +24,7 @@ message Task {
     Complete completed = 4 [(gogoproto.moretags) = "db:\"completed\""];
     google.protobuf.Timestamp created_at = 5;
     google.protobuf.Timestamp updated_at = 6;
+
 }
 
 message CreateTaskRequest {
