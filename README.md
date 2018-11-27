@@ -1,5 +1,5 @@
 # todo-grpc
-Is a training project for my students at [webproffesionals.ch](https://web-professionals.ch/) to train how to build a 
+Is a training project for my students at [Web Professionals.ch](https://web-professionals.ch/) to train how to build a 
 event-driven RESTFul microservice architecture with **golang**, **grpc**, **nats**, **aws**, **google cloud engine**, **web-components**,... 
 
 ## Prereqs
