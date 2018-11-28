@@ -1,0 +1,735 @@
+{
+  "build-date": "2018-11-28T09:01:23.919738+01:00",
+  "build-hostname": "z-industries.local",
+  "build-user": "veith",
+  "pwd": "/Users/veith/Projects/tests/protogen/protobuf",
+  "debug": false,
+  "destination-dir": ".",
+  "file": {
+    "name": "task-api/services.proto",
+    "package": "task.v1",
+    "dependency": [
+      "google/api/annotations.proto",
+      "task-api/messages.proto"
+    ],
+    "service": [
+      {
+        "name": "TaskService",
+        "method": [
+          {
+            "name": "CreateTask",
+            "input_type": ".task.v1.CreateTaskRequest",
+            "output_type": ".task.v1.TaskEntity",
+            "options": {}
+          },
+          {
+            "name": "GetTask",
+            "input_type": ".task.v1.GetTaskRequest",
+            "output_type": ".task.v1.TaskEntity",
+            "options": {}
+          },
+          {
+            "name": "ListTask",
+            "input_type": ".task.v1.ListTaskRequest",
+            "output_type": ".task.v1.TaskCollection",
+            "options": {}
+          },
+          {
+            "name": "DeleteTask",
+            "input_type": ".task.v1.DeleteTaskRequest",
+            "output_type": ".task.v1.DeleteTaskResponse",
+            "options": {}
+          },
+          {
+            "name": "UpdateTask",
+            "input_type": ".task.v1.UpdateTaskRequest",
+            "output_type": ".task.v1.TaskEntity",
+            "options": {}
+          },
+          {
+            "name": "CompleteTask",
+            "input_type": ".task.v1.GetTaskRequest",
+            "output_type": ".task.v1.TaskEntity",
+            "options": {}
+          }
+        ]
+      }
+    ],
+    "options": {
+      "go_package": "task"
+    },
+    "source_code_info": {
+      "location": [
+        {
+          "span": [
+            0,
+            0,
+            56,
+            1
+          ]
+        },
+        {
+          "path": [
+            12
+          ],
+          "span": [
+            0,
+            0,
+            18
+          ]
+        },
+        {
+          "path": [
+            2
+          ],
+          "span": [
+            2,
+            8,
+            15
+          ]
+        },
+        {
+          "path": [
+            8
+          ],
+          "span": [
+            4,
+            0,
+            27
+          ]
+        },
+        {
+          "path": [
+            8,
+            11
+          ],
+          "span": [
+            4,
+            0,
+            27
+          ]
+        },
+        {
+          "path": [
+            3,
+            0
+          ],
+          "span": [
+            6,
+            7,
+            37
+          ]
+        },
+        {
+          "path": [
+            3,
+            1
+          ],
+          "span": [
+            7,
+            7,
+            32
+          ]
+        },
+        {
+          "path": [
+            6,
+            0
+          ],
+          "span": [
+            9,
+            0,
+            56,
+            1
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            1
+          ],
+          "span": [
+            9,
+            8,
+            19
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            0
+          ],
+          "span": [
+            12,
+            4,
+            17,
+            5
+          ],
+          "leading_comments": " Erstellen eines Tasks\n"
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            0,
+            1
+          ],
+          "span": [
+            12,
+            8,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            0,
+            2
+          ],
+          "span": [
+            12,
+            20,
+            37
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            0,
+            3
+          ],
+          "span": [
+            12,
+            48,
+            58
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            0,
+            4
+          ],
+          "span": [
+            13,
+            8,
+            16,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            0,
+            4,
+            72295728
+          ],
+          "span": [
+            13,
+            8,
+            16,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            1
+          ],
+          "span": [
+            20,
+            4,
+            24,
+            5
+          ],
+          "leading_comments": " Laden eines Tasks\n"
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            1,
+            1
+          ],
+          "span": [
+            20,
+            8,
+            15
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            1,
+            2
+          ],
+          "span": [
+            20,
+            17,
+            31
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            1,
+            3
+          ],
+          "span": [
+            20,
+            42,
+            52
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            1,
+            4
+          ],
+          "span": [
+            21,
+            8,
+            23,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            1,
+            4,
+            72295728
+          ],
+          "span": [
+            21,
+            8,
+            23,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            2
+          ],
+          "span": [
+            27,
+            4,
+            31,
+            5
+          ],
+          "leading_comments": " Laden aller Tasks. Es werden per default 23 Tasks pro Page gezeigt.\n"
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            2,
+            1
+          ],
+          "span": [
+            27,
+            8,
+            16
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            2,
+            2
+          ],
+          "span": [
+            27,
+            18,
+            33
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            2,
+            3
+          ],
+          "span": [
+            27,
+            44,
+            58
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            2,
+            4
+          ],
+          "span": [
+            28,
+            8,
+            30,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            2,
+            4,
+            72295728
+          ],
+          "span": [
+            28,
+            8,
+            30,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            3
+          ],
+          "span": [
+            34,
+            4,
+            38,
+            5
+          ],
+          "leading_comments": " Einen Task löschen.\n"
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            3,
+            1
+          ],
+          "span": [
+            34,
+            8,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            3,
+            2
+          ],
+          "span": [
+            34,
+            20,
+            37
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            3,
+            3
+          ],
+          "span": [
+            34,
+            48,
+            66
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            3,
+            4
+          ],
+          "span": [
+            35,
+            8,
+            37,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            3,
+            4,
+            72295728
+          ],
+          "span": [
+            35,
+            8,
+            37,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            4
+          ],
+          "span": [
+            41,
+            4,
+            46,
+            5
+          ],
+          "leading_comments": " Inhalt eines Tasks aktualisieren. Es werden nur gelieferte Felder aktualisiert. Ist eigentlich ein PATCH\n"
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            4,
+            1
+          ],
+          "span": [
+            41,
+            8,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            4,
+            2
+          ],
+          "span": [
+            41,
+            20,
+            37
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            4,
+            3
+          ],
+          "span": [
+            41,
+            48,
+            58
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            4,
+            4
+          ],
+          "span": [
+            42,
+            8,
+            45,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            4,
+            4,
+            72295728
+          ],
+          "span": [
+            42,
+            8,
+            45,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            5
+          ],
+          "span": [
+            51,
+            4,
+            55,
+            5
+          ],
+          "leading_comments": " Benutzerdefinierte Methode um einen Task als abgeschlossen zu setzen.\n"
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            5,
+            1
+          ],
+          "span": [
+            51,
+            8,
+            20
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            5,
+            2
+          ],
+          "span": [
+            51,
+            22,
+            36
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            5,
+            3
+          ],
+          "span": [
+            51,
+            47,
+            57
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            5,
+            4
+          ],
+          "span": [
+            52,
+            8,
+            54,
+            18
+          ]
+        },
+        {
+          "path": [
+            6,
+            0,
+            2,
+            5,
+            4,
+            72295728
+          ],
+          "span": [
+            52,
+            8,
+            54,
+            18
+          ]
+        }
+      ]
+    },
+    "syntax": "proto3"
+  },
+  "raw-filename": "api/docs/%7B%7B.File.Package%7D%7D_ast.json.tmpl",
+  "filename": "api/docs/task.v1_ast.json.tmpl",
+  "template-dir": "./templates",
+  "service": {
+    "name": "TaskService",
+    "method": [
+      {
+        "name": "CreateTask",
+        "input_type": ".task.v1.CreateTaskRequest",
+        "output_type": ".task.v1.TaskEntity",
+        "options": {}
+      },
+      {
+        "name": "GetTask",
+        "input_type": ".task.v1.GetTaskRequest",
+        "output_type": ".task.v1.TaskEntity",
+        "options": {}
+      },
+      {
+        "name": "ListTask",
+        "input_type": ".task.v1.ListTaskRequest",
+        "output_type": ".task.v1.TaskCollection",
+        "options": {}
+      },
+      {
+        "name": "DeleteTask",
+        "input_type": ".task.v1.DeleteTaskRequest",
+        "output_type": ".task.v1.DeleteTaskResponse",
+        "options": {}
+      },
+      {
+        "name": "UpdateTask",
+        "input_type": ".task.v1.UpdateTaskRequest",
+        "output_type": ".task.v1.TaskEntity",
+        "options": {}
+      },
+      {
+        "name": "CompleteTask",
+        "input_type": ".task.v1.GetTaskRequest",
+        "output_type": ".task.v1.TaskEntity",
+        "options": {}
+      }
+    ]
+  },
+  "enum": null
+}

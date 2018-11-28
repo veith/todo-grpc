@@ -1,0 +1,347 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "task-api/services.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/tasks": {
+      "get": {
+        "summary": "Laden aller Tasks. Es werden per default 23 Tasks pro Page gezeigt.",
+        "operationId": "ListTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1TaskCollection"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "fields",
+            "description": "Partielle Repräsentation.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "description": "Sortierung nach feldern\n**?filter=-completed** um completed absteigend zu bekommen\n**?filter=completed** um completed aufsteigend zu bekommen.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter",
+            "description": "Filtern.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "description": "Gewünschte Seite. Tipp: Folge dem HATEOAS.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": "Seitengrösse.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "count",
+            "description": "Meta für die Anzahl der Elemente der Resource.",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "sum",
+            "description": "not implemented.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "context",
+            "description": "not implemented -\u003e wird auf view geändert um conform mit google specs zu sein.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "not_completed",
+            "description": "nur abgeschlossene Tasks anzeigen.",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
+        "tags": [
+          "TaskService"
+        ]
+      },
+      "post": {
+        "summary": "Erstellen eines Tasks",
+        "operationId": "CreateTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1TaskEntity"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1Task"
+            }
+          }
+        ],
+        "tags": [
+          "TaskService"
+        ]
+      }
+    },
+    "/tasks/{id}": {
+      "get": {
+        "summary": "Laden eines Tasks",
+        "operationId": "GetTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1TaskEntity"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TaskService"
+        ]
+      },
+      "delete": {
+        "summary": "Einen Task löschen.",
+        "operationId": "DeleteTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteTaskResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TaskService"
+        ]
+      },
+      "put": {
+        "summary": "Inhalt eines Tasks aktualisieren. Es werden nur gelieferte Felder aktualisiert. Ist eigentlich ein PATCH",
+        "operationId": "UpdateTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1TaskEntity"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1Task"
+            }
+          }
+        ],
+        "tags": [
+          "TaskService"
+        ]
+      }
+    },
+    "/tasks/{id}:complete": {
+      "post": {
+        "summary": "Benutzerdefinierte Methode um einen Task als abgeschlossen zu setzen.",
+        "operationId": "CompleteTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1TaskEntity"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TaskService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "LinkMethod": {
+      "type": "string",
+      "enum": [
+        "PUT",
+        "GET",
+        "HEAD",
+        "POST",
+        "PATCH",
+        "DELETE",
+        "TRACE",
+        "OPTIONS"
+      ],
+      "default": "PUT",
+      "title": "Set der REST Verben\nhttps://tools.ietf.org/html/rfc7231#section-4"
+    },
+    "v1Complete": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "RUNNING",
+        "COMPLETED"
+      ],
+      "default": "UNKNOWN"
+    },
+    "v1DeleteTaskResponse": {
+      "type": "object"
+    },
+    "v1Link": {
+      "type": "object",
+      "properties": {
+        "rel": {
+          "type": "string"
+        },
+        "method": {
+          "$ref": "#/definitions/LinkMethod",
+          "title": "HTTP Verb"
+        },
+        "href": {
+          "type": "string",
+          "title": "Absolute URI"
+        },
+        "type": {
+          "type": "string",
+          "description": "Der mime type des Links."
+        }
+      },
+      "title": "IANA konforme Links /\nList of official link rels:\nhttp://www.iana.org/assignments/link-relations/link-relations.xhtml"
+    },
+    "v1Task": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "ULID"
+        },
+        "title": {
+          "type": "string",
+          "title": "Titel des Tasks"
+        },
+        "description": {
+          "type": "string",
+          "title": "Beschreibung des Tasks"
+        },
+        "completed": {
+          "$ref": "#/definitions/v1Complete",
+          "title": "Status des Tasks"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Datum der Erstellung"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Datum der letzen Änderung"
+        }
+      },
+      "title": "Task Entität"
+    },
+    "v1TaskCollection": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1TaskEntity"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Link"
+          }
+        }
+      }
+    },
+    "v1TaskEntity": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/v1Task"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Link"
+          }
+        }
+      }
+    }
+  }
+}
