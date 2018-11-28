@@ -4,13 +4,13 @@ package task.v1;
 
 option go_package = "task";
 
-///-------------------------------------------------------------------
-/// List of official link rels:
-/// http://www.iana.org/assignments/link-relations/link-relations.xhtml
-///-------------------------------------------------------------------
+// IANA konforme Links /
+// List of official link rels:
+// http://www.iana.org/assignments/link-relations/link-relations.xhtml
 message Link {
     string rel = 1;
 
+    // Set der REST Verben
     //https://tools.ietf.org/html/rfc7231#section-4
     enum Method {
         PUT = 0;
@@ -22,8 +22,11 @@ message Link {
         TRACE = 6;
         OPTIONS = 7;
     }
+    // HTTP Verb
     Method method = 2;
+    // Absolute URI
     string href = 3;
+    // Der mime type des Links.
     string type = 4;
 
 }

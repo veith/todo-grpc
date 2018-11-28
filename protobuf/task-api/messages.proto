@@ -16,13 +16,19 @@ enum Complete {
     COMPLETED = 2;
 }
 
-
+// Task Entität
 message Task {
+    // ULID
     string id = 1 [(gogoproto.moretags) = "db:\"id,pk,omitempty\""];
+    // Titel des Tasks
     string title = 2 [(gogoproto.moretags) = "db:\"title,omitempty\""];
+    // Beschreibung des Tasks
     string description = 3 [(gogoproto.moretags) = "db:\"description,omitempty\""];
+    // Status des Tasks
     Complete completed = 4 [(gogoproto.moretags) = "db:\"completed\""];
+    // Datum der Erstellung
     google.protobuf.Timestamp created_at = 5;
+    // Datum der letzen Änderung
     google.protobuf.Timestamp updated_at = 6;
 
 }
@@ -40,18 +46,29 @@ message TaskEntity {
     repeated Link links = 2; //dsfsdf
 }
 
-
+// ListTaskRequest
+//reserved 1 to 5;
+//reserved "fields", "expands", "page", "limit", "offset","sort", "filter","count","sum","context";
 message ListTaskRequest {
-    //reserved 1 to 5;
-    //reserved "fields", "expands", "page", "limit", "offset","sort", "filter","count","sum","context";
+    // Partielle Repräsentation
     string fields = 1;
+    // Sortierung nach feldern
+    // **?filter=-completed** um completed absteigend zu bekommen
+    // **?filter=completed** um completed aufsteigend zu bekommen
     string sort = 2;
+    // Filtern
     string filter = 3;
+    // Gewünschte Seite. Tipp: Folge dem HATEOAS
     int32 page = 4;
+    // Seitengrösse
     int32 limit = 5;
+    // Meta für die Anzahl der Elemente der Resource
     bool count = 6;
+    // not implemented
     string sum = 7;
+    // not implemented -> wird auf view geändert um conform mit google specs zu sein
     string context = 8;
+    // nur abgeschlossene Tasks anzeigen
     bool not_completed = 9;
 }
 

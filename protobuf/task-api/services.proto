@@ -8,6 +8,8 @@ import "google/api/annotations.proto";
 import "task-api/messages.proto";
 
 service TaskService {
+
+    // Erstellen eines Tasks
     rpc CreateTask (CreateTaskRequest) returns (TaskEntity) {
         option (google.api.http) = {
 			post: "/tasks"
@@ -15,24 +17,28 @@ service TaskService {
 		};
     }
 
+    // Laden eines Tasks
     rpc GetTask (GetTaskRequest) returns (TaskEntity) {
         option (google.api.http) = {
 			get: "/tasks/{id}"
 		};
     }
 
+    // Laden aller Tasks. Es werden per default 23 Tasks pro Page gezeigt.
     rpc ListTask (ListTaskRequest) returns (TaskCollection) {
         option (google.api.http) = {
 			get: "/tasks"
 		};
     }
 
+    // Einen Task löschen.
     rpc DeleteTask (DeleteTaskRequest) returns (DeleteTaskResponse) {
         option (google.api.http) = {
 			delete: "/tasks/{id}"
 		};
     }
 
+    // Inhalt eines Tasks aktualisieren. Es werden nur gelieferte Felder aktualisiert. Ist eigentlich ein PATCH
     rpc UpdateTask (UpdateTaskRequest) returns (TaskEntity) {
         option (google.api.http) = {
 			put: "/tasks/{id}"
@@ -40,11 +46,12 @@ service TaskService {
 		};
     }
 
+
+
+    // Benutzerdefinierte Methode um einen Task als abgeschlossen zu setzen.
     rpc CompleteTask (GetTaskRequest) returns (TaskEntity) {
         option (google.api.http) = {
 			post: "/tasks/{id}:complete"
 		};
     }
-
 }
-
