@@ -46,12 +46,12 @@ func (x Complete) String() string {
 	return proto.EnumName(Complete_name, int32(x))
 }
 func (Complete) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_messages_fc47b1e1f325890a, []int{0}
+	return fileDescriptor_messages_f91929bacb61985a, []int{0}
 }
 
 // Task Entität
 type Task struct {
-	// ULID
+	// Eine ULID
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" db:"id,pk,omitempty"`
 	// Titel des Tasks
 	Title string `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty" db:"title,omitempty"`
@@ -72,7 +72,7 @@ func (m *Task) Reset()         { *m = Task{} }
 func (m *Task) String() string { return proto.CompactTextString(m) }
 func (*Task) ProtoMessage()    {}
 func (*Task) Descriptor() ([]byte, []int) {
-	return fileDescriptor_messages_fc47b1e1f325890a, []int{0}
+	return fileDescriptor_messages_f91929bacb61985a, []int{0}
 }
 func (m *Task) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -154,7 +154,7 @@ func (m *CreateTaskRequest) Reset()         { *m = CreateTaskRequest{} }
 func (m *CreateTaskRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateTaskRequest) ProtoMessage()    {}
 func (*CreateTaskRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_messages_fc47b1e1f325890a, []int{1}
+	return fileDescriptor_messages_f91929bacb61985a, []int{1}
 }
 func (m *CreateTaskRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -201,7 +201,7 @@ func (m *GetTaskRequest) Reset()         { *m = GetTaskRequest{} }
 func (m *GetTaskRequest) String() string { return proto.CompactTextString(m) }
 func (*GetTaskRequest) ProtoMessage()    {}
 func (*GetTaskRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_messages_fc47b1e1f325890a, []int{2}
+	return fileDescriptor_messages_f91929bacb61985a, []int{2}
 }
 func (m *GetTaskRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -237,6 +237,7 @@ func (m *GetTaskRequest) GetId() string {
 	return ""
 }
 
+// Eine Entität besteht aus dem Task und den HATEOAS Links
 type TaskEntity struct {
 	Data                 *Task    `protobuf:"bytes,1,opt,name=data" json:"data,omitempty"`
 	Links                []*Link  `protobuf:"bytes,2,rep,name=links" json:"links,omitempty"`
@@ -249,7 +250,7 @@ func (m *TaskEntity) Reset()         { *m = TaskEntity{} }
 func (m *TaskEntity) String() string { return proto.CompactTextString(m) }
 func (*TaskEntity) ProtoMessage()    {}
 func (*TaskEntity) Descriptor() ([]byte, []int) {
-	return fileDescriptor_messages_fc47b1e1f325890a, []int{3}
+	return fileDescriptor_messages_f91929bacb61985a, []int{3}
 }
 func (m *TaskEntity) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -325,7 +326,7 @@ func (m *ListTaskRequest) Reset()         { *m = ListTaskRequest{} }
 func (m *ListTaskRequest) String() string { return proto.CompactTextString(m) }
 func (*ListTaskRequest) ProtoMessage()    {}
 func (*ListTaskRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_messages_fc47b1e1f325890a, []int{4}
+	return fileDescriptor_messages_f91929bacb61985a, []int{4}
 }
 func (m *ListTaskRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -429,7 +430,7 @@ func (m *TaskCollection) Reset()         { *m = TaskCollection{} }
 func (m *TaskCollection) String() string { return proto.CompactTextString(m) }
 func (*TaskCollection) ProtoMessage()    {}
 func (*TaskCollection) Descriptor() ([]byte, []int) {
-	return fileDescriptor_messages_fc47b1e1f325890a, []int{5}
+	return fileDescriptor_messages_f91929bacb61985a, []int{5}
 }
 func (m *TaskCollection) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -483,7 +484,7 @@ func (m *DeleteTaskRequest) Reset()         { *m = DeleteTaskRequest{} }
 func (m *DeleteTaskRequest) String() string { return proto.CompactTextString(m) }
 func (*DeleteTaskRequest) ProtoMessage()    {}
 func (*DeleteTaskRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_messages_fc47b1e1f325890a, []int{6}
+	return fileDescriptor_messages_f91929bacb61985a, []int{6}
 }
 func (m *DeleteTaskRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -529,7 +530,7 @@ func (m *DeleteTaskResponse) Reset()         { *m = DeleteTaskResponse{} }
 func (m *DeleteTaskResponse) String() string { return proto.CompactTextString(m) }
 func (*DeleteTaskResponse) ProtoMessage()    {}
 func (*DeleteTaskResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_messages_fc47b1e1f325890a, []int{7}
+	return fileDescriptor_messages_f91929bacb61985a, []int{7}
 }
 func (m *DeleteTaskResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -570,7 +571,7 @@ func (m *UpdateTaskRequest) Reset()         { *m = UpdateTaskRequest{} }
 func (m *UpdateTaskRequest) String() string { return proto.CompactTextString(m) }
 func (*UpdateTaskRequest) ProtoMessage()    {}
 func (*UpdateTaskRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_messages_fc47b1e1f325890a, []int{8}
+	return fileDescriptor_messages_f91929bacb61985a, []int{8}
 }
 func (m *UpdateTaskRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2466,9 +2467,9 @@ var (
 	ErrIntOverflowMessages   = fmt.Errorf("proto: integer overflow")
 )
 
-func init() { proto.RegisterFile("task-api/messages.proto", fileDescriptor_messages_fc47b1e1f325890a) }
+func init() { proto.RegisterFile("task-api/messages.proto", fileDescriptor_messages_f91929bacb61985a) }
 
-var fileDescriptor_messages_fc47b1e1f325890a = []byte{
+var fileDescriptor_messages_f91929bacb61985a = []byte{
 	// 633 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x52, 0x5d, 0x4f, 0x13, 0x41,
 	0x14, 0x75, 0x97, 0x96, 0xd2, 0x5b, 0xa9, 0xed, 0x40, 0x74, 0xd3, 0x98, 0xb6, 0x2e, 0x0f, 0x36,

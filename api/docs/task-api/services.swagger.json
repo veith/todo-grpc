@@ -285,7 +285,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "title": "ULID"
+          "title": "Eine ULID"
         },
         "title": {
           "type": "string",
@@ -341,7 +341,8 @@
             "$ref": "#/definitions/v1Link"
           }
         }
-      }
+      },
+      "title": "Eine Entität besteht aus dem Task und den HATEOAS Links"
     }
   }
 }

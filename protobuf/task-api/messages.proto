@@ -18,7 +18,7 @@ enum Complete {
 
 // Task Entität
 message Task {
-    // ULID
+    // Eine ULID
     string id = 1 [(gogoproto.moretags) = "db:\"id,pk,omitempty\""];
     // Titel des Tasks
     string title = 2 [(gogoproto.moretags) = "db:\"title,omitempty\""];
@@ -41,9 +41,10 @@ message GetTaskRequest {
     string id = 1;
 }
 
+// Eine Entität besteht aus dem Task und den HATEOAS Links
 message TaskEntity {
     Task data = 1;
-    repeated Link links = 2; //dsfsdf
+    repeated Link links = 2;
 }
 
 // ListTaskRequest

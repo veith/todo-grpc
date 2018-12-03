@@ -15,8 +15,6 @@ func ConnectDatabase(database db.Database) {
 }
 func CreateTaskItem(data *Task) (Task, error) {
 	var item Task
-	//todo ulid typ in protobuf bauen
-
 	item.Id = GenerateULID()
 	item.Title = data.Title
 	item.Description = data.Description
@@ -56,6 +54,7 @@ func DeleteTaskItem(id ulid.ULID) error {
 	err := res.Delete()
 	return err
 }
+
 func GetTaskItem(id ulid.ULID) (Task, error) {
 	var item Task
 	res := dbCollectionTask.Find(db.Cond{"id": id})
