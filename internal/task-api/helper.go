@@ -43,26 +43,26 @@ func GetListOptionsFromRequest(options interface{}) task.QueryOptions {
 func GenerateCollectionHATEOAS(dbMeta task.DBMeta) Hateoas {
 	//todo Link_Get,.. nach REST schieben
 	var h Hateoas
-	h.AddLink("self", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage), 10), Link_GET)
+	h.AddLink("self", "application/json", "http://localhost:8888/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage), 10), Link_GET)
 	if dbMeta.PrevPage != 0 {
-		h.AddLink("prev", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage-1), 10), Link_GET)
+		h.AddLink("prev", "application/json", "http://localhost:8888/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage-1), 10), Link_GET)
 	}
 	if dbMeta.NextPage != 0 {
-		h.AddLink("next", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage+1), 10), Link_GET)
+		h.AddLink("next", "application/json", "http://localhost:8888/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage+1), 10), Link_GET)
 	}
-	h.AddLink("first", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.FirstPage+1), 10), Link_GET)
-	h.AddLink("last", "application/json", "http://localhost:8080/tasks?page="+strconv.FormatUint(uint64(dbMeta.LastPage), 10), Link_GET)
-	h.AddLink("create", "application/json", "http://localhost:8080/tasks", Link_POST)
+	h.AddLink("first", "application/json", "http://localhost:8888/tasks?page="+strconv.FormatUint(uint64(dbMeta.FirstPage), 10), Link_GET)
+	h.AddLink("last", "application/json", "http://localhost:8888/tasks?page="+strconv.FormatUint(uint64(dbMeta.LastPage), 10), Link_GET)
+	h.AddLink("create", "application/json", "http://localhost:8888/tasks", Link_POST)
 	return h
 }
 
 func GenerateEntityHateoas(id string) Hateoas {
 	//todo check gegen spec machen
 	var h Hateoas
-	h.AddLink("self", "application/json", "http://localhost:8080/tasks/"+id, Link_GET)
-	h.AddLink("delete", "application/json", "http://localhost:8080/tasks/"+id, Link_DELETE)
-	h.AddLink("update", "application/json", "http://localhost:8080/tasks/"+id, Link_PATCH)
-	h.AddLink("parent", "application/json", "http://localhost:8080/tasks", Link_GET)
-	h.AddLink("complete", "application/json", "http://localhost:8080/tasks"+id+":complete", Link_POST)
+	h.AddLink("self", "application/json", "http://localhost:8888/tasks/"+id, Link_GET)
+	h.AddLink("delete", "application/json", "http://localhost:8888/tasks/"+id, Link_DELETE)
+	h.AddLink("update", "application/json", "http://localhost:8888/tasks/"+id, Link_PATCH)
+	h.AddLink("parent", "application/json", "http://localhost:8888/tasks", Link_GET)
+	h.AddLink("complete", "application/json", "http://localhost:8888/tasks"+id+":complete", Link_POST)
 	return h
 }
