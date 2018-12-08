@@ -1,0 +1,152 @@
+{
+  "package": "task",
+  "source_repo": "git.adcubum.com/tasks/protobuf/messages",
+  "major_version": "1",
+  "description": "Typen Definitonen für das Modul Task \nZweck diese Moduls ist es sowas wie eine TO-DO Liste zu haben",
+  "__proto": {
+    "imports": [
+      "google/api/annotations.proto",
+      "google/protobuf/timestamp.proto",
+      "github.com/gogo/protobuf/gogoproto/gogo.proto"
+    ],
+    "options": [
+      {
+        "key": "go_package",
+        "value": "task"
+      },
+      {
+        "key": "cc_enable_arenas",
+        "value": "true"
+      },
+      {
+        "key": "java_multiple_files",
+        "value": "true"
+      },
+      {
+        "key": "java_outer_classname",
+        "value": "HttpProto"
+      },
+      {
+        "key": "java_package",
+        "value": "com.google.api"
+      },
+      {
+        "key": "objc_class_prefix",
+        "value": "GAPI"
+      }
+    ]
+  },
+  "enum_types": [
+    {
+      "name": "Complete",
+      "description": "Unkown mit 0 ist bewusst. So können wir feststellen ob ein Wert auch wirklich gesetzt wurde \n Neue Zeile",
+      "value": [
+        {
+          "name": "UNKNOWN",
+          "description": "Zustand unbekannt oder nicht gesetzt",
+          "number": 0
+        },
+        {
+          "name": "RUNNING",
+          "description": "Task läuft",
+          "number": 1
+        },
+        {
+          "name": "COMPLETED",
+          "description": "Task abgeschlossen",
+          "number": 2
+        }
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "CreateTaskRequest",
+      "description": "Ereignisse welche von der Galerie erkannt wurden \nDie Funktion ist nur gefaket \nDas ist ein test von mutilines",
+      "fields": [
+        {
+          "name": "id",
+          "description": "für IDs werden wir intern ulid verwenden",
+          "type": "ulid",
+          "mandatory": false,
+          "__proto": {
+            "type": "string",
+            "number": 1,
+            "options": [
+              {
+                "name": "gogoproto.moretags",
+                "key": "db",
+                "value": "id,pk,omitempty"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "EreignisFoto",
+      "description": "Ereignisse welche von der Galerie erkannt wurden \nDie Funktion ist nur gefaket \nDas ist ein test von mutilines",
+      "fields": [
+        {
+          "name": "id",
+          "description": "für IDs werden wir intern ulid verwenden",
+          "type": "ulid",
+          "mandatory": false,
+          "__proto": {
+            "type": "string",
+            "number": 1,
+            "options": [
+              {
+                "name": "gogoproto.moretags",
+                "key": "db",
+                "value": "id,pk,omitempty"
+              }
+            ]
+          },
+          "__sqlite": {
+            "type": "BLOB"
+          }
+        },
+        {
+          "name": "data",
+          "description": "Base64 encodetes Bild des Ereigniss",
+          "type": "base64",
+          "repeated": false,
+          "mandatory": true,
+          "__proto": {
+            "type": "string",
+            "number": 2,
+            "options": [
+              {
+                "name": "gogoproto.moretags",
+                "key": "db",
+                "value": "data,omitempty"
+              }
+            ]
+          },
+          "__sqlite": {
+            "type": "TEXT"
+          }
+        },
+        {
+          "name": "description",
+          "description": "Beschreibung des Tasks",
+          "type": "base64",
+          "repeated": false,
+          "mandatory": true,
+          "__proto": {
+            "type": "string",
+            "number": 33
+          },
+          "__sqlite": {
+            "type": "TEXT"
+          }
+        }
+      ],
+      "__sqlite": {
+        "name": "fotos",
+        "primary_key": "id"
+      }
+    }
+  ]
+}

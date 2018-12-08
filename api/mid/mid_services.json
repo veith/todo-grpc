@@ -1,0 +1,124 @@
+{
+  "package": "task",
+  "source_repo": "git.adcubum.com/tasks/protobuf/services",
+  "major_version": "1",
+  "description": "Service Definitonen für das Modul Task \nZweck diese Moduls ist es sowas wie eine TO-DO Liste zu haben",
+  "__mid": {
+    "imports": [
+      "git.adcubum.com/tasks/protobuf/messages/mid_messages.json"
+    ]
+  },
+  "__proto": {
+    "imports": [
+      "google/api/annotations.proto",
+      "mid_generates/messages.proto"
+    ],
+    "options": [
+      {
+        "key": "go_package",
+        "value": "task"
+      },
+      {
+        "key": "cc_enable_arenas",
+        "value": "true"
+      },
+      {
+        "key": "java_multiple_files",
+        "value": "true"
+      },
+      {
+        "key": "java_outer_classname",
+        "value": "HttpProto"
+      },
+      {
+        "key": "java_package",
+        "value": "com.google.api"
+      },
+      {
+        "key": "objc_class_prefix",
+        "value": "GAPI"
+      }
+    ]
+  },
+  "services": [
+    {
+      "name": "TaskService",
+      "description": "Beschreibung der Services \n Neue Zeile",
+      "methods": [
+        {
+          "name": "XXXXTask",
+          "description": "Erstellen eines neuen Tasks",
+          "input_type": "CreateTaskRequest",
+          "output_type": "EreignisFoto",
+          "options": [
+            {
+              "name": "google.api.http",
+              "vars": [
+                {
+                  "key": "get",
+                  "value": "/tasks"
+                },
+                {
+                  "key": "body",
+                  "value": "books"
+                }
+              ]
+            }
+          ],
+          "__agent": {
+            "update": true
+          }
+        },
+        {
+          "name": "GetTask",
+          "description": "Abfragen eines Tasks",
+          "input_type": "CreateTaskRequest",
+          "output_type": "EreignisFoto",
+          "options": []
+        },
+        {
+          "name": "ListTask",
+          "description": "Abfragen der Taskliste",
+          "input_type": "CreateTaskRequest",
+          "output_type": "EreignisFoto",
+          "options": []
+        },
+        {
+          "name": "DeleteTask",
+          "description": "Löschen eines Tasks \nNicht widerrufbar",
+          "input_type": "CreateTaskRequest",
+          "output_type": "EreignisFoto",
+          "options": []
+        },
+        {
+          "name": "UpdateTask",
+          "description": "Aktualiseren eines Tasks",
+          "input_type": "CreateTaskRequest",
+          "output_type": "EreignisFoto",
+          "options": [
+            {
+              "name": "google.api.http",
+              "vars": [
+                {
+                  "key": "put",
+                  "value": "/tasks/{id}"
+                },
+                {
+                  "key": "body",
+                  "value": "item"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CompleteTask",
+          "description": "Benutzerdefinierte Methode um einen Task direkt als abgeschlossen zu setzen",
+          "input_type": "CreateTaskRequest",
+          "output_type": "EreignisFoto",
+          "options": []
+        }
+      ]
+    }
+  ]
+}

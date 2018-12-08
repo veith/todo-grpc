@@ -41,6 +41,14 @@ message GetTaskRequest {
     string id = 1;
 }
 
+message DeleteTaskRequest {
+    string id = 1;
+}
+
+message UpdateTaskRequest {
+    string id = 1;
+    Task item = 2;
+}
 // Eine Entität besteht aus dem Task und den HATEOAS Links
 message TaskEntity {
     Task data = 1;
@@ -78,14 +86,7 @@ message TaskCollection {
     repeated Link links = 2;
 }
 
-message DeleteTaskRequest {
-    string id = 1;
-}
-
 message DeleteTaskResponse {
 }
 
-message UpdateTaskRequest {
-    string id = 1;
-    Task item = 2;
-}
+
