@@ -2,10 +2,11 @@ syntax = "proto3";
 
 package task.v1;
 
-option go_package = "task";
+option go_package = "proto";
 
 import "google/api/annotations.proto";
-import "task-api/messages.proto";
+import "google/protobuf/empty.proto";
+import "proto/messages.proto";
 
 service AuthService {
     // Einloggen

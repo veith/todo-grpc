@@ -1,93 +1,68 @@
 package task
 
 import (
+	"../proto"
+	"encoding/json"
+	"github.com/gogo/protobuf/types"
 	"github.com/oklog/ulid"
-	"math/rand"
-	"strings"
-	"time"
-	"upper.io/db.v3"
+	"strconv"
 )
 
-// Anfrageoptionen für upper
-type QueryOptions struct {
-	Fields  string `json:"fields,omitempty"` // partial representation
-	Sort    string `json:"sort,omitempty"`
-	Filter  string `json:"filter,omitempty"`
-	Count   bool   `json:"count,omitempty"` // return count in meta
-	Sum     string `json:"sum,omitempty"`   // calculate sum
-	Context string `json:"context,omitempty"`
-	Limit   uint   `json:"limit,omitempty"`  // set page limit to limit
-	Page    uint   `json:"page,omitempty"`   // pagination
-	Cursor  uint   `json:"cursor,omitempty"` // for cursor pagination
+type Hateoas struct {
+	Links []*proto.Link
 }
 
-type DBMeta struct {
-	Count       uint64
-	CurrentPage uint
-	NextPage    uint
-	PrevPage    uint
-	FirstPage   uint
-	LastPage    uint
+func MapTaskToProtoTask(ob1 *Task) *proto.Task {
+	var t types.Timestamp
+	var q struct{}
+	ob2 := proto.Task{ob1.Id.String(), ob1.Title, ob1.Description, proto.Complete(ob1.Completed), &t, &t, q, []byte{}, 0}
+	return &ob2
+}
+func MapProtoTaskToTask(ob1 *proto.Task) *Task {
+	id, _ := ulid.Parse(ob1.Id)
+	ob2 := Task{id, ob1.Title, ob1.Description, int32(ob1.Completed)}
+	return &ob2
 }
 
-// Task
-type Task struct {
-	Id          ulid.ULID `json:"id,omitempty" db:"id,pk,omitempty"`
-	Title       string    `json:"title,omitempty" db:"title,omitempty"`
-	Description string    `json:"description,omitempty" db:"description,omitempty"`
-	Completed   int32     `json:"completed,omitempty" db:"completed,omitempty"`
+// links einem HTS hinzufügen
+func (h *Hateoas) AddLink(rel, contenttype, href string, method proto.Link_Method) {
+	link := proto.Link{Rel: rel, Href: href, Type: contenttype, Method: method}
+	h.Links = append(h.Links, &link)
 }
 
-// Erzeuge eine ULID
-func GenerateULID() ulid.ULID {
-	t := time.Now().UTC()
-	entropy := rand.New(rand.NewSource(t.UnixNano()))
-	newID, _ := ulid.New(ulid.Timestamp(t), entropy)
-	return newID
+// Optionen für Listenelemente kommen aus dem proto als beliebiger Typ daher, jedoch immer in der gleichen nummerierung
+// diese werden in die QueryOptions Form gebracht, damit upper sauber damit umgehen kann.
+func GetListOptionsFromRequest(options interface{}) QueryOptions {
+	tmp, _ := json.Marshal(options)
+	var opts QueryOptions
+	json.Unmarshal(tmp, &opts)
+	return opts
 }
 
-// Query Options für auf das db.Result anwenden.
-// fields, sort, limit, page, sind implementiert
-// mit der dbMeta kann man sich eine Pagination bauen...
-func ApplyRequestOptionsToQuery(res db.Result, options QueryOptions) (db.Result, DBMeta) {
-	var meta DBMeta
-	if options.Limit != 0 {
-		res = res.Paginate(options.Limit)
-	} else {
-		res = res.Paginate(paginationDefault)
+// hateoas anhand DBMEta für eine Collection erzeugen
+func GenerateCollectionHATEOAS(dbMeta DBMeta) Hateoas {
+	//todo Link_Get,.. nach REST schieben
+	var h Hateoas
+	h.AddLink("self", "application/json", "http://localhost:8888/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage), 10), proto.Link_GET)
+	if dbMeta.PrevPage != 0 {
+		h.AddLink("prev", "application/json", "http://localhost:8888/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage-1), 10), proto.Link_GET)
 	}
+	if dbMeta.NextPage != 0 {
+		h.AddLink("next", "application/json", "http://localhost:8888/tasks?page="+strconv.FormatUint(uint64(dbMeta.CurrentPage+1), 10), proto.Link_GET)
+	}
+	h.AddLink("first", "application/json", "http://localhost:8888/tasks?page="+strconv.FormatUint(uint64(dbMeta.FirstPage), 10), proto.Link_GET)
+	h.AddLink("last", "application/json", "http://localhost:8888/tasks?page="+strconv.FormatUint(uint64(dbMeta.LastPage), 10), proto.Link_GET)
+	h.AddLink("create", "application/json", "http://localhost:8888/tasks", proto.Link_POST)
+	return h
+}
 
-	if options.Fields != "" {
-		fields := strings.Split(options.Fields, ",")
-		s := make([]interface{}, len(fields))
-		for i, field := range fields {
-			s[i] = field
-		}
-		res = res.Select(s...)
-	}
-
-	if options.Sort != "" {
-		res = res.OrderBy(options.Sort)
-	}
-
-	meta.CurrentPage = 1
-	if options.Page > 0 {
-		meta.CurrentPage = options.Page
-		res = res.Page(options.Page)
-	}
-	pages, _ := res.TotalPages()
-	meta.LastPage = pages
-	meta.FirstPage = 1
-	if meta.CurrentPage < meta.LastPage {
-		meta.NextPage = meta.CurrentPage + 1
-	}
-	if meta.CurrentPage > 1 {
-		meta.PrevPage = meta.CurrentPage - 1
-	}
-
-	if options.Count {
-		meta.Count, _ = res.Count()
-	}
-
-	return res, meta
+func GenerateEntityHateoas(id string) Hateoas {
+	//todo check gegen spec machen
+	var h Hateoas
+	h.AddLink("self", "application/json", "http://localhost:8888/tasks/"+id, proto.Link_GET)
+	h.AddLink("delete", "application/json", "http://localhost:8888/tasks/"+id, proto.Link_DELETE)
+	h.AddLink("update", "application/json", "http://localhost:8888/tasks/"+id, proto.Link_PATCH)
+	h.AddLink("parent", "application/json", "http://localhost:8888/tasks", proto.Link_GET)
+	h.AddLink("complete", "application/json", "http://localhost:8888/tasks"+id+":complete", proto.Link_POST)
+	return h
 }

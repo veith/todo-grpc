@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package task.v1;
 
-option go_package = "task";
+option go_package = "proto";
 
 // IANA konforme Links /
 // List of official link rels:

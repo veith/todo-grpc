@@ -15,6 +15,33 @@
     "application/json"
   ],
   "paths": {
+    "/auth": {
+      "post": {
+        "summary": "Einloggen",
+        "operationId": "Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1Credentials"
+            }
+          }
+        ],
+        "tags": [
+          "AuthService"
+        ]
+      }
+    },
     "/tasks": {
       "get": {
         "summary": "Laden aller Tasks. Es werden per default 23 Tasks pro Page gezeigt.",
@@ -101,7 +128,7 @@
         ]
       },
       "post": {
-        "summary": "Erstellen eines Tasks",
+        "summary": "Einloggen",
         "operationId": "CreateTask",
         "responses": {
           "200": {
@@ -247,6 +274,11 @@
       "default": "PUT",
       "title": "Set der REST Verben\nhttps://tools.ietf.org/html/rfc7231#section-4"
     },
+    "protobufEmpty": {
+      "type": "object",
+      "description": "service Foo {\n      rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n    }\n\nThe JSON representation for `Empty` is empty JSON object `{}`.",
+      "title": "A generic empty message that you can re-use to avoid defining duplicated\nempty messages in your APIs. A typical example is to use it as the request\nor the response type of an API method. For instance:"
+    },
     "v1Complete": {
       "type": "string",
       "enum": [
@@ -255,6 +287,19 @@
         "COMPLETED"
       ],
       "default": "UNKNOWN"
+    },
+    "v1Credentials": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "title": "Eine ULID"
+        },
+        "password": {
+          "type": "string",
+          "title": "Titel des Tasks"
+        }
+      }
     },
     "v1DeleteTaskResponse": {
       "type": "object"

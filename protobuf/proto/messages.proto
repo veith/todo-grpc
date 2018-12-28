@@ -2,13 +2,12 @@ syntax = "proto3";
 
 package task.v1;
 
-option go_package = "task";
+option go_package = "proto";
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
-import "google/protobuf/empty.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
-import "task-api/rest.proto";
+import "proto/rest.proto";
 
 
 enum Complete {
