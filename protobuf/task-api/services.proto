@@ -7,6 +7,16 @@ option go_package = "task";
 import "google/api/annotations.proto";
 import "task-api/messages.proto";
 
+service AuthService {
+    // Einloggen
+    rpc Login (CredentialsRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+			post: "/auth"
+			body: "credentials"
+		};
+    }
+}
+
 service TaskService {
 
     // Erstellen eines Tasks
@@ -45,8 +55,6 @@ service TaskService {
 			body: "item"
 		};
     }
-
-
 
     // Benutzerdefinierte Methode um einen Task als abgeschlossen zu setzen.
     rpc CompleteTask (GetTaskRequest) returns (TaskEntity) {

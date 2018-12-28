@@ -6,6 +6,7 @@ option go_package = "task";
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "task-api/rest.proto";
 
@@ -14,6 +15,15 @@ enum Complete {
     UNKNOWN = 0;
     RUNNING = 1;
     COMPLETED = 2;
+}
+message Credentials{
+    // Eine ULID
+    string username = 1 [(gogoproto.moretags) = "db:\"username,pk,omitempty\""];
+    // Titel des Tasks
+    string password = 2 [(gogoproto.moretags) = "db:\"password,omitempty\""];
+}
+message CredentialsRequest{
+    Credentials credentials = 1;
 }
 
 // Task Entität
