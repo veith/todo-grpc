@@ -41,7 +41,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	grpcServer := grpc.NewServer(grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
-		grpc_auth.UnaryServerInterceptor(middleware.ExampleAuthFunc),
+		grpc_auth.UnaryServerInterceptor(middleware.JWTAuthFunc),
 	)))
 
 	// DB session weitergeben

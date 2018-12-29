@@ -72,6 +72,7 @@ func (s *taskServiceServer) ListTask(ctx context.Context, req *proto.ListTaskReq
 	if err != nil {
 		return nil, status.Errorf(codes.Unavailable, "Data Error: %s", err)
 	}
+
 	var collection []*proto.TaskEntity
 	for _, item := range items {
 		entity := proto.TaskEntity{Data: MapTaskToProtoTask(&item), Links: GenerateEntityHateoas(item.Id.String()).Links}
