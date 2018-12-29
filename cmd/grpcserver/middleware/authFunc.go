@@ -2,11 +2,16 @@ package middleware
 
 import (
 	"fmt"
+	"github.com/SermoDigital/jose/crypto"
+	"github.com/SermoDigital/jose/jws"
 	"github.com/grpc-ecosystem/go-grpc-middleware/util/metautils"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
+	"io/ioutil"
+	"log"
+	"os"
 	"strings"
 )
 
@@ -57,6 +62,25 @@ var ExampleAuthFunc = func(ctx context.Context) (context.Context, error) {
 }
 
 func parseToken(token string) (string, error) {
+	token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJBY2Nlc3NUb2tlbiI6ImxldmVsMSIsImlzcyI6InZlaXRoIiwic3ViIjoidGFzayJ9.fRKXYBnbWTTAPUxFV1E040QRxaIMa0Voh_kreJHuZre_u2cGROvi0aa_okhxVI6KkXah6FC7Uvc-YMBl-focHA"
+	pubKey, err := ioutil.ReadFile("./keys/sample_key.pub")
+	if err != nil {
+		log.Fatal("Error reading private key")
+		os.Exit(1)
+	}
+	rsaPublic, _ := crypto.ParseRSAPublicKeyFromPEM(pubKey)
+	jwt, err := jws.ParseJWT([]byte(token))
+	if err != nil {
+		fmt.Println(err)
+
+	}
+
+	// Validate token
+	if err = jwt.Validate(rsaPublic, crypto.SigningMethodHS512); err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("Token is valid")
+	}
 	return "ein Token", nil
 }
 func userClaimFromToken(tokenInfo string) (claim string) {

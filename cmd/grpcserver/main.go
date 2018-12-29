@@ -2,6 +2,7 @@ package main
 
 import (
 	"../../internal/auth"
+	"../../internal/proto"
 	"../../internal/task"
 	"./middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware"
@@ -47,8 +48,8 @@ func main() {
 	task.ConnectDatabase(dbSession)
 
 	// weitere Services kann man hier registrieren
-	auth.RegisterAuthServiceServer(grpcServer, auth.GetServiceServer())
-	task.RegisterTaskServiceServer(grpcServer, task.GetServiceServer())
+	proto.RegisterAuthServiceServer(grpcServer, auth.GetServiceServer())
+	proto.RegisterTaskServiceServer(grpcServer, task.GetServiceServer())
 
 	// Register reflection service on gRPC server.
 	reflection.Register(grpcServer)
